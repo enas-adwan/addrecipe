@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Add Recipe</string>
+    <string name="action_settings">Settings</string>
+    <string-array name="country_arrays">
+        <item>Spoon</item>
+        <item>Cup</item>
+        <item>1/2 Cup</item>
+        <item>3/4 Cup</item>
+    </string-array>
+</resources>
