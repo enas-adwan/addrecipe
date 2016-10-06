@@ -806,7 +806,8 @@ return params[0];
                 String food = Text.getText().toString().trim();
                 String desc = Desc.getText().toString().trim();
                 String prep = Prep.getText().toString().trim();
-                String cook = Cook.getText().toString().trim();
+
+              try{  String cook = Cook.getText().toString().trim();
                 int prepering=Integer.valueOf(prep);
                 int cooking=Integer.valueOf(cook);
                 int totalall=prepering+cooking;
@@ -829,6 +830,12 @@ return params[0];
                 break;
 
               }
+
+              catch (Exception e) {
+                  Toast.makeText(this, "fill all the field", Toast.LENGTH_LONG)
+                          .show();
+              }}
+
         //noinspection SimplifiableIfStatement
         return super.onOptionsItemSelected(item);
 
