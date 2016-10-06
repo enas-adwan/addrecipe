@@ -179,7 +179,11 @@ public class recipeDbHelper extends SQLiteOpenHelper {
 
     }
     public void addsqliterecipe(String title,String list,String descc,String calory,String prep,String cook,String total,String image,String rating, SQLiteDatabase db){
+
+        db.execSQL(CREATE_QUERY);
         db.execSQL(CREATE_QUERY_sqlite);
+        db.execSQL(CREATE_QUERY_sqlite_offline);
+        db.execSQL(CREATE_QUERY_ranking);
         ContentValues contentValue = new ContentValues();
         contentValue.put("title",title);
         contentValue.put("list",list);
@@ -197,7 +201,10 @@ public class recipeDbHelper extends SQLiteOpenHelper {
     }
 
     public void addsqliterecipeoffline(String title,String list,String descc,String calory,String prep,String cook,String total,String image,String rating, SQLiteDatabase db){
+        db.execSQL(CREATE_QUERY);
+        db.execSQL(CREATE_QUERY_sqlite);
         db.execSQL(CREATE_QUERY_sqlite_offline);
+        db.execSQL(CREATE_QUERY_ranking);
 
         String strSQL = "SELECT * FROM recipeoffline";
         strSQL += " WHERE title ='"+title+"'";
@@ -298,7 +305,10 @@ public class recipeDbHelper extends SQLiteOpenHelper {
     }
     public static boolean Checkranking( String fieldValue,SQLiteDatabase db) {
 
-
+        db.execSQL(CREATE_QUERY);
+        db.execSQL(CREATE_QUERY_sqlite);
+        db.execSQL(CREATE_QUERY_sqlite_offline);
+        db.execSQL(CREATE_QUERY_ranking);
         String strSQL = "SELECT * FROM ranking";
         strSQL += " WHERE title ='"+fieldValue+"'";
         Cursor cursor = db.rawQuery(strSQL, null);

@@ -231,12 +231,12 @@ Double m=Math.ceil(d);
                     userDbHelper2.titleranking(sqLiteDatabase,title1);
 
                     Sec.jsorating(title1,str1);
-                }}else{
+                }else{
                     Toast.makeText(context,
                             "please vote when you are connected to the wifi so it will be submitted " , Toast.LENGTH_SHORT)
                             .show();
 
-                }
+                }}
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     v.setPressed(true);
                 }
