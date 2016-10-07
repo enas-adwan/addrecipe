@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:background="#f1eeee"
+    android:weightSum="1"
+    android:baselineAligned="false"
+    android:orientation="horizontal">
+
+
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="130dp"
+        android:id="@+id/imageV"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="0dp"
+        android:layout_alignParentTop="true"
+        android:scaleType="centerCrop"
+        android:adjustViewBounds="true"
+
+        android:layout_marginBottom="0dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="0dp"
+        android:layout_alignParentRight="true" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="243dp"
+        android:layout_height="match_parent"
+        android:weightSum="1">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="1">
+
+            <TextView
+                android:layout_width="138dp"
+                android:layout_height="37dp"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Medium Text"
+                android:id="@+id/nam"
+                android:layout_marginTop="20dp"
+                android:textStyle="bold|italic"
+                android:textSize="20dp"
+                android:layout_marginLeft="5dp" />
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:id="@+id/share"
+
+
+                android:background="@null"
+                android:src="@android:drawable/ic_menu_share"
+                android:layout_marginTop="20dp" />
+
+            <ImageButton
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@null"
+                android:contentDescription="@string/favorites"
+
+                android:layout_marginTop="20dp"
+                android:id="@+id/imgbtn_favorite"
+                android:src="@drawable/heart_grey" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="1">
+
+            <RatingBar
+                android:id="@+id/ratingBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:numStars="5"
+                android:stepSize="1.0"
+                android:scaleX="0.5"
+                android:scaleY="0.5"
+
+                android:focusable="false"
+                android:isIndicator="false"
+                android:transformPivotX="0dp"
+                android:rating="0" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Small Text"
+                android:id="@+id/idd"
+                android:textColor="#f1eeee" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</LinearLayout>

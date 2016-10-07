@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="country_arrays">
+        <item>Spoon</item>
+        <item>Cup</item>
+        <item>1/2 Cup</item>
+        <item>3/4 Cup</item>
+    </string-array>
+
+
+    <string name="app_name">NavigationDrawer</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="dummy_string">Dummy String</string>
+    
+    <string name="open_drawer">Drawer Open</string>
+    <string name="close_drawer">Drawer Close</string>
+
+    <string name="service_name">timer</string>
+
+    <string name="title_activity_sec">Sec</string>
+
+   <string name="facebook_app_id">1377518178943502</string>
+	    <string name="action_settings">Settings</string>
+    <string name="favorites">Favorites</string>
+    <string name="title_activity_showrecipesqlite">Showrecipesqlite</string>
+    <string name="title_activity_showfav">Showfav</string>
+    <string name="title_activity_showonefav">Showonefav</string>
+    <string name="title_activity_showonesqliteoffline">Showonesqliteoffline</string>
+
+</resources>

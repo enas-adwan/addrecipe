@@ -117,7 +117,10 @@ public class Vivsadapter extends BaseAdapter  {
         // Find Data sourcesapple
 
         final Record temp = list.get(position);
-        byte[] qrimage = Base64.decode(temp.getImage().getBytes(), position);
+       // String m=new String(Base64.decode(temp.getImage(), Base64.DEFAULT));
+        String[] safe = temp.getImage().split("=");
+        byte[] qrimage = Base64.decode(safe[0], Base64.NO_PADDING);
+
         bmp = BitmapFactory.decodeByteArray(qrimage, 0, qrimage.length);
         imageview.setImageBitmap(bmp);
         rowTitle.setText(temp.getName());

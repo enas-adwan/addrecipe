@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.navigation.drawer.activity"
+    android:versionCode="1"
+    android:versionName="1.0">
+
+    <uses-sdk
+        android:minSdkVersion="11"
+        android:targetSdkVersion="14" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
+        
+        <!-- 
+        	We will launch BaseActivity as launcher.
+        	We will check if BaseActivity launch first time and open desired activity and set navigation item selected
+			 -->
+        <activity android:name="com.example.hp.navigation.activity.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.example.hp.navigation.activity.profile"
+            android:parentActivityName="com.example.hp.navigation.activity.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            ></activity>
+        <activity
+            android:name="com.example.hp.navigation.activity.HomePage"
+            android:parentActivityName="com.example.hp.navigation.activity.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            ></activity>
+        <activity
+            android:name="com.example.hp.navigation.activity.SignUp"
+            android:parentActivityName="com.example.hp.navigation.activity.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            ></activity>
+
+        <activity android:name="com.facebook.FacebookActivity"
+            android:configChanges=
+                "keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            tools:replace="android:theme"
+            android:label="@string/app_name" />
+
+
+        <activity
+            android:name="com.example.hp.navigation.activity.BaseActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.example.hp.navigation.activity.ShowRecipe"
+            android:label="@string/title_activity_sec"
+            android:parentActivityName="com.example.hp.navigation.activity.ShowRecipe"
+            />
+		  <activity
+            android:name="com.example.hp.navigation.activity.Sec"
+            android:label="@string/title_activity_sec"
+            android:parentActivityName="com.example.hp.navigation.activity.ShowRecipe"
+             />
+
+        <service
+            android:name="com.example.hp.navigation.activity.MyService"
+            android:icon="@mipmap/ic_launcher"
+            android:label="@string/service_name" />
+
+        <activity
+            android:name="com.example.hp.navigation.activity.Showfav"
+            android:label="@string/title_activity_showfav"
+            android:parentActivityName="com.example.hp.navigation.activity.Sec"
+         />
+        <activity
+            android:name="com.example.hp.navigation.activity.Showonefav"
+            android:label="@string/title_activity_showonefav"
+          />
+        <activity
+            android:name="com.example.hp.navigation.activity.Showonesqliteoffline"
+            android:label="@string/title_activity_showonesqliteoffline"></activity>
+		<activity android:name="com.example.hp.navigation.activity.HomeActivity" />
+        <activity android:name="com.example.hp.navigation.activity.AddRecipe" />
+		<activity android:name="com.example.hp.navigation.activity.Item1Activity" />
+		<activity android:name="com.example.hp.navigation.activity.Item2Activity" />
+		<activity android:name="com.example.hp.navigation.activity.Item3Activity" />
+		<activity android:name="com.example.hp.navigation.activity.Item4Activity" />
+		<activity android:name="com.example.hp.navigation.activity.Item5Activity" />
+    </application>
+
+</manifest>

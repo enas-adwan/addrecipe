@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:showIn="@layout/addrecipe"
+    tools:context="com.example.hp.navigation.activity.AddRecipe"
+    android:weightSum="1">
+
+ <!--   <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="683dp"
+        android:id="@+id/scrollView"
+        android:layout_marginLeft="10dp">-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="1"
+                android:layout_marginTop="5dp">
+
+                <TextView
+                    android:layout_width="156dp"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="Recipe Name :"
+                    android:id="@+id/textView"
+                    android:elegantTextHeight="false"
+                    android:fontFamily="@string/abc_font_family_button_material"
+                    android:textStyle="normal|italic"
+                    android:layout_marginTop="10dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="1">
+
+                <EditText
+                    android:layout_width="203dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/t"
+                    android:layout_weight="0.62"
+                    android:layout_marginTop="5dp"
+                    android:elegantTextHeight="false"
+                    android:focusableInTouchMode="false" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="Add Ingredient :"
+                    android:id="@+id/textView2"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@string/abc_font_family_button_material"
+                    android:textStyle="normal|italic" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp">
+
+
+                <Spinner
+                    android:layout_width="72dp"
+                    android:layout_height="fill_parent"
+                    android:id="@+id/spinner1"
+                    android:entries="@array/country_arrays"
+                    android:layout_weight="398376.09" />
+
+                <AutoCompleteTextView
+                    android:id="@+id/auto"
+                    android:layout_width="wrap_content"
+                    android:layout_height="53dp"
+                    android:layout_alignParentTop="true"
+                    android:ems="10"
+                    android:completionThreshold="1"
+                    android:text=""
+                    android:layout_alignParentStart="false"
+                    android:layout_weight="488010.69"
+                    android:layout_alignParentLeft="false">
+
+                    <requestFocus />
+                </AutoCompleteTextView>
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/getall"
+                    android:background="@null"
+                    android:src="@mipmap/addo"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="5dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text=" All Calories :  "
+                    android:id="@+id/textView3"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:text="0"
+                    android:layout_width="89dp"
+                    android:layout_height="38dp"
+                    android:id="@+id/text"
+                    android:layout_toEndOf="@+id/textView"
+                    android:layout_below="@+id/getall"
+                    android:textAlignment="textStart"
+                    android:layout_gravity="start"
+                    android:textStyle="bold"
+                    android:layout_toRightOf="@+id/textView" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ListView
+                    android:layout_width="wrap_content"
+                    android:layout_height="143dp"
+                    android:id="@+id/list_view" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="127dp"
+                android:weightSum="1">
+
+                <ImageButton
+                    android:layout_width="192dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/imageButton"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@mipmap/addphoto"
+                    android:background="@null" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="258dp">
+
+                <TextView
+                    android:layout_width="85dp"
+                    android:layout_height="122dp"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Medium Text"
+                    android:id="@+id/textView4" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+<!--</ScrollView>-->

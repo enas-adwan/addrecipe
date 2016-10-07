@@ -54,7 +54,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         listVieww=(ListView)findViewById(R.id.lv);
+
         //  Text = (TextView) findViewById(R.id.text);
     /*   FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -206,6 +208,7 @@ String rating=cursor4.getString(0);
                             names.add(title);
                             id = c.getInt("id");
                             image = c.getString("image");
+
                             rating = c.getString("rating");
                            // byte[] qrimage = Base64.decode(image.getBytes(), i);
                             //bmp = BitmapFactory.decodeByteArray(qrimage, 0, qrimage.length);
