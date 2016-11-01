@@ -193,10 +193,10 @@ public class Vivsadapter extends BaseAdapter  {
                 } else {
                     String title2=   gettitle( position);
                     userDbHelper2.deletefav(sqLiteDatabase,title2);
-                    if(Showfav.listView!=null){
+
                         list.remove(position);
                         notifyDataSetChanged();
-                    }
+
                     Toast.makeText(context, title2+position, Toast.LENGTH_LONG).show();
 
                     layoutHandler.favoriteImg.setImageResource(R.drawable.heart_grey);

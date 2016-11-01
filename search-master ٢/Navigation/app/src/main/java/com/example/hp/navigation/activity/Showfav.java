@@ -4,19 +4,14 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
-import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
-
-import com.navigation.drawer.activity.R;
 
 import java.util.ArrayList;
-
+import com.navigation.drawer.activity.R;
 
 public class Showfav extends BaseActivity {
     recipeDbHelper userDbHelper2;
@@ -35,12 +30,9 @@ public class Showfav extends BaseActivity {
         super.onCreate(savedInstanceState);
         getLayoutInflater().inflate(R.layout.activity_showfav, frameLayout);
 
-        /**
-         * Setting title and itemChecked
-         */
-        mDrawerList.setItemChecked(position, true);
-        setTitle(listArray[position]);
-       // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         listView=(ListView)findViewById(R.id.lv);
         records= new ArrayList<Record>();
         //vivs=new Vivsadapter(getApplicationContext(),R.layout.single_row);
@@ -56,7 +48,7 @@ public class Showfav extends BaseActivity {
         {
             do {
                 int id=cursor2.getInt(0);
-             String  title=cursor.getString(0);
+             String title=cursor.getString(0);
                String image =cursor1.getString(0);
 
 
@@ -101,10 +93,6 @@ public class Showfav extends BaseActivity {
 
 
     }
-    protected void onStop() {
-        // TODO Auto-generated method stub
-        listView=null;
-        super.onStop();
-    }
+
 
 }
