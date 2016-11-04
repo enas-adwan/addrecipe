@@ -20,6 +20,9 @@ public class recipeDbHelper extends SQLiteOpenHelper {
             "name TEXT, " +
 
             "calory  FLOAT)";
+    private static final String CREATE_QUERY_desc= "CREATE TABLE IF NOT EXISTS desc (" +
+            "_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            "name TEXT) ";
     private static final String CREATE_QUERY_sqlite= "CREATE TABLE IF NOT EXISTS recipe (" +
             "_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
             "title TEXT, " +
@@ -67,6 +70,16 @@ public class recipeDbHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_QUERY_ranking);
         Log.e("DATABASE OPERATION", "Table create..."+CREATE_QUERY);
     }
+    public boolean istabledescexist( SQLiteDatabase db){
+    boolean empty = true;
+    Cursor cur = db.rawQuery("SELECT COUNT(*) FROM desc", null);
+    if (cur != null && cur.moveToFirst()) {
+        empty = (cur.getInt (0) == 0);
+    }
+    cur.close();
+
+    return empty;
+    }
     public void addinnformation(Float caloryNum, String name, SQLiteDatabase db){
         db.execSQL(CREATE_QUERY);
         ContentValues contentValue = new ContentValues();
@@ -74,6 +87,15 @@ public class recipeDbHelper extends SQLiteOpenHelper {
         contentValue.put("calory",caloryNum);
 
         db.insert("project",null,contentValue);
+        Log.e("DATABASE OPERATION", "One row is insert");
+    }
+    public void addinnformationdesc( String name, SQLiteDatabase db){
+        db.execSQL(CREATE_QUERY_desc);
+        ContentValues contentValue = new ContentValues();
+        contentValue.put("name",name);
+
+
+        db.insert("desc",null,contentValue);
         Log.e("DATABASE OPERATION", "One row is insert");
     }
     @Override
@@ -88,6 +110,13 @@ public class recipeDbHelper extends SQLiteOpenHelper {
         cursor= db.query("project", projections, null, null, null, null, null);
         return cursor;
     }
+    public Cursor getinformationdesc(SQLiteDatabase db){
+        Cursor cursor;
+        String[] projections={"name"};
+
+        cursor= db.query("desc", projections, null, null, null, null, null);
+        return cursor;
+    }
     public Cursor getinformationid(SQLiteDatabase db){
         Cursor cursor;
         String[] projections={"_id"};
@@ -95,6 +124,14 @@ public class recipeDbHelper extends SQLiteOpenHelper {
         cursor= db.query("project", projections, null, null, null, null, null);
         return cursor;
     }
+    public Cursor getinformationiddesc(SQLiteDatabase db){
+        Cursor cursor;
+        String[] projections={"_id"};
+
+        cursor= db.query("desc", projections, null, null, null, null, null);
+        return cursor;
+    }
+
     public Cursor getinformation2(SQLiteDatabase db){
         Cursor cursor;
         String[] projections={"calory"};
@@ -103,6 +140,7 @@ public class recipeDbHelper extends SQLiteOpenHelper {
         return cursor;
     }
 
+
     public void delete(SQLiteDatabase db, int id) {
         String where = "_id ='" + id+"'";
         db.delete("project", where, null);
@@ -110,6 +148,15 @@ public class recipeDbHelper extends SQLiteOpenHelper {
    // String delQuery = "DELETE FROM project WHERE name='"+name+"' ";
 
    // db.rawQuery(delQuery , null);
+    }
+
+    public void deletedesc(SQLiteDatabase db, int id) {
+        String where = "_id ='" + id+"'";
+        db.delete("desc", where, null);
+        Log.e("DATABASE OPERATION", "delete.");
+        // String delQuery = "DELETE FROM project WHERE name='"+name+"' ";
+
+        // db.rawQuery(delQuery , null);
     }
     public float getTotal(SQLiteDatabase db) {
 
@@ -127,6 +174,12 @@ public class recipeDbHelper extends SQLiteOpenHelper {
     db.execSQL("DROP TABLE IF EXISTS project");
 
 }
+    public void dropdesc(SQLiteDatabase db) {
+
+        Log.e("droppp", "drop");
+        db.execSQL("DROP TABLE IF EXISTS desc");
+
+    }
     public void droptables(SQLiteDatabase db) {
 
         Log.e("droppp", "drop");
@@ -147,6 +200,49 @@ public class recipeDbHelper extends SQLiteOpenHelper {
 
 
             String strSQL = "SELECT name FROM project ";
+
+            strSQL +=  " ORDER BY _id DESC ";
+
+            Cursor cursor = db.rawQuery(strSQL, null);
+
+
+            if(cursor != null)
+            {
+                if (cursor.moveToFirst()) {
+                    arrData = new String[cursor.getCount()];
+                    /***
+                     *  [x] = Name
+                     */
+                    int i= 0;
+                    do {
+
+                        arrData[i] = cursor.getString(0);
+                        i++;
+                    } while (cursor.moveToNext());
+
+                }
+            }
+            cursor.close();
+
+            return arrData;
+
+        } catch (Exception e) {
+            return null;
+        }
+
+    }
+    public String[] SelectAlldesc() {
+
+        // TODO Auto-generated method stub
+
+        try {
+            String arrData[] = null;
+            SQLiteDatabase db;
+            db = this.getReadableDatabase(); // Read Data
+
+
+
+            String strSQL = "SELECT name FROM desc ";
 
             strSQL +=  " ORDER BY _id DESC ";
 
@@ -256,7 +352,7 @@ public class recipeDbHelper extends SQLiteOpenHelper {
         Cursor cursor;
         String[] projections={"image"};
 
-        cursor= db.query("recipeoffline", projections,null , null, null, null, null);
+        cursor= db.query("recipe", projections,null , null, null, null, null);
         return cursor;
     }
     public Cursor getinformationsqliteoffline(SQLiteDatabase db){

@@ -9,156 +9,52 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.content.ContentValues;
-import android.os.Bundle;
-import java.io.BufferedInputStream;
-import android.widget.ArrayAdapter;
-import android.support.v7.app.AppCompatActivity;
-import java.util.Arrays;
-import java.util.List;
-import java.io.ByteArrayOutputStream;
-import android.graphics.drawable.BitmapDrawable;
-import android.provider.BaseColumns;
-import android.app.SearchManager;
-import android.app.DownloadManager.Request;
-import android.net.Uri;
-import java.util.GregorianCalendar;
-
-import android.os.Bundle;
-import android.content.ComponentName;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
-import android.widget.AutoCompleteTextView;
-import android.graphics.BitmapFactory;
-import android.widget.NumberPicker;
-
-import android.content.Intent;
 import android.provider.MediaStore;
-
-import android.support.v7.widget.Toolbar;
-import android.view.View;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Base64;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
-
-import android.widget.ListView;
-import android.widget.SearchView.OnQueryTextListener;
-import android.widget.Spinner;
-import android.widget.TextView;
-import android.database.Cursor;
-import android.content.ContentProvider;
-import android.database.MatrixCursor;
-
-import android.widget.SearchView;
-
-import java.lang.reflect.*;
-//import android.asynctask.library.JSONParser;
-import java.util.Calendar;
-import android.os.AsyncTask;
-import android.os.Bundle;
-
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
-
-import org.json.JSONException;
-
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.UnsupportedEncodingException;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLEncoder;
-import java.util.HashMap;
-import java.util.Map;
-
-import org.json.JSONObject;
-import org.json.JSONArray;
-
-
-import android.app.AlertDialog;
-import android.content.Context;
-import android.os.AsyncTask;
-
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLEncoder;
-
-import android.os.StrictMode;
-import android.database.sqlite.SQLiteDatabase;
-//import android.support.v4.view.MenuItemCompat;
-//import android.support.v7.widget.SearchView;
-import android.text.TextWatcher;
-import android.text.Editable;
-import android.app.ProgressDialog;
-import android.graphics.Bitmap;
-import android.widget.ImageView;
-import javax.net.ssl.HttpsURLConnection;
-import android.util.Base64;
-import android.provider.MediaStore;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Base64;
-import android.view.MotionEvent;
-import android.view.View.OnTouchListener;
-import android.util.Log;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
-import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.view.ViewGroup;
-import org.json.JSONArray;
-import org.json.JSONObject;
 
-import java.io.BufferedReader;
+import com.navigation.drawer.activity.R;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.net.URL;
+import java.util.Arrays;
 import java.util.HashMap;
-import com.navigation.drawer.activity.R;
+import android.content.SharedPreferences;
+//import android.asynctask.library.JSONParser;
+//import android.support.v4.view.MenuItemCompat;
+//import android.support.v7.widget.SearchView;
+
 public class AddRecipe extends BaseActivity {
 
     protected DataBaseHelper db;
     private ImageButton Getall;
+    private ImageButton Addd;
     private Spinner spinner1;
     private static int RESULT_LOAD_IMG = 1;
     public static ListView listView;
+    public static ListView listV;
     public String namo = "";
     public String valuo = "";
     public String unit = "";
@@ -166,7 +62,7 @@ public class AddRecipe extends BaseActivity {
     String image_str;
     String stringFloat;
     Float value1;
-    private Button load;
+    public Button loadd;
     private Button Timo;
     String stringFloat1;
     Float value2;
@@ -185,11 +81,14 @@ public class AddRecipe extends BaseActivity {
     private EditText Cook;
     private EditText Total;
     private EditText Title;
-    private EditText Desc;
+   public static EditText Desc;
+    public static TextView Textnum;
     public String[] myDataa;
+    public String[] myDataadesc;
     recipeDbHelper userDbHelper3;
-    private static final String RECIPE_URL = "http://10.0.2.2/addrecipe.php";
+    private static final String RECIPE_URL = "http://192.168.1.7/addrecipe.php";
     String list;
+    String listdesc;
     Integer r = 0;
     private static final String TAG = "DataBaseHelper";
 
@@ -208,6 +107,7 @@ public class AddRecipe extends BaseActivity {
         mDrawerList.setItemChecked(position, true);
         setTitle(listArray[position]);
         db = new DataBaseHelper(this);
+
         db.getWritableDatabase();
         Text = (TextView) findViewById(R.id.text);
      /* try{  db.createDataBase();
@@ -222,7 +122,7 @@ public class AddRecipe extends BaseActivity {
         Cook= (EditText) findViewById(R.id.cook);
 
         Desc=  (EditText) findViewById(R.id.desc);
-
+        Textnum= (TextView) findViewById(R.id.textnum);
 //=======Code For copying Existing Database file to system folder for use====//
         // Copying Existing Database into system folder
         try {
@@ -323,6 +223,51 @@ public class AddRecipe extends BaseActivity {
 
             }
         });
+        Addd = (ImageButton) findViewById(R.id.addd);
+
+        Addd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Cursor cursor;
+                Cursor cursor1;
+                Cursor cursor2;
+                int sum = 1;
+                ListDataAdpterdesc listDataAdpter;
+                SQLiteDatabase sqLiteDatabase;
+                recipeDbHelper userDbHelper;
+                recipeDbHelper userDbHelper2;
+                String food = Desc.getText().toString().trim();
+                listV = (ListView) findViewById(R.id.list_v);
+                userDbHelper = new recipeDbHelper(getApplicationContext());
+                sqLiteDatabase = userDbHelper.getWritableDatabase();
+                userDbHelper.addinnformationdesc(food, sqLiteDatabase);
+
+                listDataAdpter = new ListDataAdpterdesc(getApplicationContext(), R.layout.row_layout1);
+                listV.setAdapter(listDataAdpter);
+                userDbHelper2 = new recipeDbHelper(getApplicationContext());
+                sqLiteDatabase = userDbHelper2.getReadableDatabase();
+                cursor2=userDbHelper2.getinformationiddesc(sqLiteDatabase);
+                cursor=userDbHelper2.getinformationdesc(sqLiteDatabase);
+
+                if(cursor2.moveToFirst()&&cursor.moveToFirst())
+                {
+                    do {
+                       String descname=cursor.getString(0);
+                        int id=cursor2.getInt(0);
+                        DataProviderdesc dataProvider = new DataProviderdesc(descname,id);
+                        listDataAdpter.add(dataProvider);
+
+
+                    }while (cursor2.moveToNext()&&cursor.moveToNext());
+
+                }
+
+                setListViewHeightBasedOnItems(listV);
+                // jso1(numberAsString);
+
+            }
+
+        });
         // NumberPicker np = (NumberPicker) findViewById(R.id.np);
         //np.setMinValue(0);
         //np.setMaxValue(10);
@@ -350,15 +295,12 @@ public class AddRecipe extends BaseActivity {
 
         //    }
         //  });
-        load = (Button) findViewById(R.id.buttonLoadPicture);
+        loadd = (Button) findViewById(R.id.bb);
 
-        load.setOnClickListener(new View.OnClickListener() {
+     loadd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-           /*     Intent galleryIntent = new Intent(Intent.ACTION_PICK,
-                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                // Start the Intent
-                startActivityForResult(galleryIntent, RESULT_LOAD_IMG);*/
+
                 Intent photoPickerIntent = new Intent(Intent.ACTION_GET_CONTENT);
                 photoPickerIntent.setType("image/*");
                 // startActivityForResult(photoPickerIntent, RESULT_LOAD_IMG);
@@ -449,7 +391,7 @@ public class AddRecipe extends BaseActivity {
                 spinner1 = (Spinner) findViewById(R.id.spinner1);
                 String quintity= String.valueOf(spinner1.getSelectedItem());
                 listView=(ListView)findViewById(R.id.list_view);
-                userDbHelper=new  recipeDbHelper(getApplicationContext());
+                userDbHelper=new recipeDbHelper(getApplicationContext());
                 sqLiteDatabase=userDbHelper.getWritableDatabase();
                 Float sum=0.0f;
                 String calory;
@@ -481,7 +423,7 @@ public class AddRecipe extends BaseActivity {
                             //  Text.setText(stringFloat);
                             userDbHelper.addinnformation(value,"- "+"Spoon of "+food,sqLiteDatabase);
 
-                            listDataAdpter=new ListDataAdpter(getApplicationContext(),R.layout.row_layout);
+                            listDataAdpter=new ListDataAdpter(getApplicationContext(), R.layout.row_layout);
                             listView.setAdapter(listDataAdpter);
                             userDbHelper2=new recipeDbHelper(getApplicationContext());
                             sqLiteDatabase=userDbHelper2.getReadableDatabase();
@@ -497,7 +439,7 @@ public class AddRecipe extends BaseActivity {
                                     caloryvalue=M.toString();
                                     calory=cursor.getString(0);
                                     sum=userDbHelper2.getTotal(sqLiteDatabase);
-                                    Text.setText(String.valueOf(sum+"Kcal"));
+                                    Text.setText(String.valueOf(sum));
                                     DataProvider dataProvider=new DataProvider(calory, caloryvalue,id);
                                     listDataAdpter.add(dataProvider);
 
@@ -510,7 +452,7 @@ public class AddRecipe extends BaseActivity {
                         case "Cup of ":
                             userDbHelper.addinnformation(value1,"- "+"Cup "+food,sqLiteDatabase);
 
-                            listDataAdpter=new ListDataAdpter(getApplicationContext(),R.layout.row_layout);
+                            listDataAdpter=new ListDataAdpter(getApplicationContext(), R.layout.row_layout);
                             listView.setAdapter(listDataAdpter);
                             userDbHelper2=new recipeDbHelper(getApplicationContext());
                             sqLiteDatabase=userDbHelper2.getReadableDatabase();
@@ -539,7 +481,7 @@ public class AddRecipe extends BaseActivity {
 
                             userDbHelper.addinnformation(value2,"- "+"1/2 Cup of "+food,sqLiteDatabase);
 
-                            listDataAdpter=new ListDataAdpter(getApplicationContext(),R.layout.row_layout);
+                            listDataAdpter=new ListDataAdpter(getApplicationContext(), R.layout.row_layout);
                             listView.setAdapter(listDataAdpter);
                             userDbHelper2=new recipeDbHelper(getApplicationContext());
                             sqLiteDatabase=userDbHelper2.getReadableDatabase();
@@ -568,7 +510,7 @@ public class AddRecipe extends BaseActivity {
 
                             userDbHelper.addinnformation(value3,"- "+"3/4 Cup of "+food,sqLiteDatabase);
 
-                            listDataAdpter=new ListDataAdpter(getApplicationContext(),R.layout.row_layout);
+                            listDataAdpter=new ListDataAdpter(getApplicationContext(), R.layout.row_layout);
                             listView.setAdapter(listDataAdpter);
 
                             userDbHelper2=new recipeDbHelper(getApplicationContext());
@@ -638,7 +580,7 @@ public class AddRecipe extends BaseActivity {
     @Override
     public void onDestroy(){
         super.onDestroy();
-        droptable=new  recipeDbHelper(getApplicationContext());
+        droptable=new recipeDbHelper(getApplicationContext());
         sqLiteDatabase=droptable.getWritableDatabase();
         //sqLiteDatabase.drop( droptable);
         droptable.drop(sqLiteDatabase);
@@ -742,6 +684,13 @@ public class AddRecipe extends BaseActivity {
                 super.onPostExecute(s);
 
                 Toast.makeText(getApplicationContext(),s,Toast.LENGTH_LONG).show();
+                if(s.equalsIgnoreCase("successfully added")){
+                    droptable=new recipeDbHelper(getApplicationContext());
+                    sqLiteDatabase=droptable.getWritableDatabase();
+                    //sqLiteDatabase.drop( droptable);
+                    droptable.drop(sqLiteDatabase);
+                    droptable.dropdesc(sqLiteDatabase);
+                }
 
             }
 
@@ -754,21 +703,52 @@ public class AddRecipe extends BaseActivity {
                 Long tsLong = System.currentTimeMillis() / 1000;
                 String timestamp = tsLong.toString();
                 String nameimage ="IMG_"+timestamp;
+                HashMap<String, String> data = new HashMap<String,String>();
+                SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
+                String user=pref .getString("user_type","");
+
+                if(user.equals("app")) {
+                    String user1=pref.getString("user_email","");
+                    data.put("title",params[0]);
+
+                    data.put("calory",params[1]);
+                    data.put("secret",params[2]);
+                    data.put("desc",params[3]);
+                    data.put("list",params[4]);
+                    data.put("total",params[5]);
+                    data.put("prep",params[6]);
+                    data.put("cook",params[7]);
+                    data.put("image",image_str);
+                    data.put("nameimage",nameimage);
+                    data.put("type","app");
+                    data.put("user_key",user1);
+
+                }
+                else
+                {
+                    String user1=pref.getString("face_id","");
+                    data.put("title",params[0]);
+
+                    data.put("calory",params[1]);
+                    data.put("secret",params[2]);
+                    data.put("desc",params[3]);
+                    data.put("list",params[4]);
+                    data.put("total",params[5]);
+                    data.put("prep",params[6]);
+                    data.put("cook",params[7]);
+                    data.put("image",image_str);
+                    data.put("nameimage",nameimage);
+                    data.put("type","face");
+                    data.put("face_id",user1);
+
+                }
+
+
                 //  String fileNameSegments[] = imgPath.split("/");
                 // fileName = fileNameSegments[fileNameSegments.length - 1];
                 //        Bitmap image = ((BitmapDrawable) imgVieww.getDrawable()).getBitmap();
-                HashMap<String, String> data = new HashMap<String,String>();
-                data.put("title",params[0]);
 
-                data.put("calory",params[1]);
-                data.put("secret",params[2]);
-                data.put("desc",params[3]);
-                data.put("list",params[4]);
-                data.put("total",params[5]);
-                data.put("prep",params[6]);
-                data.put("cook",params[7]);
-                data.put("image",image_str);
-                data.put("nameimage",nameimage);
+
 
 
                 String result = ruc.sendPostRequest(RECIPE_URL,data);
@@ -825,14 +805,16 @@ public class AddRecipe extends BaseActivity {
 
                     //  String food = autoCom.getText().toString().trim();
                     //String[] stringArray = new String[listVieww.getCount()];
-                    userDbHelper3=new  recipeDbHelper(getApplicationContext());
+                    userDbHelper3=new recipeDbHelper(getApplicationContext());
                     sqLiteDatabase=userDbHelper3.getWritableDatabase();
 
                     myDataa = userDbHelper3.SelectAll();
                     list=(Arrays.toString(myDataa));
+                    myDataadesc = userDbHelper3.SelectAlldesc();
+                    listdesc=(Arrays.toString(myDataadesc));
                     //list =  list.replaceAll(",", "|");
 
-                    Addrecipe( title ,  food, secret,desc,list,total,prep,cook);
+                    Addrecipe( title ,  food, secret,listdesc,list,total,prep,cook);
                     break;
 
                 }

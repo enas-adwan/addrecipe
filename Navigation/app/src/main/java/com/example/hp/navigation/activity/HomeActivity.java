@@ -35,13 +35,8 @@ public class HomeActivity extends BaseActivity {
 		 */
 		mDrawerList.setItemChecked(position, true);
 		setTitle(listArray[position]);
-		
-		initializeActivity();
+
 	}
 
-	private void initializeActivity() {
 
-		gridview = (GridView)findViewById(R.id.gridview);
-		gridview.setAdapter(new HomeScreenGridViewAdapter(this, _items));
-	}
 }

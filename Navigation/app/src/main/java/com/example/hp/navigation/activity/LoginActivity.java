@@ -3,6 +3,7 @@ package com.example.hp.navigation.activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -24,6 +25,7 @@ import java.net.URLEncoder;
  */
 public class LoginActivity extends AsyncTask<String,Void,String> {
     Context context;
+    public String name;
 
     boolean validUser = false;
     AlertDialog alertDialog;
@@ -36,7 +38,8 @@ public class LoginActivity extends AsyncTask<String,Void,String> {
         String login_url = "http://10.0.2.2/login_db.php";
         if(type.equals("login")) {
             try {
-                String name = params[1];
+
+                 name = params[1];
                 String password = params[2];
                 URL url = new URL(login_url);
                 HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();

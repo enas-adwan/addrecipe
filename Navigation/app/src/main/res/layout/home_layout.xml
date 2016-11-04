@@ -6,13 +6,10 @@
     android:orientation="vertical"
     android:padding="5dp" >
 
-    <GridView
-        android:id="@+id/gridview"
+
+    <TextView
+        android:text="hi"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:horizontalSpacing="2dp"
-        android:numColumns="auto_fit"
-        android:verticalSpacing="2dp" >
-    </GridView>
-
+        android:id="@+id/textView9" />
 </LinearLayout>

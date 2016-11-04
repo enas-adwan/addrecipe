@@ -5,71 +5,49 @@ import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.LayerDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.support.v7.widget.CardView;
+import android.support.v7.widget.RecyclerView;
 import android.util.Base64;
 import android.view.LayoutInflater;
-import android.view.View;
-import android.graphics.drawable.LayerDrawable;
-import android.view.View.OnClickListener;
 import android.view.MotionEvent;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
-import android.graphics.Color;
-import android.widget.AdapterView;
-import java.text.DecimalFormat;
-import android.widget.BaseAdapter;
-import android.widget.ImageButton;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.graphics.PorterDuff;
-import android.widget.TextView;
-import android.widget.RatingBar;
-import java.util.ArrayList;
-import android.widget.RatingBar.OnRatingBarChangeListener;
-import android.support.v7.widget.RecyclerView.ViewHolder;
-import android.widget.Toast;
-import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
-import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.util.Base64;
-import android.view.View;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.Button;
 import android.widget.ListView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.ArrayAdapter;
-import android.content.Intent;
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.util.ArrayList;
-import android.widget.AdapterView;
-import java.util.HashMap;
-import android.widget.AdapterView.OnItemClickListener;
 
 import com.navigation.drawer.activity.R;
 
-import static android.support.v4.app.ActivityCompat.startActivity;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
 
 /**
  * Created by mac on 15‏/1‏/2016.
  */
-public class Vivsadapter extends BaseAdapter  {
+public class Vivsadapter extends RecyclerView.Adapter<Vivsadapter.MasonryView>  {
 
     ArrayList<Record> list;
     static  Context context;
     recipeDbHelper userDbHelper2;
     SQLiteDatabase sqLiteDatabase;
+    Vivsadapter Vivs;
     String title="";
+    private final static int FADE_DURATION = 1000;
+    private int lastPosition = -1;
+
     // DatabaseHelper database;
     public Bitmap bmp;
     public Vivsadapter(Context c, ArrayList<Record> input) {
@@ -78,10 +56,17 @@ public class Vivsadapter extends BaseAdapter  {
         list = input;
 
     }
+    public Vivsadapter(Vivsadapter Vivs) {
+
+  this.Vivs=Vivs;
+
+    }
+
     class LayoutHandler{
 
         ImageView favoriteImg;
         ImageView shareimage;
+
 
     }
 
@@ -89,84 +74,108 @@ public class Vivsadapter extends BaseAdapter  {
         return list.size();
     }
 
+
+
     @Override
-    public Object getItem(int position) {
-        return list.get(position);
+    public Vivsadapter.MasonryView onCreateViewHolder(ViewGroup parent, int viewType) {
+        View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.single_row, parent, false);
+        MasonryView masonryView = new MasonryView(layoutView);
+        return masonryView;
     }
 
     @Override
-    public long getItemId(int position) {
-        return 0;
-    }
+    public void onBindViewHolder(final Vivsadapter.MasonryView holder, final int position) {
+      /*  holder.imageview.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String title1=   gettitle( position);
+                Toast.makeText(context,title1 , Toast.LENGTH_LONG).show();
+            }
+        });
+        holder.rowTitle.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String title1=   gettitle( position);
+                Toast.makeText(context,title1 , Toast.LENGTH_LONG).show();
+            }
+        });*/
 
-    @Override
-    public View getView(final int position, View convertView, ViewGroup parent) {
-        // Get single_row layout
+        holder.card.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+              if(  ShowRecipe.mRecyclerView.getTag()=="sec") {
+                  String title1 = gettitle(position);
+                  Toast.makeText(context, title1, Toast.LENGTH_LONG).show();
+                  Intent i = new Intent(context,Sec.class);
+                  i.putExtra("title", title1);
+                  i.putExtra("type", "sec");
+                  context.startActivity(i);
+              }else if ( Showfav.mRecyclerView.getTag()=="fav"){
+                  String title1 = gettitle(position);
+                  Toast.makeText(context, title1+"  fav", Toast.LENGTH_LONG).show();
+                  Intent i = new Intent(context, Sec.class);
+                  i.putExtra("title", title1);
+                  i.putExtra("type", "fav");
+                  context.startActivity(i);
 
-        final LayoutHandler layoutHandler;
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
-        final View row = inflater.inflate(R.layout.single_row, parent, false);
-        layoutHandler=new LayoutHandler();
-        // Find Views
-        ListView listView = (ListView)row.findViewById(R.id.lv);
-        final RatingBar ratingBar= (RatingBar) row.findViewById(R.id.ratingBar);
-        TextView rowTitle = (TextView) row.findViewById(R.id.nam);
-        TextView rowDescription = (TextView) row.findViewById(R.id.idd);
-        //  ListView lv = (ListView)MainActivity.findViewById(R.id.li);
-        final ImageView imageview = (ImageView) row.findViewById(R.id.imageV);
-        layoutHandler.favoriteImg = (ImageView) row.findViewById(R.id.imgbtn_favorite);
-        layoutHandler.shareimage = (ImageView) row.findViewById(R.id.share);
+
+              }else if ( ShowRecipe.mRecyclerView.getTag()=="offline"){
+                  String title1 = gettitle(position);
+                  Toast.makeText(context, title1+"  offline", Toast.LENGTH_LONG).show();
+                  Intent i = new Intent(context, Sec.class);
+                  i.putExtra("title", title1);
+                  i.putExtra("type", "offline");
+                  context.startActivity(i);
 
 
-        // Find Data sourcesapple
+              }
 
+
+
+            }
+        });
         final Record temp = list.get(position);
         // String m=new String(Base64.decode(temp.getImage(), Base64.DEFAULT));
         String[] safe = temp.getImage().split("=");
         byte[] qrimage = Base64.decode(safe[0], Base64.NO_PADDING);
 
         bmp = BitmapFactory.decodeByteArray(qrimage, 0, qrimage.length);
-        imageview.setImageBitmap(bmp);
-        rowTitle.setText(temp.getName());
-        rowDescription.setText(String.valueOf(temp.getNoid()));
-        ratingBar.setRating(Float.valueOf(temp.getRating()));
-        layoutHandler.favoriteImg.setFocusable(false);
-        ratingBar.setFocusable(false);
+        holder.imageview.setImageBitmap(bmp);
+        holder.rowTitle.setText(temp.getName());
+       // holder.rowDescription.setText(String.valueOf(temp.getNoid()));
+        if(Float.valueOf(temp.getRating())!=0){
+        holder.ratingBar.setRating(Float.valueOf(temp.getRating()));}
+        else{
+            holder.ratingBar.setRating(0);
 
+        }
+        holder.favoriteImg.setFocusable(false);
+
+       // holder.ratingBar.setFocusable(false);
+       // holder.ratingBar.setRating(0);
+       // holder.shareimage.setFocusable(false);
         userDbHelper2=new recipeDbHelper(context);
         sqLiteDatabase=userDbHelper2.getReadableDatabase();
         title=   gettitle( position);
         userDbHelper2.CheckIsDataAlreadyInDBorNot(title,sqLiteDatabase);
         if(userDbHelper2.CheckIsDataAlreadyInDBorNot(title,sqLiteDatabase)){
-            layoutHandler.favoriteImg.setImageResource(R.drawable.heart_red);
-            layoutHandler.favoriteImg.setTag("red");
+            holder.favoriteImg.setImageResource(R.drawable.heart_red);
+            holder.favoriteImg.setTag("red");
+
+        }else{
+
+            holder.favoriteImg.setImageResource(R.drawable.heart_grey);
+            holder.favoriteImg.setTag("grey");
 
         }
 
-        layoutHandler.shareimage.setOnClickListener(new View.OnClickListener() {
-                                                        @Override
-                                                        public void onClick (View view){
-                                                            if(isOnline()){
-                                                                String titleo=   gettitle( position);
 
-                                                                Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
-                                                                sharingIntent.setType("text/plain");
-                                                                sharingIntent.putExtra(Intent.EXTRA_TEXT,"http://10.0.2.2/share.php?recipeName="+titleo);
-                                                                context.startActivity(Intent.createChooser(sharingIntent, "Share via"));}
-                                                            else{
-                                                                Toast.makeText(context, "you can`t share ,because you are not connected to wifi", Toast.LENGTH_SHORT).show();
-                                                            }
-
-                                                        }
-                                                    }
-
-        );
-        layoutHandler.favoriteImg.setOnClickListener(new View.OnClickListener(){
+        holder.favoriteImg.setOnClickListener(new OnClickListener(){
             @Override
             public void onClick(View v) {
-                if ( layoutHandler.favoriteImg.getTag()!="red") {
-                    layoutHandler.favoriteImg.setImageResource(R.drawable.heart_red);
-                    layoutHandler.favoriteImg.setTag("red");
+                if (  holder.favoriteImg.getTag()!="red") {
+                    holder.favoriteImg.setImageResource(R.drawable.heart_red);
+                    holder.favoriteImg.setTag("red");
                     String title1=   gettitle( position);
                     SQLiteDatabase sqLiteDatabase;
 
@@ -193,23 +202,38 @@ public class Vivsadapter extends BaseAdapter  {
                 } else {
                     String title2=   gettitle( position);
                     userDbHelper2.deletefav(sqLiteDatabase,title2);
+                    //if(Showfav.listView!=null){
+                      //  list.remove(position);
 
-                        list.remove(position);
-                        notifyDataSetChanged();
+                  //  }
+                    if (Showfav.mRecyclerView!=null ){
+                        if(Showfav.mRecyclerView.getTag()=="fav") {
+                            String title1 = gettitle(position);
+                            list.remove(position);
+                            notifyDataSetChanged();
+                            Toast.makeText(context, title1 + "  remove", Toast.LENGTH_LONG).show();
 
+                        }
+
+                    }
+                    //notifyDataSetChanged();
                     Toast.makeText(context, title2+position, Toast.LENGTH_LONG).show();
 
-                    layoutHandler.favoriteImg.setImageResource(R.drawable.heart_grey);
-                    layoutHandler.favoriteImg.setTag("grey");
+                    holder.favoriteImg.setImageResource(R.drawable.heart_grey);
+                    holder.favoriteImg.setTag("grey");
 
                 }
             }
         });
         if(userDbHelper2.Checkranking(title,sqLiteDatabase)){
-            ratingBar.setEnabled(false);
-            ratingBar.setClickable(true);
-            LayerDrawable starss = (LayerDrawable) ratingBar.getProgressDrawable();
+           holder.ratingBar.setEnabled(false);
+            //holder. ratingBar.setClickable(true);
+            LayerDrawable starss = (LayerDrawable)   holder.ratingBar.getProgressDrawable();
             starss.getDrawable(2).setColorFilter(Color.RED, PorterDuff.Mode.SRC_ATOP);
+
+
+        }else{
+            holder.ratingBar.setEnabled(true);
 
 
         }
@@ -225,19 +249,19 @@ public class Vivsadapter extends BaseAdapter  {
             Toast.makeText(context, "Rating:"+rating, Toast.LENGTH_SHORT).show();
 
         }});*/
-        ratingBar.setOnTouchListener(new OnTouchListener() {
+        holder.ratingBar.setOnTouchListener(new OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_UP) {
 
                     int count =0;
                     float touchPositionX = event.getX();
-                    float width = ratingBar.getWidth();
+                    float width =    holder.ratingBar.getWidth();
                     float starsf = (touchPositionX / width) * 5.0f;
-                    int stars = (int) starsf + 2;
+                    float stars = (float) starsf + 2;
 
                     DecimalFormat decimalFormat = new DecimalFormat("#.#");
-                    Float curRate = Float.valueOf(decimalFormat.format((stars
+                  float curRate = Float.valueOf(decimalFormat.format((stars
                             * count + starsf)
                             / ++count));
                     String title1=   gettitle( position);
@@ -245,11 +269,14 @@ public class Vivsadapter extends BaseAdapter  {
                     Double d=Double.valueOf(str);
                     Double m=Math.ceil(d);
                     String str1=String.valueOf(m);
+                    Toast.makeText(context,
+                            str1, Toast.LENGTH_SHORT)
+                            .show();
                     Float r=Float.valueOf(str1);
-                    ratingBar.setRating(r);
+               holder.ratingBar.setRating(r);
                     if(isOnline()){
-                        ratingBar.setEnabled(false);
-                        LayerDrawable starss = (LayerDrawable) ratingBar.getProgressDrawable();
+                        holder.ratingBar.setEnabled(false);
+                        LayerDrawable starss = (LayerDrawable)       holder.ratingBar.getProgressDrawable();
                         starss.getDrawable(2).setColorFilter(Color.RED, PorterDuff.Mode.SRC_ATOP);
                         Toast.makeText(context,
                                 "your vote has been submited ,Thank you " , Toast.LENGTH_SHORT)
@@ -295,13 +322,74 @@ public class Vivsadapter extends BaseAdapter  {
             }
         });*/
 
-
-        return row;
+    setAnimation(holder.card, position);
+     //   setFadeAnimation(holder.card);
     }
+
+    @Override
+    public long getItemId(int position) {
+      //  return list.get(position);
+        return 0;
+    }
+
+    @Override
+    public int getItemCount() {
+        return list.size();
+
+    }
+    private void setFadeAnimation(View view) {
+        AlphaAnimation anim = new AlphaAnimation(0.0f, 1.0f);
+        anim.setDuration(FADE_DURATION);
+        view.startAnimation(anim);
+    }
+
+    class MasonryView extends RecyclerView.ViewHolder {
+        ImageView  favoriteImg;
+        TextView textView;
+        ListView listView;
+        CardView card;
+        final RatingBar ratingBar;
+        TextView rowTitle;
+        TextView rowDescription;
+        final ImageView     imageview;
+        FrameLayout container;
+        public MasonryView(View itemView) {
+            super(itemView);
+
+
+            // Find Views
+      //  listView = (ListView)itemView.findViewById(R.id.lv);
+          ratingBar= (RatingBar) itemView.findViewById(R.id.ratingBar);
+        rowTitle = (TextView) itemView.findViewById(R.id.nam);
+       // rowDescription = (TextView) itemView.findViewById(R.id.idd);
+            //  ListView lv = (ListView)MainActivity.findViewById(R.id.li);
+       imageview = (ImageView) itemView.findViewById(R.id.imageV);
+            card=(CardView)itemView.findViewById(R.id.card_view);
+          favoriteImg = (ImageView) itemView.findViewById(R.id.imgbtn_favorite);
+
+        }
+    }
+
+
+
     public String gettitle(int position) {
         final Record temp = list.get(position);
         return temp.getName();
     }
+    public String getimg(int position) {
+        final Record temp = list.get(position);
+        return temp.getImage();
+    }
+    private void setAnimation(View viewToAnimate, int position)
+    {
+        // If the bound view wasn't previously displayed on screen, it's animated
+
+          Animation animation = AnimationUtils.loadAnimation(context,   R.anim.slide_down);
+            viewToAnimate.startAnimation(animation);
+            lastPosition = position;
+
+    }
+
     public static boolean isOnline() {
         ConnectivityManager cm =
                 (ConnectivityManager)  context.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -310,22 +398,3 @@ public class Vivsadapter extends BaseAdapter  {
     }
 
 }
-/*layoutHandler.shareimage = (ImageView) row.findViewById(R.id.share);
-        layoutHandler.shareimage.setOnClickListener(new View.OnClickListener() {
-@Override
-public void onClick (View view){
-        if(isOnline()){
-        String titleo=   gettitle( position);
-
-        Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
-        sharingIntent.setType("text/plain");
-        sharingIntent.putExtra(Intent.EXTRA_TEXT,"http://10.0.2.2/share.php?recipeName="+titleo);
-        context.startActivity(Intent.createChooser(sharingIntent, "Share via"));}
-        else{
-        Toast.makeText(context, "you can`t share ,because you are not connected to wifi", Toast.LENGTH_SHORT).show();
-        }
-
-        }
-        }
-
-        );*/

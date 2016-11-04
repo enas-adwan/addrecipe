@@ -14,6 +14,7 @@ import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.MatrixCursor;
 import android.os.AsyncTask;
@@ -36,6 +37,9 @@ import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.facebook.AccessToken;
+import com.facebook.CallbackManager;
+import com.facebook.login.LoginManager;
 import com.navigation.drawer.activity.R;
 import com.example.hp.navigation.adapters.NavigationDrawerListAdapter;
 import com.example.hp.navigation.models.Items;
@@ -72,7 +76,7 @@ public class BaseActivity extends ActionBarActivity {
 	/**
 	 * List item array for navigation drawer items. 
 	 * */
-	protected String[] listArray = { "Show recipe", "", "Add recipe", "Show favourite", "Item 4", "Item 5" };
+	protected String[] listArray = { "Show recipe", "", "Add recipe", "Show favourite", "Item 4", "Item 5" ,"Item 6"};
 	protected ArrayList<Items> _items;
 	
 	/**
@@ -122,7 +126,9 @@ public class BaseActivity extends ActionBarActivity {
 		_items.add(new Items("Add recipe", "Item Two Description", R.drawable.item_2));
 		_items.add(new Items("show favourite", "Item Three Description", R.drawable.item_3));
 		_items.add(new Items("profile ", "Item Four Description", R.drawable.item_4));
-		_items.add(new Items("Item Five", "Item Five Description", R.drawable.item_5));
+		_items.add(new Items("Logout", "Item Five Description", R.drawable.item_5));
+		_items.add(new Items("edit profile", "Item six Description", R.drawable.item_5));
+		_items.add(new Items("search filter", "Item six Description", R.drawable.item_5));
 		
 		//Adding header on list view 
 		View header = (View)getLayoutInflater().inflate(R.layout.list_view_header_layout, null);
@@ -177,20 +183,7 @@ public class BaseActivity extends ActionBarActivity {
 		mDrawerLayout.setDrawerListener(actionBarDrawerToggle);
 		
 actionBarDrawerToggle.syncState();
-		/**
-		 * As we are calling BaseActivity from manifest file and this base activity is intended just to add navigation drawer in our app.
-		 * We have to open some activity with layout on launch. So we are checking if this BaseActivity is called first time then we are opening our first activity.
-		 * */
-		if(isLaunch){
-			 /**
-			  *Setting this flag false so that next time it will not open our first activity.
-			  *We have to use this flag because we are using this BaseActivity as parent activity to our other activity. 
-			  *In this case this base activity will always be call when any child activity will launch.
-			  */
-			isLaunch = false;
-		//	openActivity(0);
-			startActivity(new Intent(this, ShowRecipe.class));
-		}
+
 	}
 	
 	/**
@@ -210,7 +203,7 @@ actionBarDrawerToggle.syncState();
 //		setTitle(listArray[position]);
 		mDrawerLayout.closeDrawer(mDrawerList);
 		BaseActivity.position = position; //Setting currently selected position in this field so that it will be available in our child activities. 
-
+		final SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
 		switch (position) {
 		case 0:
 			startActivity(new Intent(this, ShowRecipe.class));
@@ -228,9 +221,43 @@ actionBarDrawerToggle.syncState();
 			startActivity(new Intent(this, profile.class));
 			break;
 		case 5:
-			startActivity(new Intent(this, Item5Activity.class));
-			break;
 
+			LoginManager.getInstance().logOut();
+			pref.edit().clear().commit();
+			if(AccessToken.getCurrentAccessToken()!=null)
+			{
+				Log.v("User is login","YES");
+
+			}
+			else
+			{
+				Log.v("User is not login","OK");
+				Intent intent = new Intent(this, MainActivity.class);
+				intent.putExtra("finish", true); // if you are checking for this in your other Activities
+				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
+						Intent.FLAG_ACTIVITY_CLEAR_TASK |
+						Intent.FLAG_ACTIVITY_NEW_TASK);
+				startActivity(intent);
+				finish();
+
+			}
+			break;
+			case 6:
+				SharedPreferences type_user = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
+				String user=type_user.getString("user_type","");
+
+				if(user.equals("app")) {
+					Intent intent = new Intent(this, editAppProfile.class);
+					startActivity(intent);
+				}
+				else {  Intent intent = new Intent(this, editFaceProfile.class);
+					startActivity(intent);
+				}
+
+				break;
+			case 7:
+				startActivity(new Intent(this, searchfilter.class));
+				break;
 		default:
 			break;
 		}

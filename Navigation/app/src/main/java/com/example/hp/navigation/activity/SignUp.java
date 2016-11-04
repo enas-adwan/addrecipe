@@ -2,10 +2,13 @@
 package com.example.hp.navigation.activity;
 
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -44,11 +47,6 @@ public class SignUp extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         radioSexGroup = (RadioGroup) findViewById(R.id.gender);
-        // get selected radio button from radioGroup
-        int selectedId = radioSexGroup.getCheckedRadioButtonId();
-// find the radiobutton by returned id
-        radioSexButton = (RadioButton) findViewById(selectedId);
-        String gender=radioSexButton.getText().toString();
         email = (EditText) findViewById(R.id.email);
         email.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -128,7 +126,11 @@ public class SignUp extends AppCompatActivity {
     }
 
     private void registerUser(String valid_flag1,String valid_flag2,String valid_flag3,String valid_flag4) {
+        int selectedId = radioSexGroup.getCheckedRadioButtonId();
+// find the radiobutton by returned id
+        radioSexButton = (RadioButton) findViewById(selectedId);
         String gender=radioSexButton.getText().toString();
+        Log.d("gender",gender);
         String name =username.getText().toString().trim();
         String Em =email.getText().toString().trim();
         String password = Password.getText().toString().trim();
@@ -175,7 +177,13 @@ public class SignUp extends AppCompatActivity {
 
 
             String secret="3CH6knCsenas2va8GrHk4mf3JqmUctCM";
-            register(name, password,gender,Em,secret,valid_flag);}
+            register(name, password,gender,Em,secret,valid_flag);
+            SharedPreferences pref = getSharedPreferences("MyPref", MODE_PRIVATE);
+            SharedPreferences.Editor editor = pref.edit();
+            editor.clear();
+            editor.putString("user_email",Em);
+            editor.commit();
+        }
         else{
 
             Toast.makeText(getApplicationContext(),"please enter the right requirment",Toast.LENGTH_LONG).show();
@@ -240,8 +248,25 @@ public class SignUp extends AppCompatActivity {
             @Override
             protected void onPostExecute(String s) {
                 super.onPostExecute(s);
+String succ="successfully registered";
 
                 Toast.makeText(getApplicationContext(),s+valid_flag,Toast.LENGTH_LONG).show();
+                if(s.equals(succ)){
+                    SharedPreferences pref = getSharedPreferences("MyPref", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = pref.edit();
+                    editor.putString("user_type", "app");
+                    editor.putString("valid_user", "logged");
+                    editor.commit();
+                    String n=pref.getString("user_type","defult");
+                    Log.d("user_type",n);
+                    startActivity(new Intent(SignUp.this, ShowRecipe.class));
+
+                }
+                else{
+                    SharedPreferences pref = getSharedPreferences("MyPref", MODE_PRIVATE);
+                    String n=pref.getString("user_type","defult");
+                    Log.d("user_type exist",n);
+                }
 
             }
 

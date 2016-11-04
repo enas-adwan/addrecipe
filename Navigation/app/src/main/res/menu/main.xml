@@ -2,11 +2,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.hp.navigation.activity.BaseActivity">
-    <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="100"
-        android:title="@string/action_settings"
-        app:showAsAction="never" />
+
     <item
         android:id="@+id/action_search"
         android:orderInCategory="200"
@@ -15,6 +11,11 @@
         app:actionViewClass="android.support.v7.widget.SearchView"
         app:showAsAction="ifRoom"
         ></item>
+    <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="100"
+        android:title="filter"
+        app:showAsAction="always" />
 
         />
 </menu>

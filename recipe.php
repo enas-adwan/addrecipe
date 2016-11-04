@@ -12,12 +12,27 @@ $totalrating=$row['totalrating'];
 $totalratingpeople=$row['totalratingpeople'];
 if($totalratingpeople=='0' and $totalrating=='0'){
 $rating='0';
-
 }else{
 
 $rating=$totalrating/$totalratingpeople;}
 $im = file_get_contents('androidimages/'.$row['image']);
- $imdata = base64_encode($im);    
+ $imdata = base64_encode($im);  
+ $type =$row['type'] ;  
+ if($type=="face"){
+ $face_id=$row['face_id'];
+ $q= "SELECT * FROM project  where face_id like '$face_id'";
+ $rq = $con->query($q);
+ while($roww = mysqli_fetch_array($rq)){
+$nameuer=$roww['name'];}
+ 
+ }  else{
+  $face_id=$row['user_key'];
+ $q= "SELECT * FROM project  where user_key like '$user_key'";
+ $rq = $con->query($q);
+ while($roww = mysqli_fetch_array($rq)){
+$nameuer=$roww['name'];}
+ 
+ }
     array_push($result,array(
         'id'=>$row['id'],
         'title'=>$row['title'],
@@ -28,7 +43,9 @@ $im = file_get_contents('androidimages/'.$row['image']);
            'calory'=>$row['calory'],
            'image'=>$imdata,
            'list'=>$row['list'],
+            'photo'=>$row['image'],
            'rating'=>$rating,
+           'username'=>$nameuer,
         
        
     ));

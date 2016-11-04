@@ -1,71 +1,70 @@
 package com.example.hp.navigation.activity;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.util.Base64;
+
 import android.app.AlertDialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.app.Service;
-import android.content.IntentFilter;
-import android.graphics.Bitmap;
-import android.os.IBinder;
-
-import java.util.Timer;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import java.util.logging.Handler;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import android.os.CountDownTimer;
+import android.support.v4.content.LocalBroadcastManager;
+import android.util.Base64;
+import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListView;
-import android.content.BroadcastReceiver;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.ImageView;
+
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.login.LoginManager;
+import com.facebook.share.Sharer;
+import com.facebook.share.model.ShareLinkContent;
+import com.facebook.share.widget.ShareDialog;
+import com.navigation.drawer.activity.R;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
-import android.graphics.BitmapFactory;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
-import android.os.CountDownTimer;
 import java.util.concurrent.TimeUnit;
-import android.media.MediaPlayer;
-import android.util.Log;
-import android.app.Notification;
-import android.support.v4.content.LocalBroadcastManager;
 
-import com.navigation.drawer.activity.R;
-
-public class Sec extends AppCompatActivity {
+public class Sec extends BaseActivity {
     String title;
     public TextView titl;
     public TextView calor;
+    public TextView Username;
     public TextView pre;
     public TextView des;
     public TextView coo;
     public TextView tota;
     public TextView Integ;
+    public ImageButton share;
+    public String all="";
     public TextView T;
-
+    public Bitmap bmp;
+public  ImageView imagevieww;
     BroadcastReceiver receiver;
     public static final String mBroadcastStringAction = "com.truiton.broadcast.string";
     private final static String TAG = "BroadcastService";
@@ -74,7 +73,11 @@ String flag="0";
     int ii;
     CountDownTimer countdown= null;;
     public MediaPlayer mp;
-
+    recipeDbHelper userDbHelper2;
+    SQLiteDatabase sqLiteDatabase;
+    Cursor cursor;
+    Cursor cursor1;
+    Cursor cursor2;
     int r=0;
     int count = 0;
     boolean[] timerProcessing = { false };
@@ -86,11 +89,17 @@ String flag="0";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sec);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        getLayoutInflater().inflate(R.layout.activity_sec, frameLayout);
+
+        /**
+         * Setting title and itemChecked
+         */
+        mDrawerList.setItemChecked(position, true);
+        setTitle(listArray[position]);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         b = (Button) findViewById(R.id.totalbutton);
+        share = (ImageButton) findViewById(R.id.share);
+     imagevieww = (ImageView) findViewById(R.id.imagev);
        // Go = (Button) findViewById(R.id.go);
         title=getIntent().getStringExtra("title");
         titl = (TextView) findViewById(R.id.title1);
@@ -100,10 +109,165 @@ String flag="0";
         coo = (TextView) findViewById(R.id.cook1);
         tota = (TextView) findViewById(R.id.total1);
         Integ = (TextView) findViewById(R.id.integ);
+        Username= (TextView) findViewById(R.id.username);
         i= new Intent(getApplicationContext(), MyService.class);
-        //.makeText(getApplicationContext(), title, Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), title, Toast.LENGTH_LONG).show();
+        if(getIntent().getStringExtra("type").equalsIgnoreCase("sec")){
+            Toast.makeText(getApplicationContext(), "sec", Toast.LENGTH_LONG).show();
         jso(title);
+
+        }else if(getIntent().getStringExtra("type").equalsIgnoreCase("fav")){
+            String alldesc="";
+            Toast.makeText(getApplicationContext(), "fav", Toast.LENGTH_LONG).show();
+            userDbHelper2=new recipeDbHelper(getApplicationContext());
+            sqLiteDatabase=userDbHelper2.getReadableDatabase();
+            cursor=userDbHelper2.SelectAllData(title,sqLiteDatabase);
+
+            if(cursor.moveToFirst())
+            {
+                do {
+                    int id=cursor.getInt(0);
+                    String  title=cursor.getString(1);
+                    String list =cursor.getString(2);
+                    String descc =cursor.getString(3);
+                    String calory =cursor.getString(4);
+                    String prep =cursor.getString(5);
+                    String cook =cursor.getString(6);
+                    String total =cursor.getString(7);
+                    String image =cursor.getString(8);
+
+                    byte[] qrimage = Base64.decode(image.getBytes(), 0);
+                    bmp = BitmapFactory.decodeByteArray(qrimage, 0, qrimage.length);
+                    ImageView imageview = (ImageView) findViewById(R.id.imagev);
+                    String[] separated = list.split("-");
+                    int ji = 1;
+                    for (; ji < separated.length-1; ji++) {
+                        int ind=separated[ji ].lastIndexOf(",");
+                        if( ind>=0 )
+                            separated[ji ] = new StringBuilder(separated[ji ]).replace(ind, ind+1,".").toString();
+                        all+=ji+"-"+separated[ji ]+"\n";
+
+                    }
+                    String[] separated1 = descc.split(",");
+                    int ji1 = 1;
+                    for (; ji1 < separated1.length; ji1++) {
+                        int ind=separated1[ji1 ].lastIndexOf(",");
+                        if( ind>=0 )
+                            separated1[ji1 ] = new StringBuilder(separated1[ji1 ]).replace(ind, ind+1,".").toString();
+                     alldesc+=ji1+"-"+separated1[ji1 ]+"\n";
+
+                    }
+                    imageview.setImageBitmap(bmp);
+                    //  names.add(title);
+
+                    // record = new Record(title, id);
+
+
+                    //  records.add(record);
+
+
+
+
+
+
+
+                    titl.setText(title);
+                    des.setText(     alldesc);
+                    calor.setText(calory);
+                    pre.setText(prep);
+                    tota.setText(total);
+                    coo.setText(cook);
+                    Integ.setText(all);
+
+                    Toast.makeText(getApplicationContext(),list, Toast.LENGTH_LONG).show();
+
+                }while (cursor.moveToNext());
+     /*   FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });*/
+            }
+        }else if(getIntent().getStringExtra("type").equalsIgnoreCase("offline"))
+        {
+           String alldesc="";
+            Toast.makeText(getApplicationContext(), "offline", Toast.LENGTH_LONG).show();
+
+            userDbHelper2=new recipeDbHelper(getApplicationContext());
+            sqLiteDatabase=userDbHelper2.getReadableDatabase();
+            cursor=userDbHelper2.SelectAllDataoffline(title,sqLiteDatabase);
+
+            if(cursor.moveToFirst()) {
+                do {
+                    int id = cursor.getInt(0);
+                    String title = cursor.getString(1);
+                    String list = cursor.getString(2);
+                    String descc = cursor.getString(3);
+                    String calory = cursor.getString(4);
+                    String prep = cursor.getString(5);
+                    String cook = cursor.getString(6);
+                    String total = cursor.getString(7);
+                    String image = cursor.getString(8);
+                    byte[] qrimage = Base64.decode(image.getBytes(), 0);
+                    bmp = BitmapFactory.decodeByteArray(qrimage, 0, qrimage.length);
+                    ImageView imageview = (ImageView) findViewById(R.id.imagev);
+                    String[] separated = list.split("-");
+                    int ji = 0;
+                    for (; ji < separated.length ; ji++) {
+                        int ind = separated[ji].lastIndexOf(",");
+                        if (ind >= 0)
+                            separated[ji] = new StringBuilder(separated[ji]).replace(ind, ind + 1, ".").toString();
+                        all += ji + "-" + separated[ji] + "\n";
+
+                    }
+                    String[] separated1 = descc.split(",");
+                    int ji1 = 1;
+                    for (; ji1 < separated1.length; ji1++) {
+                        int ind=separated1[ji1 ].lastIndexOf(",");
+                        if( ind>=0 )
+                            separated1[ji1 ] = new StringBuilder(separated1[ji1 ]).replace(ind, ind+1,".").toString();
+                        alldesc+=ji1+"-"+separated1[ji1 ]+"\n";
+
+                    }
+                    imageview.setImageBitmap(bmp);
+                    //  names.add(title);
+
+                    // record = new Record(title, id);
+
+
+                    //  records.add(record);
+
+
+                    titl.setText(title);
+                    des.setText( alldesc);
+
+
+
+                    calor.setText(calory);
+                    pre.setText(prep);
+                    tota.setText(total);
+                    coo.setText(cook);
+                    Integ.setText(all);
+
+                    Toast.makeText(getApplicationContext(), list, Toast.LENGTH_LONG).show();
+
+                } while (cursor.moveToNext());
+     /*   FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });*/
+            }
+
+        }
         T = (TextView) findViewById(R.id.t);
+
         b.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0)  {
                 String m=  tota.getText().toString();
@@ -402,19 +566,24 @@ String flag="0";
             public String calory = "";
             public String prep = "";
             public String cook = "";
+            public String photo = "";
             public String desc = "";
             public String total = "";
             public String image = "";
             public String list = "";
+            public String User = "";
             public Integer id;
+            ImageView imageview;
             public String all="";
+            public String alldesc="";
             public String name1 = "";
             private TextView Text;
+            private LoginManager loginManager;
             ArrayList<Record> records;
             Vivsadapter vivsadapter;
             String json;
             String rating="";
-            public Bitmap bmp;
+
             SQLiteDatabase sqLiteDatabase;
             recipeDbHelper userDbHelper3;
 
@@ -438,7 +607,7 @@ String flag="0";
               //  records= new ArrayList<Record>();
 
                 try {
-                    userDbHelper3=new  recipeDbHelper(getApplicationContext());
+                    userDbHelper3=new recipeDbHelper(getApplicationContext());
                     sqLiteDatabase=userDbHelper3.getWritableDatabase();
 
                     // Text.setText(s);
@@ -458,6 +627,8 @@ String flag="0";
                         cook = c.getString("cook");
                         image = c.getString("image");
                         rating = c.getString("rating");
+                        photo = c.getString("photo");
+                        User = c.getString("username");
 
                       //  JSONArray it = c.getJSONArray("list");
                     //    list = it.toString();
@@ -466,16 +637,45 @@ String flag="0";
                         userDbHelper3.close();
                         byte[] qrimage = Base64.decode(image.getBytes(), i);
                         bmp = BitmapFactory.decodeByteArray(qrimage, 0, qrimage.length);
-                        ImageView imageview = (ImageView) findViewById(R.id.imagev);
+                      imageview = (ImageView) findViewById(R.id.imagev);
+                       list.replaceAll("]",".");
                         String[] separated = list.split("-");
                         int ji = 1;
-                        for (; ji < separated.length-1; ji++) {
+                        for (; ji < separated.length; ji++) {
                             int ind=separated[ji ].lastIndexOf(",");
                             if( ind>=0 )
                                 separated[ji ] = new StringBuilder(separated[ji ]).replace(ind, ind+1,".").toString();
                             all+=ji+"-"+separated[ji ]+"\n";
 
                         }
+                        desc.replaceAll("]",".");
+                        String[] separated1 = desc.split(",");
+                        int ji1 = 0;
+                        for (; ji1 < separated1.length; ji1++) {
+
+
+                            alldesc+=ji1+1+"-"+separated1[ji1 ]+"\n";
+
+                        }
+
+                       // File f3=new File(Environment.getExternalStorageDirectory()+"/inpaint/"+"seconds"+".png");
+                       // if(!f3.exists()){
+                         //   f3.createNewFile();
+                        //}
+                      //  OutputStream outStream = null;
+                       /* File file = new File(Environment.getExternalStorageDirectory() + "/inpaint/"+"seconds"+".png");
+                        try {
+                            outStream = new FileOutputStream(file);
+                            bmp.compress(Bitmap.CompressFormat.PNG, 85, outStream);
+                            outStream.flush();
+                            outStream.close();
+
+                            Toast.makeText(getApplicationContext(), "Saved", Toast.LENGTH_LONG).show();
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }*/
+                       // Toast.makeText(getApplicationContext(),qrimage.toString(), Toast.LENGTH_SHORT).show();
                         imageview.setImageBitmap(bmp);
                         //  names.add(title);
 
@@ -491,12 +691,14 @@ String flag="0";
 
                     }
                    titl.setText(title);
-                    des.setText(desc);
+                    des.setText(alldesc);
                     calor.setText(calory);
                     pre.setText(prep);
                     tota.setText(total);
                     coo.setText(cook);
                     Integ.setText(all);
+                    Username.setText(User);
+                    Toast.makeText(getApplicationContext(), cook, Toast.LENGTH_LONG).show();
                     vivsadapter = new Vivsadapter(Sec.this,records);
 
                      /*   JSONObject list = jObj.getJSONObject("list");
@@ -526,6 +728,162 @@ String flag="0";
                     e.printStackTrace();
 
                 }
+                share.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View arg0)  {
+                        FacebookSdk.sdkInitialize(getApplicationContext());
+
+                        String calo=calor.getText().toString();
+                        CallbackManager callbackManager = CallbackManager.Factory.create();
+                        ShareDialog shareDialog = new ShareDialog(Sec.this);
+                        AlertDialog.Builder shareDialog2 = new AlertDialog.Builder(Sec.this);
+                        ShareDialog shareDialog1 = new ShareDialog(Sec.this);
+                        shareDialog.registerCallback(callbackManager, new FacebookCallback<Sharer.Result>() {
+
+                            @Override
+                            public void onSuccess(Sharer.Result result) {
+                                Log.d("d", "success");
+                            }
+
+                            @Override
+                            public void onError(FacebookException error) {
+                                Log.d("d", "error");
+                            }
+
+                            @Override
+                            public void onCancel() {
+                                Log.d("d", "cancel");
+                            }
+                        });
+             /*   FacebookSdk.sdkInitialize(getApplicationContext());
+
+                callbackManager = CallbackManager.Factory.create();
+
+                List<String> permissionNeeds = Arrays.asList("publish_actions");
+
+                //this loginManager helps you eliminate adding a LoginButton to your UI
+                LoginManager  manager = LoginManager.getInstance();
+
+                //  manager.logInWithPublishPermissions(this, permissionNeeds);
+
+                manager.registerCallback(callbackManager, new FacebookCallback< LoginResult>()
+                {
+                    @Override
+                    public void onSuccess(LoginResult loginResult)
+                    {
+                        Log.d("d", "success");
+                    }
+
+                    @Override
+                    public void onCancel()
+                    {
+                        System.out.println("onCancel");
+                    }
+
+                    @Override
+                    public void onError(FacebookException exception)
+                    {
+                        System.out.println("onError");
+                    }
+                });
+                shareDialog.registerCallback(callbackManager, new FacebookCallback<Sharer.Result>() {
+
+                    @Override
+                    public void onSuccess(Sharer.Result result) {
+                        Log.d("d", "success");
+                    }
+
+                    @Override
+                    public void onError(FacebookException error) {
+                        Log.d("d", "error");
+                    }
+
+                    @Override
+                    public void onCancel() {
+                        Log.d("d", "cancel");
+                    }
+                });*/
+            /*    Uri selectedImage= Uri.parse("/"+Environment.getExternalStorageDirectory()+"/inpaint/"+"seconds"+".png");
+
+                try
+                {
+                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(getApplicationContext().getContentResolver() , Uri.parse("file:///"+Environment.getExternalStorageDirectory()+"/inpaint/"+"seconds"+".png"));
+                    Toast.makeText(getApplicationContext(), bmp.toString(), Toast.LENGTH_LONG).show();
+
+
+                }
+                catch (Exception e)
+                {
+                    //handle exception
+                }
+                SharePhoto photo = new SharePhoto.Builder()
+                        .setBitmap(bmp)
+                        .setUserGenerated(true)
+                        .build();
+                SharePhotoContent content = new SharePhotoContent.Builder()
+                        .addPhoto(photo)
+                        .build();
+                ShareOpenGraphAction action = new ShareOpenGraphAction.Builder()
+                        .setActionType("share")
+                        .putString("title",title)
+                        .putPhoto("image", photo)
+                        .build();*/
+                    try{
+                        /*String file_path = Environment.getExternalStorageDirectory().getAbsolutePath() +
+                                "/MyApp/";
+
+                        File dir = new File(file_path);
+                        dir.mkdirs();
+                        File file = new File(dir, "myPic.png");
+                        FileOutputStream fOut = new FileOutputStream(file);
+
+                        bmp.compress(Bitmap.CompressFormat.PNG, 100, fOut);
+
+                        fOut.flush();
+                        fOut.close();*/
+
+// Share
+                      ShareLinkContent content = new ShareLinkContent.Builder()
+                               .setContentUrl(Uri.parse("http://192.168.1.7/share.php?recipeName="+title)).setContentTitle(title).setContentDescription("calory: "+calo).setImageUrl(Uri.parse("http://192.168.1.7/androidimages/"+photo))//.setImageUrl(Uri.fromFile(file))//.setImageUrl(Uri.parse("http://192.168.1.7/androidimages/IMG_1474711234.jpg"))//.setImageUrl(Uri.fromFile(new File(Environment.getExternalStorageDirectory()+"/inpaint/"+"seconds"+".png")))
+                              .build();
+
+                        shareDialog.show(Sec.this,content);
+                      /*  Intent share = new Intent(android.content.Intent.ACTION_SEND);
+
+                        share.setType("text/plain");
+
+                        share.putExtra(Intent.EXTRA_TEXT,"http://192.168.1.7/share.php?recipeName=hhhh");
+                        share.putExtra(Intent.EXTRA_REFERRER_NAME,"http://192.168.1.7/share.php?recipeName=hhhh");
+
+                        share.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file));
+                       // share.putExtra(Intent.EXTRA_TEXT, "My Image");
+
+                     startActivity(Intent.createChooser(  share, "Share via"));*/
+                    } catch (Exception e) {
+                        e.printStackTrace();
+
+                    }
+                      //  SharePhoto sharePhoto = new SharePhoto.Builder().setBitmap(bmp).build();
+
+                        //SharePhotoContent sharePhotoContent = new SharePhotoContent.Builder().addPhoto(sharePhoto).build();
+
+                        // ShareDialog shareDialog = new ShareDialog(MainActivity.this);
+                        // Toast.makeText(getApplicationContext(), sharePhotoContent.toString(), Toast.LENGTH_LONG).show();
+                       // shareDialog.show(sharePhotoContent);
+                        /*shareDialog2.setTitle("hhh");
+                ShareLinkContent content = new ShareLinkContent.Builder()
+                        .setContentUrl(Uri.parse("http://192.168.1.7/share.php?recipeName="+title)).setContentTitle(title).setContentDescription("calory: "+calo).setImageUrl(Uri.parse("http://www.bigstockphoto.com/image-121417376/stock-photo-healthy-food-choice"))//.setImageUrl(Uri.parse("http://192.168.1.7/androidimages/IMG_1474711234.jpg"))//.setImageUrl(Uri.fromFile(new File(Environment.getExternalStorageDirectory()+"/inpaint/"+"seconds"+".png")))
+                        .build();
+                shareDialog.show(content);*/
+                        // Toast.makeText(getApplicationContext(), Environment.getExternalStorageDirectory()+"/inpaint/"+"seconds"+".png".toString(), Toast.LENGTH_LONG).show();
+           /*    ShareLinkContent content = new ShareLinkContent.Builder()
+                        .setContentUrl(Uri.parse("http://192.168.1.7/share.php?recipeName="+title)).setContentTitle(title).setContentDescription("calory: "+calo).setImageUrl(Uri.parse("http://www.bigstockphoto.com/image-121417376/stock-photo-healthy-food-choice"))//.setImageUrl(Uri.parse("http://192.168.1.7/androidimages/IMG_1474711234.jpg"))//.setImageUrl(Uri.fromFile(new File(Environment.getExternalStorageDirectory()+"/inpaint/"+"seconds"+".png")))
+                        .build();
+
+                shareDialog.show(content);*/
+
+
+
+                    }});
 
 
 
@@ -538,7 +896,7 @@ String flag="0";
                 try {
                     String line, newjson = "";
 
-                    URL url = new URL("http://10.0.2.2/recipe.php");
+                    URL url = new URL("http://192.168.1.7/recipe.php");
 
                     String number = params[0];
 
@@ -737,7 +1095,7 @@ String flag="0";
                 try {
                     String line, newjson = "";
 
-                    URL url = new URL("http://10.0.2.2/reciperating.php");
+                    URL url = new URL("http://192.168.1.7/reciperating.php");
 
                     String number = params[0];
                     String rating = params[1];
@@ -831,8 +1189,8 @@ String flag="0";
                 super.onPostExecute(s);
                 //listVieww=(ListView)findViewById(R.id.lv);
                 //  records= new ArrayList<Record>();
-              Context context=Vivsadapter.context;
-                userDbHelper3=new  recipeDbHelper(context);
+              Context context= Vivsadapter.context;
+                userDbHelper3=new recipeDbHelper(context);
                 sqLiteDatabase=userDbHelper3.getWritableDatabase();
                 try {
 if(vivsadapter.isOnline()){
@@ -967,7 +1325,7 @@ if(vivsadapter.isOnline()){
                     if(vivsadapter.isOnline()) {
                         String line, newjson = "";
 
-                        URL url = new URL("http://10.0.2.2/recipe.php");
+                        URL url = new URL("http://192.168.1.7/recipe.php");
 
                         String number = params[0];
 
