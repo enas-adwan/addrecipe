@@ -45,10 +45,10 @@
 
 
             <TextView
-                android:layout_width="253dp"
-                android:layout_height="40dp"
+                android:layout_width="244dp"
+                android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="name"
+                android:text="name contains:"
                 android:id="@+id/textViewaa"
                 android:textColor="#333131"
                 android:layout_marginTop="20dp"
@@ -57,52 +57,110 @@
 
             <EditText
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="24dp"
                 android:id="@+id/title" />
 
             <TextView
                 android:layout_width="253dp"
                 android:layout_height="40dp"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="calory"
+                android:text="calory in Kcal :"
                 android:id="@+id/textViewaahg"
                 android:textColor="#333131"
                 android:layout_marginTop="20dp"
                 android:textSize="25dp"
                 android:textStyle="normal|bold|italic" />
 
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:ems="10"
-                android:id="@+id/calory" />
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:weightSum="1">
+
+                <Spinner
+                    android:layout_width="106dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/spinner1"
+                    android:entries="@array/quan" />
+                <EditText
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:ems="10"
+                    android:id="@+id/calory" />
+            </LinearLayout>
 
             <TextView
-                android:layout_width="253dp"
+                android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="ingredient"
+                android:text=" with/without ingredient :"
                 android:id="@+id/textVihjhewaahg"
                 android:textColor="#333131"
                 android:layout_marginTop="20dp"
                 android:textSize="25dp"
                 android:textStyle="normal|bold|italic" />
-
-            <EditText
+            <LinearLayout
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/list" />
+                android:layout_marginTop="5dp">
+
+
+
+                <AutoCompleteTextView
+                    android:id="@+id/auto"
+                    android:layout_width="wrap_content"
+                    android:layout_height="53dp"
+                    android:layout_alignParentTop="true"
+                    android:ems="10"
+                    android:completionThreshold="1"
+                    android:text=""
+                    android:layout_alignParentStart="false"
+                    android:layout_weight="488010.69"
+                    android:layout_alignParentLeft="false">
+
+                    <requestFocus />
+                </AutoCompleteTextView>
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:id="@+id/getall"
+                    android:background="@null"
+                    android:src="@android:drawable/ic_menu_add"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_weight="225005.86"
+                    android:scaleType="fitCenter" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ListView
+                    android:layout_width="wrap_content"
+                    android:layout_height="29dp"
+                    android:minHeight="@dimen/abc_button_padding_horizontal_material"
+                    android:id="@+id/list_view"
+                    android:fastScrollEnabled="false"
+                    android:fastScrollAlwaysVisible="false"
+                    android:smoothScrollbar="false"
+                    android:stackFromBottom="false"
+                    android:nestedScrollingEnabled="false" />
+            </LinearLayout>
 
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <TextView
-                    android:layout_width="253dp"
-                    android:layout_height="40dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="total time"
+                    android:text="total time(Ready by):"
                     android:id="@+id/textVihjhewaahnmbmg"
                     android:textColor="#333131"
                     android:layout_marginTop="20dp"
@@ -111,16 +169,20 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Any Time"
+                android:id="@+id/totaltime" />
 
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/total" />
-            </LinearLayout>
+            <SeekBar
+                android:id="@+id/simpleSeekBar"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:max="200"
+
+                />
 
             <Button
                 android:layout_width="wrap_content"

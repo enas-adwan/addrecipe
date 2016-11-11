@@ -8,7 +8,12 @@
         <item>3/4 Cup</item>
     </string-array>
 
+    <string-array name="quan">
+        <item>less than</item>
+        <item>more than</item>
+        <item>equal</item>
 
+    </string-array>
     <string name="app_name">NavigationDrawer</string>
     <string name="hello_world">Hello world!</string>
     <string name="dummy_string">Dummy String</string>

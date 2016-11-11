@@ -103,30 +103,33 @@ public class Vivsadapter extends RecyclerView.Adapter<Vivsadapter.MasonryView>  
         holder.card.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-              if(  ShowRecipe.mRecyclerView.getTag()=="sec") {
+              if(  ShowRecipe.mRecyclerView.getTag()=="sec"||searchactivity.mRecyclerView.getTag()=="sec") {
                   String title1 = gettitle(position);
                   Toast.makeText(context, title1, Toast.LENGTH_LONG).show();
                   Intent i = new Intent(context,Sec.class);
                   i.putExtra("title", title1);
                   i.putExtra("type", "sec");
                   context.startActivity(i);
-              }else if ( Showfav.mRecyclerView.getTag()=="fav"){
-                  String title1 = gettitle(position);
-                  Toast.makeText(context, title1+"  fav", Toast.LENGTH_LONG).show();
+
+              }else if ( Showfav.mRecyclerView!=null) {
+                  if (Showfav.mRecyclerView.getTag() == "fav"){
+                      String title1 = gettitle(position);
+                  Toast.makeText(context, title1 + "  fav", Toast.LENGTH_LONG).show();
                   Intent i = new Intent(context, Sec.class);
                   i.putExtra("title", title1);
                   i.putExtra("type", "fav");
                   context.startActivity(i);
+              }
 
-
-              }else if ( ShowRecipe.mRecyclerView.getTag()=="offline"){
-                  String title1 = gettitle(position);
-                  Toast.makeText(context, title1+"  offline", Toast.LENGTH_LONG).show();
-                  Intent i = new Intent(context, Sec.class);
-                  i.putExtra("title", title1);
-                  i.putExtra("type", "offline");
-                  context.startActivity(i);
-
+              }else if ( ShowRecipe.mRecyclerView!=null){
+                  if ( ShowRecipe.mRecyclerView.getTag()=="offline") {
+                      String title1 = gettitle(position);
+                      Toast.makeText(context, title1 + "  offline", Toast.LENGTH_LONG).show();
+                      Intent i = new Intent(context, Sec.class);
+                      i.putExtra("title", title1);
+                      i.putExtra("type", "offline");
+                      context.startActivity(i);
+                  }
 
               }
 

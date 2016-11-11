@@ -23,6 +23,9 @@ public class recipeDbHelper extends SQLiteOpenHelper {
     private static final String CREATE_QUERY_desc= "CREATE TABLE IF NOT EXISTS desc (" +
             "_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
             "name TEXT) ";
+    private static final String CREATE_QUERY_search= "CREATE TABLE IF NOT EXISTS search (" +
+            "_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            "name TEXT) ";
     private static final String CREATE_QUERY_sqlite= "CREATE TABLE IF NOT EXISTS recipe (" +
             "_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
             "title TEXT, " +
@@ -80,6 +83,16 @@ public class recipeDbHelper extends SQLiteOpenHelper {
 
     return empty;
     }
+    public boolean istabledescexistsearch( SQLiteDatabase db){
+        boolean empty = true;
+        Cursor cur = db.rawQuery("SELECT COUNT(*) FROM search", null);
+        if (cur != null && cur.moveToFirst()) {
+            empty = (cur.getInt (0) == 0);
+        }
+        cur.close();
+
+        return empty;
+    }
     public void addinnformation(Float caloryNum, String name, SQLiteDatabase db){
         db.execSQL(CREATE_QUERY);
         ContentValues contentValue = new ContentValues();
@@ -96,6 +109,15 @@ public class recipeDbHelper extends SQLiteOpenHelper {
 
 
         db.insert("desc",null,contentValue);
+        Log.e("DATABASE OPERATION", "One row is insert");
+    }
+    public void addinnformationsearch( String name, SQLiteDatabase db){
+        db.execSQL(CREATE_QUERY_search);
+        ContentValues contentValue = new ContentValues();
+        contentValue.put("name",name);
+
+
+        db.insert("search",null,contentValue);
         Log.e("DATABASE OPERATION", "One row is insert");
     }
     @Override
@@ -117,6 +139,13 @@ public class recipeDbHelper extends SQLiteOpenHelper {
         cursor= db.query("desc", projections, null, null, null, null, null);
         return cursor;
     }
+    public Cursor getinformationsearch(SQLiteDatabase db){
+        Cursor cursor;
+        String[] projections={"name"};
+
+        cursor= db.query("search", projections, null, null, null, null, null);
+        return cursor;
+    }
     public Cursor getinformationid(SQLiteDatabase db){
         Cursor cursor;
         String[] projections={"_id"};
@@ -131,6 +160,14 @@ public class recipeDbHelper extends SQLiteOpenHelper {
         cursor= db.query("desc", projections, null, null, null, null, null);
         return cursor;
     }
+    public Cursor getinformationidsearch(SQLiteDatabase db){
+        Cursor cursor;
+        String[] projections={"_id"};
+
+        cursor= db.query("search", projections, null, null, null, null, null);
+        return cursor;
+    }
+
 
     public Cursor getinformation2(SQLiteDatabase db){
         Cursor cursor;
@@ -153,6 +190,14 @@ public class recipeDbHelper extends SQLiteOpenHelper {
     public void deletedesc(SQLiteDatabase db, int id) {
         String where = "_id ='" + id+"'";
         db.delete("desc", where, null);
+        Log.e("DATABASE OPERATION", "delete.");
+        // String delQuery = "DELETE FROM project WHERE name='"+name+"' ";
+
+        // db.rawQuery(delQuery , null);
+    }
+    public void deletesearch(SQLiteDatabase db, int id) {
+        String where = "_id ='" + id+"'";
+        db.delete("search", where, null);
         Log.e("DATABASE OPERATION", "delete.");
         // String delQuery = "DELETE FROM project WHERE name='"+name+"' ";
 
@@ -265,6 +310,50 @@ public class recipeDbHelper extends SQLiteOpenHelper {
 
                 }
             }
+            cursor.close();
+
+            return arrData;
+
+        } catch (Exception e) {
+            return null;
+        }
+
+    }
+    public String[] SelectAllsearch() {
+
+        // TODO Auto-generated method stub
+
+        try {
+            String arrData[] = null;
+            SQLiteDatabase db;
+            db = this.getReadableDatabase(); // Read Data
+
+
+
+            String strSQL = "SELECT name FROM search ";
+
+            strSQL +=  " ORDER BY _id DESC ";
+
+            Cursor cursor = db.rawQuery(strSQL, null);
+
+
+            if(cursor != null)
+            {
+                if (cursor.moveToFirst()) {
+                    arrData = new String[cursor.getCount()];
+                    /***
+                     *  [x] = Name
+                     */
+                    int i= 0;
+                    do {
+
+                        arrData[i] = "-"+cursor.getString(0);
+                        i++;
+                    } while (cursor.moveToNext());
+                 //   arrData[i] = "-";
+                }
+            }
+
             cursor.close();
 
             return arrData;

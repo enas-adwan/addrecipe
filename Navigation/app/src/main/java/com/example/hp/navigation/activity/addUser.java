@@ -42,7 +42,7 @@ public class addUser extends AsyncTask<String,Void,String> {
     }
     @Override
     protected String doInBackground(String... params) {
-        String login_url = "http://10.0.2.2/adduser.php";
+        String login_url = "http://192.168.1.7/adduser.php";
         try {
             String id = params[0];
             String name = params[1];

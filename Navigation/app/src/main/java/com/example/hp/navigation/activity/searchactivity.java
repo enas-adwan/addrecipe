@@ -6,7 +6,10 @@ import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -35,6 +38,8 @@ String title;
     String list;
     String total;
     String calory;
+    String qan;
+    public static RecyclerView mRecyclerView;
     public static ListView listVieww;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,9 +52,11 @@ String title;
        list=getIntent().getStringExtra("list");
        calory=getIntent().getStringExtra("calory");
        total=getIntent().getStringExtra("total");
-        //Toast.makeText(getApplicationContext(), title, Toast.LENGTH_LONG).show();
+        qan=getIntent().getStringExtra("qan");
+      Toast.makeText(getApplicationContext(), list, Toast.LENGTH_LONG).show();
+        Log.e("DATABASE OPERATION", list);
       //  listVieww=(ListView)findViewById(R.id.lv);
-      jso(title,calory,list,total);
+      jso(title,calory,list,total,qan);
         /*  FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,7 +66,7 @@ String title;
             }
         });*/
     }
-    public void jso(String title,String calory,String list,String total) {
+    public void jso(String title,String calory,String list,String total,String qan1) {
 
 
         class RegisterUser extends AsyncTask<String, Void, String> {
@@ -104,49 +111,74 @@ String title;
                 //  records= new ArrayList<Record>();
 
                 try {
-                    userDbHelper3=new  recipeDbHelper(getApplicationContext());
-                    sqLiteDatabase=userDbHelper3.getWritableDatabase();
 
                     // Text.setText(s);
                     //  Toast.makeText(getApplicationContext(), "Hello", Toast.LENGTH_SHORT).show();
+//
                     JSONObject jObj = new JSONObject(s);
                     String j = jObj.toString();
-                    JSONArray itemm = jObj.getJSONArray("result");
+                    JSONArray itemm = jObj.getJSONArray("result1");
                     String item = itemm.toString();
 
                     for (int i = 0; i < itemm.length(); i++) {
                         JSONObject c = itemm.getJSONObject(i);
                         title = c.getString("title");
-                      //  names.add(title);
+
                         id = c.getInt("id");
                         image = c.getString("image");
                         rating = c.getString("rating");
-
                         // byte[] qrimage = Base64.decode(image.getBytes(), i);
                         //bmp = BitmapFactory.decodeByteArray(qrimage, 0, qrimage.length);
-                        record = new Record(title, id,image,rating);
+                        record = new Record(title, id, image, rating);
 
 
                         records.add(record);
 
-
-
-
-
-
+                        //                 String item = itemm.toString();
+                        //Log.e("DATABASE OPERATION", "Table create..." + s);
+                       // Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
                     }
-                    vivsadapter = new Vivsadapter(searchactivity.this,records);
-               //     listVieww.setAdapter(vivsadapter);
-                    listVieww.setItemsCanFocus(true);
-                    listVieww.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Vivsadapter adapter = new Vivsadapter(searchactivity.this,records);
+                    mRecyclerView = (RecyclerView) findViewById(R.id.masonry_grid);
 
-                            Intent i=new Intent(searchactivity.this,Sec.class);
-                            i.putExtra("title",vivsadapter.gettitle(position));
-                            startActivity(i);
-                        }
-                    });
+
+
+
+                    //mRecyclerView.addItemDecoration(new SpacesItemDecoration(ShowRecipe.this, StaggeredGridLayoutManager.VERTICAL));
+                    mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+                    SpacesItemDecoration decoration = new SpacesItemDecoration(100);
+
+                    mRecyclerView.addItemDecoration(decoration);
+                    mRecyclerView.setTag("sec");
+                    adapter.notifyDataSetChanged();
+                    mRecyclerView.setAdapter(adapter);
+                    //JSONArray itemm = jObj.getJSONArray("result");
+                  //  String item = itemm.toString();
+
+                  //  for (int i = 0; i < itemm.length(); i++) {
+                    //    JSONObject c = itemm.getJSONObject(i);
+                      //  title = c.getString("title");
+                      //  names.add(title);
+                      //  id = c.getInt("id");
+                       // image = c.getString("image");
+                     //   rating = c.getString("rating");
+
+                        // byte[] qrimage = Base64.decode(image.getBytes(), i);
+                        //bmp = BitmapFactory.decodeByteArray(qrimage, 0, qrimage.length);
+                      //  record = new Record(title, id,image,rating);
+
+
+                      //  records.add(record);
+
+
+
+
+
+
+                   // }
+                  //  Vivsadapter adapter = new Vivsadapter(searchactivity.this,records);
+
+
 
                      /*   JSONObject list = jObj.getJSONObject("list");
                         String item = list.toString();
@@ -187,19 +219,22 @@ String title;
                 try {
                     String line, newjson = "";
 
-                    URL url = new URL("http://10.0.2.2/recipe.php");
+                    URL url = new URL("http://10.0.2.2/searchmulti.php");
 
                     String number = params[0];
 
-
+                    String calory = params[1];
+                    String list= params[2];
+                    String total= params[3];
+                    String qan= params[4];
                     HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
                     httpURLConnection.setRequestMethod("POST");
                     httpURLConnection.setDoOutput(true);
                     httpURLConnection.setDoInput(true);
                     OutputStream outputStream = httpURLConnection.getOutputStream();
                     BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
-                    String post_data = URLEncoder.encode("title","UTF-8")+"="+ URLEncoder.encode(number,"UTF-8");
-
+                    String post_data = URLEncoder.encode("title","UTF-8")+"="+ URLEncoder.encode(number,"UTF-8")+"&"+ URLEncoder.encode("calory","UTF-8")+"="+ URLEncoder.encode(calory,"UTF-8")+"&"+ URLEncoder.encode("list","UTF-8")+"="+ URLEncoder.encode(list,"UTF-8")+"&"+ URLEncoder.encode("total","UTF-8")+"="+ URLEncoder.encode(total,"UTF-8")+"&"+ URLEncoder.encode("qan","UTF-8")+"="+ URLEncoder.encode(qan,"UTF-8");
+                   //Toast.makeText(getApplicationContext(),post_data, Toast.LENGTH_LONG).show();
                     bufferedWriter.write(post_data);
                     bufferedWriter.flush();
                     bufferedWriter.close();
@@ -221,7 +256,7 @@ String title;
 
                 } catch (Exception e) {
                     e.printStackTrace();
-                    //Toast.makeText(getApplicationContext(), "fail", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "fail", Toast.LENGTH_LONG).show();
 
                     return "false";
                 }
@@ -232,7 +267,7 @@ String title;
 
 
         RegisterUser ru = new RegisterUser();
-        ru.execute(title,calory,list,total);
+        ru.execute(title,calory,list,total,qan1);
 
 
     }
