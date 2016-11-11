@@ -105,7 +105,7 @@ public class AddRecipe extends BaseActivity {
          * Setting title and itemChecked
          */
         mDrawerList.setItemChecked(position, true);
-        setTitle(listArray[position]);
+        //setTitle(listArray[position]);
         db = new DataBaseHelper(this);
 
         db.getWritableDatabase();

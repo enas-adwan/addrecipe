@@ -129,6 +129,7 @@ public class BaseActivity extends ActionBarActivity {
 		_items.add(new Items("Logout", "Item Five Description", R.drawable.item_5));
 		_items.add(new Items("edit profile", "Item six Description", R.drawable.item_5));
 		_items.add(new Items("search filter", "Item six Description", R.drawable.item_5));
+		_items.add(new Items("calory tracking", "Item six Description", R.drawable.item_5));
 		
 		//Adding header on list view 
 		View header = (View)getLayoutInflater().inflate(R.layout.list_view_header_layout, null);
@@ -257,6 +258,9 @@ actionBarDrawerToggle.syncState();
 				break;
 			case 7:
 				startActivity(new Intent(this, searchfilter.class));
+				break;
+			case 8:
+				startActivity(new Intent(this, HealthAdvicer.class));
 				break;
 		default:
 			break;

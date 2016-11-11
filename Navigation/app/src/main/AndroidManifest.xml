@@ -90,6 +90,9 @@
             android:name="com.example.hp.navigation.activity.Showonefav"
             android:label="@string/title_activity_showonefav" />
         <activity
+            android:name="com.example.hp.navigation.activity.HealthAdvicer"
+            android:label="HealthAdvicer" />
+        <activity
             android:name="com.example.hp.navigation.activity.Showonesqliteoffline"
             android:label="@string/title_activity_showonesqliteoffline" />
         <activity android:name="com.example.hp.navigation.activity.HomeActivity" />

@@ -95,7 +95,7 @@ String flag="0";
          * Setting title and itemChecked
          */
         mDrawerList.setItemChecked(position, true);
-        setTitle(listArray[position]);
+        //setTitle(listArray[position]);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         b = (Button) findViewById(R.id.totalbutton);
         share = (ImageButton) findViewById(R.id.share);
@@ -112,7 +112,7 @@ String flag="0";
         Username= (TextView) findViewById(R.id.username);
         i= new Intent(getApplicationContext(), MyService.class);
         Toast.makeText(getApplicationContext(), title, Toast.LENGTH_LONG).show();
-        if(getIntent().getStringExtra("type").equalsIgnoreCase("sec")){
+        if(getIntent().getStringExtra("type").equalsIgnoreCase("sec")||getIntent().getStringExtra("type").equalsIgnoreCase("search")){
             Toast.makeText(getApplicationContext(), "sec", Toast.LENGTH_LONG).show();
         jso(title);
 
