@@ -22,8 +22,11 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.MediaController;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.VideoView;
 
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -64,17 +67,21 @@ public class Sec extends BaseActivity {
     public String all="";
     public TextView T;
     public Bitmap bmp;
-public  ImageView imagevieww;
+    public  ImageView imagevieww;
+    private int position = 0;
+    private MediaController mediaController;
+    VideoView vidView;
     BroadcastReceiver receiver;
     public static final String mBroadcastStringAction = "com.truiton.broadcast.string";
     private final static String TAG = "BroadcastService";
    public Intent i;
-String flag="0";
+   String flag="0";
     int ii;
     CountDownTimer countdown= null;;
     public MediaPlayer mp;
     recipeDbHelper userDbHelper2;
     SQLiteDatabase sqLiteDatabase;
+    LinearLayout videoLayout;
     Cursor cursor;
     Cursor cursor1;
     Cursor cursor2;
@@ -95,12 +102,50 @@ String flag="0";
          * Setting title and itemChecked
          */
         mDrawerList.setItemChecked(position, true);
-        //setTitle(listArray[position]);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setTitle(listArray[position]);
+       // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         b = (Button) findViewById(R.id.totalbutton);
         share = (ImageButton) findViewById(R.id.share);
      imagevieww = (ImageView) findViewById(R.id.imagev);
-       // Go = (Button) findViewById(R.id.go);
+        vidView = (VideoView)findViewById(R.id.myVideo);
+         videoLayout=(LinearLayout)this.findViewById(R.id.videolayout);
+        // Set the media controller buttons
+        if (mediaController == null) {
+            mediaController = new MediaController(Sec.this);
+
+            // Set the videoView that acts as the anchor for the MediaController.
+            mediaController.setAnchorView(vidView);
+
+
+            // Set MediaController for VideoView
+            vidView.setMediaController(mediaController);
+        }
+
+        // When the video file ready for playback.
+        vidView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+
+            public void onPrepared(MediaPlayer mediaPlayer) {
+
+
+                vidView.seekTo(position);
+                if (position == 0) {
+                    vidView.start();
+                }
+
+                // When video Screen change size.
+                mediaPlayer.setOnVideoSizeChangedListener(new MediaPlayer.OnVideoSizeChangedListener() {
+                    @Override
+                    public void onVideoSizeChanged(MediaPlayer mp, int width, int height) {
+
+                        // Re-Set the videoView that acts as the anchor for the MediaController
+                        mediaController.setAnchorView(vidView);
+
+                    }
+                });
+            }
+        });
+
+        // Go = (Button) findViewById(R.id.go);
         title=getIntent().getStringExtra("title");
         titl = (TextView) findViewById(R.id.title1);
         calor = (TextView) findViewById(R.id.calory1);
@@ -112,7 +157,7 @@ String flag="0";
         Username= (TextView) findViewById(R.id.username);
         i= new Intent(getApplicationContext(), MyService.class);
         Toast.makeText(getApplicationContext(), title, Toast.LENGTH_LONG).show();
-        if(getIntent().getStringExtra("type").equalsIgnoreCase("sec")||getIntent().getStringExtra("type").equalsIgnoreCase("search")){
+        if(getIntent().getStringExtra("type").equalsIgnoreCase("sec")){
             Toast.makeText(getApplicationContext(), "sec", Toast.LENGTH_LONG).show();
         jso(title);
 
@@ -536,6 +581,29 @@ String flag="0";
             long millisUntilFinished = intent.getLongExtra("count", 0);
             Log.i(TAG, "Countdown : " +  millisUntilFinished / 1000);
         }*/
+
+
+    }
+    // When you change direction of phone, this method will be called.
+    // It store the state of video (Current position)
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+
+        // Store current position.
+        savedInstanceState.putInt("CurrentPosition", vidView.getCurrentPosition());
+        vidView.pause();
+    }
+
+
+    // After rotating the phone. This method is called.
+    @Override
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        // Get saved position.
+        position = savedInstanceState.getInt("CurrentPosition");
+        vidView.seekTo(position);
     }
     @Override
     protected void onStop() {
@@ -570,6 +638,7 @@ String flag="0";
             public String desc = "";
             public String total = "";
             public String image = "";
+            public String video = "";
             public String list = "";
             public String User = "";
             public Integer id;
@@ -605,7 +674,7 @@ String flag="0";
                 super.onPostExecute(s);
                 //listVieww=(ListView)findViewById(R.id.lv);
               //  records= new ArrayList<Record>();
-
+Log.d("result",s);
                 try {
                     userDbHelper3=new recipeDbHelper(getApplicationContext());
                     sqLiteDatabase=userDbHelper3.getWritableDatabase();
@@ -626,6 +695,7 @@ String flag="0";
                         total = c.getString("total");
                         cook = c.getString("cook");
                         image = c.getString("image");
+                        video=c.getString("video");
                         rating = c.getString("rating");
                         photo = c.getString("photo");
                         User = c.getString("username");
@@ -658,6 +728,7 @@ String flag="0";
 
                         }
 
+
                        // File f3=new File(Environment.getExternalStorageDirectory()+"/inpaint/"+"seconds"+".png");
                        // if(!f3.exists()){
                          //   f3.createNewFile();
@@ -689,6 +760,17 @@ String flag="0";
 
 
 
+                    }
+                    video=video.trim();
+                    if(video.equals("no video")){
+                        videoLayout.setVisibility(LinearLayout.GONE);
+                    }
+                    else {
+                        String vidAddress = "http://10.0.2.2/upload/" + video;
+                        Uri vidUri = Uri.parse(vidAddress);
+                        vidView.setVideoURI(vidUri);
+
+                        vidView.requestFocus();
                     }
                    titl.setText(title);
                     des.setText(alldesc);
@@ -843,7 +925,7 @@ String flag="0";
 
 // Share
                       ShareLinkContent content = new ShareLinkContent.Builder()
-                               .setContentUrl(Uri.parse("http://192.168.1.7/share.php?recipeName="+title)).setContentTitle(title).setContentDescription("calory: "+calo).setImageUrl(Uri.parse("http://192.168.1.7/androidimages/"+photo))//.setImageUrl(Uri.fromFile(file))//.setImageUrl(Uri.parse("http://192.168.1.7/androidimages/IMG_1474711234.jpg"))//.setImageUrl(Uri.fromFile(new File(Environment.getExternalStorageDirectory()+"/inpaint/"+"seconds"+".png")))
+                               .setContentUrl(Uri.parse("http://10.0.2.2/share.php?recipeName="+title)).setContentTitle(title).setContentDescription("calory: "+calo).setImageUrl(Uri.parse("http://10.0.2.2/androidimages/"+photo))//.setImageUrl(Uri.fromFile(file))//.setImageUrl(Uri.parse("http://192.168.1.7/androidimages/IMG_1474711234.jpg"))//.setImageUrl(Uri.fromFile(new File(Environment.getExternalStorageDirectory()+"/inpaint/"+"seconds"+".png")))
                               .build();
 
                         shareDialog.show(Sec.this,content);
@@ -896,7 +978,7 @@ String flag="0";
                 try {
                     String line, newjson = "";
 
-                    URL url = new URL("http://192.168.1.7/recipe.php");
+                    URL url = new URL("http://10.0.2.2/recipe.php");
 
                     String number = params[0];
 
@@ -1095,7 +1177,7 @@ String flag="0";
                 try {
                     String line, newjson = "";
 
-                    URL url = new URL("http://192.168.1.7/reciperating.php");
+                    URL url = new URL("http://10.0.2.2/reciperating.php");
 
                     String number = params[0];
                     String rating = params[1];
@@ -1325,7 +1407,7 @@ if(vivsadapter.isOnline()){
                     if(vivsadapter.isOnline()) {
                         String line, newjson = "";
 
-                        URL url = new URL("http://192.168.1.7/recipe.php");
+                        URL url = new URL("http://10.0.2.2/recipe.php");
 
                         String number = params[0];
 

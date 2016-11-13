@@ -9,9 +9,38 @@
 	<LinearLayout android:layout_height="wrap_content"
 		android:orientation="vertical" android:layout_width="fill_parent"
 		android:id="@+id/linearLayout1" android:padding="10sp">
+		<TextView android:id="@+id/textVie" android:layout_height="wrap_content"
+			android:text="What is your goal ?" android:layout_width="wrap_content"
+			android:layout_weight="1"
+			android:layout_marginTop="5dp"
+			android:textSize="@dimen/abc_action_bar_icon_vertical_padding_material"></TextView>
+
+
+		<Spinner
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:entries="@array/goal"
+			android:id="@+id/spinner" />
+
+		<TextView android:id="@+id/textView" android:layout_height="wrap_content"
+			android:text="What is your activity level ?" android:layout_width="wrap_content"
+			android:layout_weight="1"
+			android:layout_marginTop="5dp"
+			android:textSize="@dimen/abc_action_bar_icon_vertical_padding_material"></TextView>
+
+
+		<Spinner
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:entries="@array/activity"
+			android:id="@+id/spinner1" />
+
+
 		<TextView android:id="@+id/textView1" android:layout_height="wrap_content"
 			android:text="Weight (in Kg)" android:layout_width="wrap_content"
-			android:layout_weight="1"></TextView>
+			android:layout_weight="1"
+			android:layout_marginTop="5dp"
+			android:textSize="@dimen/abc_action_bar_icon_vertical_padding_material"></TextView>
 
 		<EditText android:layout_height="wrap_content"
 			android:layout_width="fill_parent" android:id="@+id/weight"
@@ -19,7 +48,8 @@
 
 		<TextView android:id="@+id/textView2" android:layout_height="wrap_content"
 			android:text="Height (in cm)" android:layout_width="wrap_content"
-			android:layout_weight="1"></TextView>
+			android:layout_weight="1"
+			android:textSize="@dimen/abc_action_bar_icon_vertical_padding_material"></TextView>
 
 		<EditText android:layout_height="wrap_content"
 			android:layout_width="fill_parent" android:id="@+id/height"
@@ -27,40 +57,49 @@
 
 		<TextView android:id="@+id/textView3" android:layout_height="wrap_content"
 			android:text="Age" android:layout_width="wrap_content"
-			android:layout_weight="1"></TextView>
+			android:layout_weight="1"
+			android:textSize="@dimen/abc_action_bar_icon_vertical_padding_material"></TextView>
 
 		<EditText android:layout_height="wrap_content"
 			android:layout_width="fill_parent" android:id="@+id/age"
 			android:layout_weight="1" android:inputType="number"></EditText>
 
 		<RadioGroup android:layout_width="wrap_content" android:id="@+id/gender"
-            android:layout_height="wrap_content" android:orientation="horizontal">
-            <RadioButton android:text="Male"
-                android:layout_height="wrap_content" android:id="@+id/male"
-                android:layout_width="wrap_content" android:checked="true"></RadioButton>
-            <RadioButton android:text="Female"
-                android:layout_height="wrap_content" android:id="@+id/female"
-                android:layout_width="wrap_content"></RadioButton>
+			android:layout_height="wrap_content" android:orientation="horizontal">
+			<RadioButton android:text="Male"
+				android:layout_height="wrap_content" android:id="@+id/male"
+				android:layout_width="wrap_content" android:checked="true"></RadioButton>
+			<RadioButton android:text="Female"
+				android:layout_height="wrap_content" android:id="@+id/female"
+				android:layout_width="wrap_content"></RadioButton>
 
 		</RadioGroup>
 
 		<Button android:text="Calculate" android:id="@+id/button1"
-android:layout_width="wrap_content" android:layout_height="wrap_content"></Button>
+			android:layout_width="fill_parent" android:layout_height="wrap_content"
+			android:background="#d2c9c9"
+			android:layout_marginTop="10dp"></Button>
 
 		<LinearLayout android:layout_height="wrap_content" android:orientation="vertical"
-            android:layout_width="fill_parent" android:id="@+id/linearLayout3"
-            android:gravity="center" android:visibility="invisible"
-			android:layout_marginTop="100dp">
-            <LinearLayout android:layout_width="wrap_content" android:id="@+id/linearLayout5" android:layout_height="fill_parent">
-                <TextView android:layout_width="wrap_content" android:text="Your BMI is: " android:id="@+id/textView4" android:layout_height="wrap_content"></TextView>
-                <TextView android:layout_width="wrap_content" android:text="TextView" android:id="@+id/bmi_index" android:layout_height="wrap_content"></TextView>
-            </LinearLayout>
-            <LinearLayout android:layout_width="wrap_content" android:id="@+id/linearLayout4" android:layout_height="fill_parent">
-                <TextView android:layout_width="wrap_content" android:text="Your BMR is: " android:id="@+id/textView5" android:layout_height="wrap_content"></TextView>
-                <TextView android:layout_width="wrap_content" android:text="TextView" android:id="@+id/bmr_index" android:layout_height="wrap_content"></TextView>
-            </LinearLayout>
-        </LinearLayout>
+			android:layout_width="fill_parent" android:id="@+id/linearLayout3"
+			android:gravity="center" android:visibility="invisible"
+			android:layout_marginTop="10dp">
+			<LinearLayout android:layout_width="wrap_content" android:id="@+id/linearLayout5" android:layout_height="fill_parent">
+				<TextView android:layout_width="wrap_content" android:text="Your BMI is: " android:id="@+id/textView4" android:layout_height="wrap_content"
+					android:textColor="#703e3e"></TextView>
+				<TextView android:layout_width="wrap_content" android:text="TextView" android:id="@+id/bmi_index" android:layout_height="wrap_content"
+					android:textColor="#703e3e"></TextView>
+			</LinearLayout>
+			<LinearLayout android:layout_width="wrap_content" android:id="@+id/linearLayout4" android:layout_height="fill_parent">
+				<TextView android:layout_width="wrap_content" android:text="Daily calory needed :" android:id="@+id/textView5" android:layout_height="wrap_content"
+					android:textColor="#703e3e"></TextView>
+				<TextView android:layout_width="wrap_content" android:text="TextView" android:id="@+id/bmr_index" android:layout_height="wrap_content"
+					android:textColor="#703e3e"></TextView>
+			</LinearLayout>
+		</LinearLayout>
 
 	</LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>
+
+

@@ -198,6 +198,23 @@
                 android:layout_marginLeft="40dp"
                 android:layout_marginRight="70dp"
                 android:scaleType="centerCrop" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Choose File"
+                android:id="@+id/button" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/text1"
+                />
+
         </LinearLayout>
         <LinearLayout
             android:orientation="horizontal"

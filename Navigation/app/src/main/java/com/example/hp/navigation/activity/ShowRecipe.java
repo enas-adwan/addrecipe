@@ -11,6 +11,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -55,7 +56,7 @@ public class ShowRecipe extends BaseActivity {
          * Setting title and itemChecked
          */
         mDrawerList.setItemChecked(position, true);
-        //setTitle(listArray[position]);
+        setTitle(listArray[position]);
         mRecyclerView = (RecyclerView) findViewById(R.id.masonry_grid);
        // listVieww=(ListView)findViewById(R.id.lv);
         //  Text = (TextView) findViewById(R.id.text);
@@ -189,6 +190,7 @@ String rating=cursor4.getString(0);
             @Override
             public void onPostExecute(String s) {
                 super.onPostExecute(s);
+                Log.d("show recipe ",s);
                // listVieww=(ListView)findViewById(R.id.lv);
                 records= new ArrayList<Record>();
 
@@ -229,7 +231,6 @@ String rating=cursor4.getString(0);
                         //mRecyclerView.addItemDecoration(new SpacesItemDecoration(ShowRecipe.this, StaggeredGridLayoutManager.VERTICAL));
                         mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
                         SpacesItemDecoration decoration = new SpacesItemDecoration(100);
-
                         mRecyclerView.addItemDecoration(decoration);
                         mRecyclerView.setTag("sec");
                         adapter.notifyDataSetChanged();
@@ -287,7 +288,7 @@ String rating=cursor4.getString(0);
 
                 try {
                     String line, newjson = "";
-                    URL urls = new URL("http://192.168.1.7/showrecipe.php");
+                    URL urls = new URL("http://10.0.2.2/showrecipe.php");
                     try (BufferedReader reader = new BufferedReader(new InputStreamReader(urls.openStream(), "UTF-8"))) {
                         while ((line = reader.readLine()) != null) {
                             newjson += line;

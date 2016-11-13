@@ -10,12 +10,14 @@ $total= $_POST['total'];
 
 $list=$_POST['list'] ;
 $qan=$_POST['qan'] ;
-//$title  = '';
-//$calory='';
+$c=$_POST['chief'] ;
+//$title  = 'enas';
+//$calory='40000';
 //$total= '';
 
-//$list='' ;
-//$qan='more' ;
+//$list='[-BUTTER,WITH SALT, -BUTTER,WITH SALT]' ;
+//$qan='less' ;
+//$c='Enas' ;
 $list=trim($list, "]");
 //$calory=trim($calory, '"');
 //$calory=trim($calory, "'");
@@ -56,8 +58,8 @@ $sql .="WHERE ";
 		if($list!=''){
 		if(count($listarray)>2){
 			if($title!=''||$calory!=''){
-			$sql .="AND"
-		;}
+			$sql .=" AND";
+		}
 		
 		for($i=1;$i<count($listarray);$i++){
 			if($i>1){
@@ -89,10 +91,31 @@ $lista=trim($listarray[$i]);
 		}
 			if($total!=''){
 				if($title!=''||$calory!=''||count($listarray)>2){
-		$sql .="AND";}
+		$sql .=" AND";}
 		$sql .=" total<'".$total."'";}
 		
+		if($c!=''){
+if($title!=''||$calory!=''||count($listarray)>2||$total!=''){
+$sql .=" AND";
 
+}
+$sql1 = "SELECT * FROM project where name LIKE '%".$c."%' ";
+$r1 = $conn->query($sql1);
+while($res1=mysqli_fetch_array($r1)){
+$email=$res1['email'];
+$face_id=$res1['face_id'];
+if($email!=""&&$email!=null){
+	$sql .=" user_key = '".$email."'";
+}else if($face_id!=""&&$face_id!=null){
+$sql .=" face_id = '".$face_id."'";
+
+}
+
+
+
+}
+
+}
 
 
 
@@ -122,9 +145,10 @@ $im = file_get_contents('androidimages/'.$res['image']);
 	}
 
 			echo json_encode(array("result1"=>$result1));
+echo $sql ;
 
 		mysqli_close($conn);
-		//echo $sql;
+	
 
 //}
 

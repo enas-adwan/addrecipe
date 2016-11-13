@@ -13,8 +13,8 @@ public class recipeDbHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME="project";
     private static final int DATABASE_VERSION=5;
-   // private static final String CREATE_QUERY="CREATE TABLE "+ ShowCalory.NewrecipeInfo.TABLE_NAME+"("+
-        //    ShowCalory.NewrecipeInfo.recipe_calory+" FLOAT );";
+    // private static final String CREATE_QUERY="CREATE TABLE "+ ShowCalory.NewrecipeInfo.TABLE_NAME+"("+
+    //    ShowCalory.NewrecipeInfo.recipe_calory+" FLOAT );";
     private static final String CREATE_QUERY= "CREATE TABLE IF NOT EXISTS project (" +
             "_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
             "name TEXT, " +
@@ -74,14 +74,14 @@ public class recipeDbHelper extends SQLiteOpenHelper {
         Log.e("DATABASE OPERATION", "Table create..."+CREATE_QUERY);
     }
     public boolean istabledescexist( SQLiteDatabase db){
-    boolean empty = true;
-    Cursor cur = db.rawQuery("SELECT COUNT(*) FROM desc", null);
-    if (cur != null && cur.moveToFirst()) {
-        empty = (cur.getInt (0) == 0);
-    }
-    cur.close();
+        boolean empty = true;
+        Cursor cur = db.rawQuery("SELECT COUNT(*) FROM desc", null);
+        if (cur != null && cur.moveToFirst()) {
+            empty = (cur.getInt (0) == 0);
+        }
+        cur.close();
 
-    return empty;
+        return empty;
     }
     public boolean istabledescexistsearch( SQLiteDatabase db){
         boolean empty = true;
@@ -182,9 +182,9 @@ public class recipeDbHelper extends SQLiteOpenHelper {
         String where = "_id ='" + id+"'";
         db.delete("project", where, null);
         Log.e("DATABASE OPERATION", "delete.");
-   // String delQuery = "DELETE FROM project WHERE name='"+name+"' ";
+        // String delQuery = "DELETE FROM project WHERE name='"+name+"' ";
 
-   // db.rawQuery(delQuery , null);
+        // db.rawQuery(delQuery , null);
     }
 
     public void deletedesc(SQLiteDatabase db, int id) {
@@ -216,9 +216,9 @@ public class recipeDbHelper extends SQLiteOpenHelper {
     public void drop(SQLiteDatabase db) {
 
         Log.e("droppp", "drop");
-    db.execSQL("DROP TABLE IF EXISTS project");
+        db.execSQL("DROP TABLE IF EXISTS project");
 
-}
+    }
     public void dropdesc(SQLiteDatabase db) {
 
         Log.e("droppp", "drop");
@@ -350,7 +350,7 @@ public class recipeDbHelper extends SQLiteOpenHelper {
                         arrData[i] = "-"+cursor.getString(0);
                         i++;
                     } while (cursor.moveToNext());
-                 //   arrData[i] = "-";
+                    //   arrData[i] = "-";
                 }
             }
 
@@ -412,8 +412,8 @@ public class recipeDbHelper extends SQLiteOpenHelper {
             Log.e("DATABASE OPERATION", "One row is insert");
             cursor.close();
         }else{
-        cursor.close();
-        Log.e("DATABASE OPERATION", "not insert");}
+            cursor.close();
+            Log.e("DATABASE OPERATION", "not insert");}
 
     }
     public Cursor getinformationsqlite(SQLiteDatabase db){
@@ -581,11 +581,7 @@ public class recipeDbHelper extends SQLiteOpenHelper {
 
 }
 /*
-
-
  layoutHandler.deleteBtn = (ImageButton)row.findViewById(R.id.trash);
-
-
             layoutHandler.deleteBtn.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View v) {
@@ -596,14 +592,11 @@ public class recipeDbHelper extends SQLiteOpenHelper {
                    //return list.get(position);
                     //do something
                     //AdapterContextMenuInfo aInfo = (AdapterContextMenuInfo) item.getMenuInfo();
-
                     list.remove(position); //or some other task
                     recipeDbHelper userDbHelper;
                     userDbHelper=new  recipeDbHelper(getContext());
-
                     sqLiteDatabase=userDbHelper.getWritableDatabase();
                    userDbHelper.delete(sqLiteDatabase,m);
-
                     notifyDataSetChanged();
                     Toast.makeText(getContext(), "deleted"  , Toast.LENGTH_LONG).show();
                 }

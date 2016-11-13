@@ -76,6 +76,7 @@ public class searchfilter extends BaseActivity {
     public String total = "";
     public Button Search;
     public  TextView Text;
+    public  TextView Chief;
     public String[] myDataadesc;
     recipeDbHelper userDbHelper3;
     String val="";
@@ -83,13 +84,14 @@ public class searchfilter extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_searchfilter);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        getLayoutInflater().inflate(R.layout.activity_searchfilter, frameLayout);
+        mDrawerList.setItemChecked(position, true);
+        setTitle("search filter ");
         titl = (TextView) findViewById(R.id.title);
         Text= (TextView) findViewById(R.id.totaltime);
         calor = (TextView) findViewById(R.id.calory);
-       // lis = (TextView) findViewById(R.id.list);
+        Chief=(TextView) findViewById(R.id.chief);
+        // lis = (TextView) findViewById(R.id.list);
         spinner1 = (Spinner) findViewById(R.id.spinner1);
 
         String quintity= String.valueOf(spinner1.getSelectedItem());
@@ -97,8 +99,8 @@ public class searchfilter extends BaseActivity {
         switch(quintity){
 
             case "less than":
-        qan="less";
-        break;
+                qan="less";
+                break;
             case "more than":
                 qan="more";
                 break;
@@ -106,8 +108,8 @@ public class searchfilter extends BaseActivity {
                 qan="equal";
                 break;
         }
-       // tota = (TextView) findViewById(R.id.total);
-       Search = (Button) findViewById(R.id.search);
+        // tota = (TextView) findViewById(R.id.total);
+        Search= (Button) findViewById(R.id.search);
         autoCom = (AutoCompleteTextView) findViewById(R.id.auto);
         final DBManager myDb = new DBManager(searchfilter.this);
         autoCom.addTextChangedListener(new TextWatcher() {
@@ -147,7 +149,7 @@ public class searchfilter extends BaseActivity {
 
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 progressChangedValue = progress;
-                 val=String.valueOf(progressChangedValue);
+                val=String.valueOf(progressChangedValue);
                 Text.setText("total time < "+val + " Min");
             }
 
@@ -160,7 +162,7 @@ public class searchfilter extends BaseActivity {
                         Toast.LENGTH_SHORT).show();
             }
         });
-       Getall = (ImageButton) findViewById(R.id.getall);
+        Getall = (ImageButton) findViewById(R.id.getall);
 
         Getall.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -196,22 +198,19 @@ public class searchfilter extends BaseActivity {
 
 
                     }while (cursor2.moveToNext()&&cursor.moveToNext());
-
                 }
-
                 setListViewHeightBasedOnItems(listV);
                 // jso1(numberAsString);
-
             }
 
         });
         Search.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
-
                 title=titl.getText().toString();
+                String ch=Chief.getText().toString();
                 calory=  calor.getText().toString();
-//                total=  tota.getText().toString();
-//                list=  lis.getText().toString();
+//              total=  tota.getText().toString();
+//              list=  lis.getText().toString();
                 Intent i=new Intent(searchfilter.this,searchactivity.class);
                 i.putExtra("title", title);
                 i.putExtra("calory", calory);
@@ -219,9 +218,10 @@ public class searchfilter extends BaseActivity {
                 sqLiteDatabase=userDbHelper3.getWritableDatabase();
                 myDataadesc = userDbHelper3.SelectAllsearch();
                 list=(Arrays.toString(myDataadesc));
-               i.putExtra("list", list);
+                i.putExtra("list", list);
                 i.putExtra("total", val);
                 i.putExtra("qan", qan);
+                i.putExtra("ch", ch);
                 i.putExtra("type", "search");
                 startActivity(i);
                 // String m=b.getText().toString();

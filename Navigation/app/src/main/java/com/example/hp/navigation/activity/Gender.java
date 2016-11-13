@@ -17,9 +17,9 @@ public enum Gender {
 		this.ageFactor = ageFactor;
 	}
 
-	public Double calculateBMR(Double weight, Double height, Integer age) {
-		return sumFactor + (weightFactor * weight) + (heightFactor * height)
-				- (ageFactor * age);
+	public Double calculateBMR(Double weight, Double height, Integer age,Double active) {
+		return (sumFactor + (weightFactor * weight) + (heightFactor * height)
+				- (ageFactor * age)) * active ;
 	}
 
 }

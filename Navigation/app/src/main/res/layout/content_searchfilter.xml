@@ -57,7 +57,7 @@
 
             <EditText
                 android:layout_width="match_parent"
-                android:layout_height="24dp"
+                android:layout_height="wrap_content"
                 android:id="@+id/title" />
 
             <TextView
@@ -183,6 +183,23 @@
                 android:max="200"
 
                 />
+
+
+            <TextView
+                android:layout_width="244dp"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Chief Name:"
+                android:id="@+id/chhmief"
+                android:textColor="#333131"
+                android:layout_marginTop="20dp"
+                android:textSize="25dp"
+                android:textStyle="normal|bold|italic" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/chief" />
 
             <Button
                 android:layout_width="wrap_content"

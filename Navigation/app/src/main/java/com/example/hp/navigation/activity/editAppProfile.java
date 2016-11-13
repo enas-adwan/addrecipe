@@ -229,7 +229,7 @@ public class editAppProfile extends BaseActivity {
                                                        class save extends AsyncTask<String, Void, String> {
                                                            SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
                                                            String user=pref.getString("user_email","");
-                                                           addphprecipe ruc = new addphprecipe();
+                                                           editProfileHelper ruc = new editProfileHelper();
                                                            @Override
                                                            protected void onPreExecute() {
                                                                super.onPreExecute();

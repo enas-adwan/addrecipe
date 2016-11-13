@@ -3,8 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.hp.navigation.activity.MainActivity"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:fitsSystemWindows="true">
+    android:layout_height="fill_parent">
 
     <LinearLayout
         android:orientation="vertical"

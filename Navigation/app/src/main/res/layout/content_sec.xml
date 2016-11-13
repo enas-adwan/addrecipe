@@ -4,6 +4,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.example.hp.navigation.activity.Sec"
+    tools:showIn="@layout/activity_sec"
     android:layout_height="wrap_content"
     android:id="@+id/scrollView2" >
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -15,9 +18,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.example.hp.navigation.activity.Sec"
-    tools:showIn="@layout/activity_sec"
+
     android:background="#f1eeee"
     android:orientation="vertical">
 
@@ -284,9 +285,41 @@
                 android:id="@+id/textView12" />
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/videolayout"
+            android:orientation="vertical"
+            android:layout_width="152dp"
+            android:layout_height="200dp"
+            android:weightSum="1"
+            android:layout_marginLeft="10dp">
+            <TextView
+                android:layout_width="253dp"
+                android:layout_height="40dp"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Recipe video :"
+                android:id="@+id/tekxtVihjhewaahg"
+                android:textColor="#333131"
+                android:layout_marginTop="20dp"
+                android:textSize="25dp"
+                android:textStyle="normal|bold|italic" />
+
+            <FrameLayout
+                android:id="@+id/videoViewWrapper"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true" >
+                <VideoView
+                    android:id="@+id/myVideo"
+                    android:layout_width="265dp"
+                    android:layout_height="146dp"
+                    android:layout_centerInParent="true" />
+            </FrameLayout>
+
+        </LinearLayout>
 
     </LinearLayout>
 
 
 </LinearLayout>
+
 </ScrollView>

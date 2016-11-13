@@ -70,31 +70,31 @@ public class BaseActivity extends ActionBarActivity {
 	 * ListView to add navigation drawer item in it.
 	 * We have made it protected to access it in child class. We will just use it in child class to make item selected according to activity opened.  
 	 */
-	
+
 	protected ListView mDrawerList;
-	
+
 	/**
 	 * List item array for navigation drawer items. 
 	 * */
-	protected String[] listArray = { "Show recipe", "", "Add recipe", "Show favourite", "Item 4", "Item 5" ,"Item 6"};
+	protected String[] listArray = { "Show recipe", "Show recipe","Add recipe", "Show favourite", "profile","Health Advicer","Edit profile", "logout" };
 	protected ArrayList<Items> _items;
-	
+
 	/**
 	 * Static variable for selected item position. Which can be used in child activity to know which item is selected from the list.  
 	 * */
 	protected static int position;
-	
+
 	/**
 	 *  This flag is used just to check that launcher activity is called first time 
 	 *  so that we can open appropriate Activity on launch and make list item position selected accordingly.    
 	 * */
 	private static boolean isLaunch = true;
-	
+
 	/**
 	 *  Base layout node of this Activity.    
 	 * */
 	private DrawerLayout mDrawerLayout;
-	
+
 	/**
 	 * Drawer listner class for drawer open, close etc.
 	 */
@@ -120,33 +120,33 @@ public class BaseActivity extends ActionBarActivity {
 		setSupportActionBar(toolbar);
 		// set a custom shadow that overlays the main content when the drawer opens
 		//mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
-        
+
 		_items = new ArrayList<Items>();
-		_items.add(new Items("Show Recipe", "Item One Description", R.drawable.item_1));
-		_items.add(new Items("Add recipe", "Item Two Description", R.drawable.item_2));
-		_items.add(new Items("show favourite", "Item Three Description", R.drawable.item_3));
-		_items.add(new Items("profile ", "Item Four Description", R.drawable.item_4));
-		_items.add(new Items("Logout", "Item Five Description", R.drawable.item_5));
-		_items.add(new Items("edit profile", "Item six Description", R.drawable.item_5));
-		_items.add(new Items("search filter", "Item six Description", R.drawable.item_5));
-		_items.add(new Items("calory tracking", "Item six Description", R.drawable.item_5));
-		
-		//Adding header on list view 
+		_items.add(new Items("Show Recipe", "", R.drawable.recipe));
+		_items.add(new Items("Add recipe", "", R.drawable.add_recipe));
+		_items.add(new Items("show favourite", "", R.drawable.favourit));
+		_items.add(new Items("profile ", "", R.drawable.profile));
+		_items.add(new Items("calory tracking", "", R.drawable.calory));
+		_items.add(new Items("edit profile", "", R.drawable.edit_profile));
+		_items.add(new Items("Logout", "", R.drawable.logout));
+
+
+		//Adding header on list view
 		View header = (View)getLayoutInflater().inflate(R.layout.list_view_header_layout, null);
 		mDrawerList.addHeaderView(header);
-		
+
 		// set up the drawer's list view with items and click listener
 		mDrawerList.setAdapter(new NavigationDrawerListAdapter(this, _items));
 		mDrawerList.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
-				
+									int position, long id) {
+
 				openActivity(position);
 			}
 		});
-		
+
 		// enable ActionBar app icon to behave as action to toggle nav drawer
 		//getActionBar().setDisplayHomeAsUpEnabled(true);
 		//getActionBar().setHomeButtonEnabled(true);
@@ -157,8 +157,8 @@ public class BaseActivity extends ActionBarActivity {
 				mDrawerLayout, 				/* DrawerLayout object */
 				toolbar,     /* nav drawer image to replace 'Up' caret */
 				R.string.open_drawer,       /* "open drawer" description for accessibility */
-				R.string.close_drawer)      /* "close drawer" description for accessibility */ 
-		{ 
+				R.string.close_drawer)      /* "close drawer" description for accessibility */
+		{
 			@Override
 			public void onDrawerClosed(View drawerView) {
 
@@ -182,47 +182,63 @@ public class BaseActivity extends ActionBarActivity {
 			}
 		};
 		mDrawerLayout.setDrawerListener(actionBarDrawerToggle);
-		
-actionBarDrawerToggle.syncState();
+
+		actionBarDrawerToggle.syncState();
 
 	}
-	
+
 	/**
 	 * @param position
-	 * 
-	 * Launching activity when any list item is clicked. 
+	 *
+	 * Launching activity when any list item is clicked.
 	 */
 	protected void openActivity(int position) {
-		
+
 		/**
-		 * We can set title & itemChecked here but as this BaseActivity is parent for other activity, 
-		 * So whenever any activity is going to launch this BaseActivity is also going to be called and 
+		 * We can set title & itemChecked here but as this BaseActivity is parent for other activity,
+		 * So whenever any activity is going to launch this BaseActivity is also going to be called and
 		 * it will reset this value because of initialization in onCreate method.
-		 * So that we are setting this in child activity.    
+		 * So that we are setting this in child activity.
 		 */
 //		mDrawerList.setItemChecked(position, true);
 //		setTitle(listArray[position]);
 		mDrawerLayout.closeDrawer(mDrawerList);
-		BaseActivity.position = position; //Setting currently selected position in this field so that it will be available in our child activities. 
+		BaseActivity.position = position; //Setting currently selected position in this field so that it will be available in our child activities.
 		final SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
 		switch (position) {
-		case 0:
-			startActivity(new Intent(this, ShowRecipe.class));
-			break;
-		case 1:
-			startActivity(new Intent(this, ShowRecipe.class));
-			break;
-		case 2:
-			startActivity(new Intent(this, AddRecipe.class));
-			break;
-		case 3:
-			startActivity(new Intent(this, Showfav.class));
-			break;
-		case 4:
-			startActivity(new Intent(this, profile.class));
-			break;
-		case 5:
+			case 0:
+				startActivity(new Intent(this, ShowRecipe.class));
+				break;
+			case 1:
+				startActivity(new Intent(this, ShowRecipe.class));
+				break;
+			case 2:
+				startActivity(new Intent(this, AddRecipe.class));
+				break;
+			case 3:
+				startActivity(new Intent(this, Showfav.class));
+				break;
+			case 4:
+				startActivity(new Intent(this, profile.class));
+				break;
+			case 5:
+				startActivity(new Intent(this, HealthAdvicer.class));
+				break;
+			case 6:
+				SharedPreferences type_user = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
+				String user=type_user.getString("user_type","");
 
+				if(user.equals("app")) {
+					Intent intent = new Intent(this, editAppProfile.class);
+					startActivity(intent);
+				}
+				else {  Intent intent = new Intent(this, editFaceProfile.class);
+					startActivity(intent);
+				}
+
+				break;
+
+			case 7:
 			LoginManager.getInstance().logOut();
 			pref.edit().clear().commit();
 			if(AccessToken.getCurrentAccessToken()!=null)
@@ -243,29 +259,10 @@ actionBarDrawerToggle.syncState();
 
 			}
 			break;
-			case 6:
-				SharedPreferences type_user = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
-				String user=type_user.getString("user_type","");
-
-				if(user.equals("app")) {
-					Intent intent = new Intent(this, editAppProfile.class);
-					startActivity(intent);
-				}
-				else {  Intent intent = new Intent(this, editFaceProfile.class);
-					startActivity(intent);
-				}
-
+			default:
 				break;
-			case 7:
-				startActivity(new Intent(this, searchfilter.class));
-				break;
-			case 8:
-				startActivity(new Intent(this, HealthAdvicer.class));
-				break;
-		default:
-			break;
 		}
-		
+
 //		Toast.makeText(this, "Selected Item Position::"+position, Toast.LENGTH_LONG).show();
 	}
 
@@ -273,7 +270,6 @@ actionBarDrawerToggle.syncState();
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// adds item to action bar
 		getMenuInflater().inflate(R.menu.search_main, menu);
-
 		// Get Search item from action bar and Get Search service
 		MenuItem searchItem = menu.findItem(R.id.action_search);
 		SearchManager searchManager = (SearchManager) BaseActivity.this.getSystemService(Context.SEARCH_SERVICE);
@@ -329,6 +325,14 @@ actionBarDrawerToggle.syncState();
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 
+		switch (item.getItemId()) {
+			// action with ID action_refresh was selected
+			case R.id.filter:
+				startActivity(new Intent(this, searchfilter.class));
+				break;
+			default:
+				break;
+		}
 		return super.onOptionsItemSelected(item);
 	}
 
@@ -347,16 +351,16 @@ actionBarDrawerToggle.syncState();
 
 		}
 	}
-	
-	/* Called whenever we call invalidateOptionsMenu() */
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        // If the nav drawer is open, hide action items related to the content view
 
-        return super.onPrepareOptionsMenu(menu);
-    }
-    
-    /* We can override onBackPressed method to toggle navigation drawer*/
+	/* Called whenever we call invalidateOptionsMenu() */
+	@Override
+	public boolean onPrepareOptionsMenu(Menu menu) {
+		// If the nav drawer is open, hide action items related to the content view
+
+		return super.onPrepareOptionsMenu(menu);
+	}
+
+	/* We can override onBackPressed method to toggle navigation drawer*/
 	@Override
 	public void onBackPressed() {
 		if(mDrawerLayout.isDrawerOpen(mDrawerList)){
