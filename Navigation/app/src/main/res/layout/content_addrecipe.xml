@@ -83,7 +83,13 @@
 
 
             <Spinner
-                android:layout_width="72dp"
+                android:layout_width="60dp"
+                android:entries="@array/amount"
+                android:layout_height="fill_parent"
+                android:id="@+id/spinner2" />
+
+            <Spinner
+                android:layout_width="80dp"
                 android:layout_height="fill_parent"
                 android:id="@+id/spinner1"
                 android:entries="@array/country_arrays"
@@ -98,7 +104,7 @@
                 android:completionThreshold="1"
                 android:text=""
                 android:layout_alignParentStart="false"
-                android:layout_weight="488010.69"
+                android:layout_weight="400010.69"
                 android:layout_alignParentLeft="false">
 
                 <requestFocus />
@@ -126,36 +132,145 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=" Auto Calculate Calories :  "
+                android:text=" Auto Calculate :  "
                 android:id="@+id/textView3"
                 android:fontFamily="@string/abc_font_family_button_material"
                 android:textStyle="bold|italic"
                 android:textColor="#333131"
                 android:textSize="15dp" />
 
-            <TextView
-                android:text="0"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:id="@+id/text"
-                android:layout_toEndOf="@+id/textView"
-                android:layout_below="@+id/getall"
-                android:textAlignment="textStart"
-                android:layout_gravity="start"
-                android:textStyle="bold"
-                android:fontFamily="@string/abc_font_family_button_material"
-                android:textColor="#bf801919"
-                android:textSize="15dp"
-                android:layout_toRightOf="@+id/textView" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="kcal"
-                android:id="@+id/kcal" />
-
         </LinearLayout>
+
+        <TableLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+            <TableRow
+                android:id="@+id/tableRow1"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent">
+
+                <TextView
+                    android:id="@+id/TexatView04" android:text="Calory (Kcal)"
+                    android:layout_weight="1" android:background="#dcdcdc"
+                    android:textColor="#000000"
+                    android:padding="2dip" android:gravity="center"/>
+
+                <TextView
+                    android:id="@+id/TextVieddw04" android:text="Protine (g)"
+                    android:layout_weight="1" android:background="#d3d3d3"
+                    android:textColor="#000000"
+                    android:padding="2dip" android:gravity="center"/>
+
+                <TextView
+                    android:id="@+id/TextViaewdd04" android:text="Iron (mg)"
+                    android:layout_weight="1" android:background="#cac9c9"
+                    android:textColor="#000000"
+                    android:padding="2dip" android:gravity="center"/>
+                <TextView
+                    android:id="@+id/TextViaew04" android:text="Calicum (mg)"
+                    android:layout_weight="1" android:background="#cac9c9"
+                    android:textColor="#000000"
+                    android:padding="2dip" android:gravity="center"/>
+
+
+
+            </TableRow>
+            <TableRow
+                android:id="@+id/tableRow2"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent">
+
+                <TextView
+                    android:id="@+id/text" android:text="0"
+                    android:layout_weight="1" android:background="#dcdcdc"
+                    android:textColor="#000000"
+                    android:padding="2dip" android:gravity="center"/>
+
+                <TextView
+                    android:id="@+id/text_pro" android:text="0"
+                    android:layout_weight="1" android:background="#d3d3d3"
+                    android:textColor="#000000"
+                    android:padding="2dip" android:gravity="center"/>
+
+                <TextView
+                    android:id="@+id/text_iron" android:text="0"
+                    android:layout_weight="1" android:background="#cac9c9"
+                    android:textColor="#000000"
+                    android:padding="2dip" android:gravity="center"/>
+                <TextView
+                    android:id="@+id/text_calc" android:text="0"
+                    android:layout_weight="1" android:background="#cac9c9"
+                    android:textColor="#000000"
+                    android:padding="2dip" android:gravity="center"/>
+
+
+
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tableRow3"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent">
+
+                <TextView
+                    android:id="@+id/TexatVaiew04" android:text="Vit_B12 (µg)"
+                    android:layout_weight="1" android:background="#dcdcdc"
+                    android:textColor="#000000"
+                    android:padding="2dip" android:gravity="center"/>
+
+                <TextView
+                    android:id="@+id/TextViedw04" android:text="Vit_c (mg)"
+                    android:layout_weight="1" android:background="#d3d3d3"
+                    android:textColor="#000000"
+                    android:padding="2dip" android:gravity="center"/>
+
+                <TextView
+                    android:id="@+id/TextaaViaewdd04" android:text="Vit_B6 (mg)"
+                    android:layout_weight="1" android:background="#cac9c9"
+                    android:textColor="#000000"
+                    android:padding="2dip" android:gravity="center"/>
+                <TextView
+                    android:id="@+id/TextViaaaew04" android:text="Vit_E (mg)"
+                    android:layout_weight="1" android:background="#cac9c9"
+                    android:textColor="#000000"
+                    android:padding="2dip" android:gravity="center"/>
+
+
+
+            </TableRow>
+            <TableRow
+                android:id="@+id/tableRow4"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent">
+
+                <TextView
+                    android:id="@+id/text_b12" android:text="0"
+                    android:layout_weight="1" android:background="#dcdcdc"
+                    android:textColor="#000000"
+                    android:padding="2dip" android:gravity="center"/>
+
+                <TextView
+                    android:id="@+id/text_c" android:text="0"
+                    android:layout_weight="1" android:background="#d3d3d3"
+                    android:textColor="#000000"
+                    android:padding="2dip" android:gravity="center"/>
+
+                <TextView
+                    android:id="@+id/text_b6" android:text="0"
+                    android:layout_weight="1" android:background="#cac9c9"
+                    android:textColor="#000000"
+                    android:padding="2dip" android:gravity="center"/>
+                <TextView
+                    android:id="@+id/text_e" android:text="0"
+                    android:layout_weight="1" android:background="#cac9c9"
+                    android:textColor="#000000"
+                    android:padding="2dip" android:gravity="center"/>
+
+
+
+            </TableRow>
+        </TableLayout>
 
         <LinearLayout
             android:orientation="horizontal"

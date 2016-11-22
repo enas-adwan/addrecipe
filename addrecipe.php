@@ -13,10 +13,18 @@ $list = $_POST['list'];
 $total = $_POST['total'];
 $prep = $_POST['prep'];
 $cook = $_POST['cook'];
+$video = $_POST['video'];
 $image = $_POST['image'];
-$user_key = "enas_adwan@hotmail.com";
+$vitc = $_POST['vitc'];
+$pro = $_POST['pro'];
+$iron = $_POST['iron'];
+$calc = $_POST['calc'];
+$vitb6 = $_POST['vitb6'];
+$vitb12 = $_POST['vitb12'];
+$vite = $_POST['vite'];
+
 $type = $_POST['type'];
-$face_id = "10154687888423846";
+
 $nameimage = $_POST['nameimage'];
 $decodedImage = base64_decode($image);
 //upload the image
@@ -39,9 +47,11 @@ if(isset($check)){
 echo 'title already exist';
 }else{
 if($type=="app" ){
-$sql = "INSERT INTO recipe (title,calory,descc,list,prep,cook,total,image,user_key,type) VALUES('$title','$calory','$desc','$list','$prep','$cook','$total','$imagename','$user_key','$type')";
+$user_key =  $_POST['user_key'];
+$sql = "INSERT INTO recipe (title,calory,descc,list,prep,cook,total,image,video,user_key,type,vitc,pro,iron,calc,vitb6,vitb12,vite) VALUES('$title','$calory','$desc','$list','$prep','$cook','$total','$imagename','$video','$user_key','$type','$vitc','$pro','$iron','$calc','$vitb6','$vitb12','$vite')";
 }else{
-$sql = "INSERT INTO recipe (title,calory,descc,list,prep,cook,total,image,face_id,type) VALUES('$title','$calory','$desc','$list','$prep','$cook','$total','$imagename','$face_id','$type')";
+$face_id =$_POST['face_id'];
+$sql = "INSERT INTO recipe (title,calory,descc,list,prep,cook,total,image,video,face_id,type,vitc,pro,iron,calc,vitb6,vitb12,vite) VALUES('$title','$calory','$desc','$list','$prep','$cook','$total','$imagename','$video','$face_id','$type','$vitc','$pro','$iron','$calc','$vitb6','$vitb12','$vite')";
 }
 if(!$sql){
 echo "err";

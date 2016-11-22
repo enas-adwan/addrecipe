@@ -134,14 +134,6 @@
             android:background="?attr/selectableItemBackground"
             android:clickable="true"
             android:padding="@dimen/activity_horizontal_margin">
-        </RelativeLayout>
-        <include layout="@layout/item_divider" />
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="?attr/selectableItemBackground"
-            android:clickable="true"
-            android:padding="@dimen/activity_horizontal_margin">
 
             <ImageView
                 android:id="@+id/ivContactItem5"

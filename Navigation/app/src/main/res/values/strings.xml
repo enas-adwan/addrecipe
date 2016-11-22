@@ -1,11 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string-array name="amount">
 
+        <item>1</item>
+        <item>2</item>
+        <item>1/4</item>
+        <item>1/3</item>
+        <item>2/3</item>
+        <item>1/2</item>
+        <item>3/4</item>
+        <item>1/8</item>
+
+    </string-array>
     <string-array name="country_arrays">
-        <item>Spoon</item>
         <item>Cup</item>
-        <item>1/2 Cup</item>
-        <item>3/4 Cup</item>
+        <item>Spoon</item>
+        <item>Pound</item>
+        <item>Ounce</item>
     </string-array>
 
     <string-array name="quan">

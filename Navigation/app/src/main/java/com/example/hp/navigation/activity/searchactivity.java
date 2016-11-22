@@ -39,7 +39,6 @@ public class searchactivity extends BaseActivity{
     String total;
     String calory;
     String qan;
-    String ch;
     public static RecyclerView mRecyclerView;
     public static ListView listVieww;
     @Override
@@ -54,12 +53,11 @@ public class searchactivity extends BaseActivity{
         list=getIntent().getStringExtra("list");
         calory=getIntent().getStringExtra("calory");
         total=getIntent().getStringExtra("total");
-       ch=getIntent().getStringExtra("ch");
         qan=getIntent().getStringExtra("qan");
        // Toast.makeText(getApplicationContext(), list, Toast.LENGTH_LONG).show();
-       Log.e("DATABASE OPERATION", list);
+      //  Log.e("DATABASE OPERATION", list);
         //  listVieww=(ListView)findViewById(R.id.lv);
-        jso(title,calory,list,total,qan,ch);
+        jso(title,calory,list,total,qan);
         /*  FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,7 +67,7 @@ public class searchactivity extends BaseActivity{
             }
         });*/
     }
-    public void jso(String title,String calory,String list,String total,String qan1,String ch) {
+    public void jso(String title,String calory,String list,String total,String qan1) {
 
 
         class RegisterUser extends AsyncTask<String, Void, String> {
@@ -230,14 +228,13 @@ public class searchactivity extends BaseActivity{
                     String list= params[2];
                     String total= params[3];
                     String qan= params[4];
-                    String c= params[5];
                     HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
                     httpURLConnection.setRequestMethod("POST");
                     httpURLConnection.setDoOutput(true);
                     httpURLConnection.setDoInput(true);
                     OutputStream outputStream = httpURLConnection.getOutputStream();
                     BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
-                    String post_data = URLEncoder.encode("title","UTF-8")+"="+ URLEncoder.encode(number,"UTF-8")+"&"+ URLEncoder.encode("calory","UTF-8")+"="+ URLEncoder.encode(calory,"UTF-8")+"&"+ URLEncoder.encode("list","UTF-8")+"="+ URLEncoder.encode(list,"UTF-8")+"&"+ URLEncoder.encode("total","UTF-8")+"="+ URLEncoder.encode(total,"UTF-8")+"&"+ URLEncoder.encode("qan","UTF-8")+"="+ URLEncoder.encode(qan,"UTF-8")+"&"+ URLEncoder.encode("chief","UTF-8")+"="+ URLEncoder.encode(c,"UTF-8");
+                    String post_data = URLEncoder.encode("title","UTF-8")+"="+ URLEncoder.encode(number,"UTF-8")+"&"+ URLEncoder.encode("calory","UTF-8")+"="+ URLEncoder.encode(calory,"UTF-8")+"&"+ URLEncoder.encode("list","UTF-8")+"="+ URLEncoder.encode(list,"UTF-8")+"&"+ URLEncoder.encode("total","UTF-8")+"="+ URLEncoder.encode(total,"UTF-8")+"&"+ URLEncoder.encode("qan","UTF-8")+"="+ URLEncoder.encode(qan,"UTF-8");
                     //Toast.makeText(getApplicationContext(),post_data, Toast.LENGTH_LONG).show();
                     bufferedWriter.write(post_data);
                     bufferedWriter.flush();
@@ -271,7 +268,7 @@ public class searchactivity extends BaseActivity{
 
 
         RegisterUser ru = new RegisterUser();
-        ru.execute(title,calory,list,total,qan1,ch);
+        ru.execute(title,calory,list,total,qan1);
 
 
     }

@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.CursorLoader;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Base64;
@@ -52,10 +53,13 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import android.content.SharedPreferences;
 import android.widget.VideoView;
+
+import static com.example.hp.navigation.activity.Vivsadapter.context;
 //import android.asynctask.library.JSONParser;
 //import android.support.v4.view.MenuItemCompat;
 //import android.support.v7.widget.SearchView;
@@ -66,44 +70,39 @@ public class AddRecipe extends BaseActivity {
     private ImageButton Getall;
     private ImageButton Addd;
     private Spinner spinner1;
+    private Spinner spinner2;
     private static int RESULT_LOAD_IMG = 1;
     public static ListView listView;
     public static ListView listV;
-    public String namo = "";
-    public String valuo = "";
-    public String unit = "";
-    Float value;
+
     String image_str;
     public String videoResult="";
-    String stringFloat;
-    Float value1;
+
     public Button loadd;
     private int position = 0;
-    private MediaController mediaController;
+
     private Button buttonChoosvideo;
-    private Button buttonUploadVideo;
-    private Button buttonView;
+
     private TextView t1;
-    String str="";
+
     private static final int SELECT_video = 2;
     String selectedPath = "";
-    private Button Timo;
-    String stringFloat1;
-    Float value2;
-    String stringFloat2;
-    Float value3;
-    String stringFloat3;
-    String food;
     public static TextView Text;
+    public static TextView Textvitc;
+    public static TextView Textvitb6;
+    public static TextView Textvitb12;
+    public static TextView Textvite;
     Cursor cursor;
-    ListDataAdpter listDataAdpter;
+    public static TextView Textpro;
+    public static TextView Textcalc;
+    public static TextView Textiron;
     SQLiteDatabase sqLiteDatabase;
-    recipeDbHelper userDbHelper;
+
     recipeDbHelper droptable;
     public ImageView imgVieww;
     private EditText Prep;
     private EditText Cook;
-    private EditText Total;
+
     private EditText Title;
     public static EditText Desc;
     public static TextView Textnum;
@@ -121,7 +120,7 @@ public class AddRecipe extends BaseActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.addrecipe);
+
 
         getLayoutInflater().inflate(R.layout.addrecipe, frameLayout);
 
@@ -134,26 +133,25 @@ public class AddRecipe extends BaseActivity {
 
         db.getWritableDatabase();
         Text = (TextView) findViewById(R.id.text);
-     /* try{  db.createDataBase();
-
-
-    } catch (Exception e) {
-        e.printStackTrace();
-    }*/
+        Textvitc=(TextView) findViewById(R.id.text_c);
+        Textpro=(TextView) findViewById(R.id.text_pro);
+        Textiron=(TextView) findViewById(R.id.text_iron);
+        Textcalc=(TextView) findViewById(R.id.text_calc);
+        Textvitb6=(TextView) findViewById(R.id.text_b6);
+        Textvitb12=(TextView) findViewById(R.id.text_b12);
+        Textvite=(TextView) findViewById(R.id.text_e);
         Title = (EditText) findViewById(R.id.t);
         Prep= (EditText) findViewById(R.id.prep);
-        // Total= (EditText) findViewById(R.id.total);
+
         Cook= (EditText) findViewById(R.id.cook);
-        t1=(TextView) findViewById(R.id.text1);
+        t1=(TextView) findViewById(R.id.t1);
         Desc=  (EditText) findViewById(R.id.desc);
         Textnum= (TextView) findViewById(R.id.textnum);
 //=======Code For copying Existing Database file to system folder for use====//
         // Copying Existing Database into system folder
         try {
-
             String destPath = "/data/data/" + getPackageName()
                     + "/databases/data.db";
-
             File f = new File(destPath);
             if(!f.exists()){
                 Log.v(TAG,"File Not Exist");
@@ -236,12 +234,19 @@ public class AddRecipe extends BaseActivity {
             public void onClick(View v) {
 
                 String food = autoCom.getText().toString().trim();
-                Integer numbe  = myDb.findcalory(food);
-                String numberAsString = numbe.toString();
+                ArrayList<String> m = myDb.findcalory(food);
+                String cal=m.get(0);
+               String vitc=m.get(1);
+                String calc=m.get(2);
+                String iron=m.get(3);
+                String pro=m.get(4);
+                String vit_b6=m.get(5);
+                String vit_b12=m.get(6);
+                String vit_e=m.get(7);
 
-                Toast.makeText(getApplicationContext(), numberAsString  , Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(), numberAsString  , Toast.LENGTH_LONG).show();
 
-                calorycalc(numberAsString);
+                calorycalc(cal,vitc,calc,iron,pro,vit_b6,vit_b12,vit_e);
                 // jso1(numberAsString);
 
 
@@ -253,9 +258,9 @@ public class AddRecipe extends BaseActivity {
             @Override
             public void onClick(View v) {
                 Cursor cursor;
-                Cursor cursor1;
+
                 Cursor cursor2;
-                int sum = 1;
+
                 ListDataAdpterdesc listDataAdpter;
                 SQLiteDatabase sqLiteDatabase;
                 recipeDbHelper userDbHelper;
@@ -414,22 +419,15 @@ public class AddRecipe extends BaseActivity {
         }
 
     }
-    private void  calorycalc(String calory) {
+    private void  calorycalc(String calory, final String vit_c, final String calc, final String iron, final String pro, final String vit_b6 , final String vit_b12, final String vit_e) {
 
 
         class RegisterUser extends AsyncTask<String, Void, String> {
 
-            public String namo = "";
-            public String valuo = "";
-            public String unit = "";
+
             Float value;
-            String stringFloat;
-            Float value1;
-            String stringFloat1;
-            Float value2;
-            String stringFloat2;
-            Float value3;
-            String stringFloat3;
+
+            Float  valuevitc;
             String food;
             public  TextView Text;
             Cursor cursor;
@@ -439,7 +437,13 @@ public class AddRecipe extends BaseActivity {
             SQLiteDatabase sqLiteDatabase;
             recipeDbHelper userDbHelper;
             recipeDbHelper userDbHelper2;
-
+            Float  valuecalc;
+            Float  valueiron;
+            Float  valuepro;
+            Float  valuevitb6;
+            Float  valuevitb12;
+            Float  valuevite;
+            Float amount;
 
             Integer r = 0;
 
@@ -455,13 +459,15 @@ public class AddRecipe extends BaseActivity {
                 super.onPostExecute(s);
 
 
-                Context context=AddRecipe.this;
+
                 spinner1 = (Spinner) findViewById(R.id.spinner1);
+                spinner2 = (Spinner) findViewById(R.id.spinner2);
                 String quintity= String.valueOf(spinner1.getSelectedItem());
+                String quintity1= String.valueOf(spinner2.getSelectedItem());
                 listView=(ListView)findViewById(R.id.list_view);
                 userDbHelper=new recipeDbHelper(getApplicationContext());
                 sqLiteDatabase=userDbHelper.getWritableDatabase();
-                Float sum=0.0f;
+
                 String calory;
                 String caloryvalue;
 
@@ -469,18 +475,40 @@ public class AddRecipe extends BaseActivity {
                 try {
 
                     //   Text.setText(valuo);
+
                     value = Float.parseFloat(s);
-                    value= value/6.666666666666667f;
-                    stringFloat= Float.toString(value);
-                    value1 = Float.parseFloat(s);
-                    value1= value1*1.1f;
-                    stringFloat1= Float.toString(value1);
-                    value2 = Float.parseFloat(s);
-                    value2= value2*.6f;
-                    stringFloat2= Float.toString(value2);
-                    value3 = Float.parseFloat(s);
-                    value3= value3*.85f;
-                    stringFloat3= Float.toString(value3);
+                    valuevitc=Float.parseFloat(vit_c);
+                    valuecalc=Float.parseFloat(calc);
+                    valueiron=Float.parseFloat(iron);
+                    valuepro=Float.parseFloat(pro);
+                    valuevitb6=Float.parseFloat(vit_b6);
+                    valuevitb12=Float.parseFloat(vit_b12);
+                    valuevite=Float.parseFloat(vit_e);
+                    switch(quintity1){
+                        case "1":
+                            amount=1f;
+                            break;
+                        case "1/4":
+                            amount=1/4f;
+                            break;
+                        case "1/3":
+                            amount=1/3f;
+                            break;
+                        case "1/2":
+                            amount=1/2f;
+                            break;
+                        case "3/4":
+                            amount=3/4f;
+                            break;
+                        case "1/8":
+                            amount=1/8f;
+                            break;
+                        case "2/3":
+                            amount=2/3f;
+                            break;
+
+
+                    }
                     food = autoCom.getText().toString().trim();
                     //   Toast.makeText(getApplicationContext(), s  , Toast.LENGTH_LONG).show();
 
@@ -488,8 +516,15 @@ public class AddRecipe extends BaseActivity {
                     switch(quintity){
 
                         case "Spoon":
-                            //  Text.setText(stringFloat);
-                            userDbHelper.addinnformation(value,"- "+"Spoon of "+food,sqLiteDatabase);
+                            value= (value/6.666666666666667f)*amount;
+                            valuevitc=(valuevitc/6.666666666666667f)*amount;
+                            valuecalc=(valuecalc/6.666666666666667f)*amount;
+                            valuepro=(valuepro/6.666666666666667f)*amount;
+                            valueiron=(valueiron/6.666666666666667f)*amount;
+                            valuevitb6=(valuevitb6/6.666666666666667f)*amount;
+                            valuevitb12=(valuevitb12/6.666666666666667f)*amount;
+                            valuevite=(valuevite/6.666666666666667f)*amount;
+                            userDbHelper.addinnformation(value,"- "+quintity1+" Spoon of "+food,sqLiteDatabase,valuevitc,valuecalc,valueiron,valuepro,valuevitb6,valuevitb12,valuevite);
 
                             listDataAdpter=new ListDataAdpter(getApplicationContext(), R.layout.row_layout);
                             listView.setAdapter(listDataAdpter);
@@ -506,8 +541,26 @@ public class AddRecipe extends BaseActivity {
                                     Float M=cursor1.getFloat(0);
                                     caloryvalue=M.toString();
                                     calory=cursor.getString(0);
-                                    sum=userDbHelper2.getTotal(sqLiteDatabase);
-                                    Text.setText(String.valueOf(sum));
+
+                                    ArrayList<Float> sums=userDbHelper2.getTotal(sqLiteDatabase);
+Float calorysum=sums.get(0);
+                                    Float vitcsum=sums.get(1);
+                                    Float prosum=sums.get(2);
+                                    Float ironsum=sums.get(3);
+                                    Float calcsum=sums.get(4);
+                                    Float vit6sum=sums.get(5);
+                                    Float vitb12sum=sums.get(6);
+                                    Float vitesum=sums.get(7);
+
+                                    Text.setText(String.valueOf(calorysum));
+                                    Textvitc.setText(String.valueOf(vitcsum));
+                                    Textpro.setText(String.valueOf(prosum));
+                                    Textvitb6.setText(String.valueOf(vit6sum));
+                                    Textvite.setText(String.valueOf(vitesum));
+                                    Textvitb12.setText(String.valueOf(vitb12sum));
+                                    Textiron.setText(String.valueOf(ironsum));
+                                    Textcalc.setText(String.valueOf(calcsum));
+
                                     DataProvider dataProvider=new DataProvider(calory, caloryvalue,id);
                                     listDataAdpter.add(dataProvider);
 
@@ -517,8 +570,16 @@ public class AddRecipe extends BaseActivity {
                             //  userDbHelper2.close();
                             break;
 
-                        case "Cup of ":
-                            userDbHelper.addinnformation(value1,"- "+"Cup "+food,sqLiteDatabase);
+                        case "Cup":
+                            value= (value*1.1f)*amount;
+                            valuevitc=valuevitc*1.1f*amount;
+                            valuecalc=valuecalc*1.1f*amount;
+                            valuepro=valuepro*1.1f*amount;
+                            valueiron=valueiron*1.1f*amount;
+                            valuevitb6=valuevitb6*1.1f*amount;
+                            valuevitb12=valuevitb12*1.1f*amount;
+                            valuevite=valuevite*1.1f*amount;
+                            userDbHelper.addinnformation(value,"- "+quintity1+" Cup of"+food,sqLiteDatabase,valuevitc,valuecalc,valueiron,valuepro,valuevitb6,valuevitb12,valuevite);
 
                             listDataAdpter=new ListDataAdpter(getApplicationContext(), R.layout.row_layout);
                             listView.setAdapter(listDataAdpter);
@@ -536,8 +597,24 @@ public class AddRecipe extends BaseActivity {
                                     Float M=cursor1.getFloat(0);
                                     caloryvalue=M.toString();
                                     calory=cursor.getString(0);
-                                    sum=userDbHelper2.getTotal(sqLiteDatabase);
-                                    Text.setText(String.valueOf(sum));
+                                    ArrayList<Float> sums=userDbHelper2.getTotal(sqLiteDatabase);
+                                    Float calorysum=sums.get(0);
+                                    Float vitcsum=sums.get(1);
+                                    Float prosum=sums.get(2);
+                                    Float ironsum=sums.get(3);
+                                    Float calcsum=sums.get(4);
+                                    Float vit6sum=sums.get(5);
+                                    Float vitb12sum=sums.get(6);
+                                    Float vitesum=sums.get(7);
+
+                                    Text.setText(String.valueOf(calorysum));
+                                    Textvitc.setText(String.valueOf(vitcsum));
+                                    Textpro.setText(String.valueOf(prosum));
+                                    Textvitb6.setText(String.valueOf(vit6sum));
+                                    Textvite.setText(String.valueOf(vitesum));
+                                    Textvitb12.setText(String.valueOf(vitb12sum));
+                                    Textiron.setText(String.valueOf(ironsum));
+                                    Textcalc.setText(String.valueOf(calcsum));
                                     DataProvider dataProvider=new DataProvider(calory,  caloryvalue,id);
                                     listDataAdpter.add(dataProvider);
 
@@ -545,9 +622,16 @@ public class AddRecipe extends BaseActivity {
 
                             }
                             break;
-                        case "1/2 Cup":
-
-                            userDbHelper.addinnformation(value2,"- "+"1/2 Cup of "+food,sqLiteDatabase);
+                        case "Pound":
+                            valuevitc=valuevitc*453.59237f*amount;
+                            value= value*453.59237f*amount;
+                            valuecalc=valuecalc*453.59237f*amount;
+                            valuepro=valuepro*453.59237f*amount;
+                            valueiron=valueiron*453.59237f*amount;
+                            valuevitb6=valuevitb6*453.59237f*amount;
+                            valuevitb12=valuevitb12*453.59237f*amount;
+                            valuevite=valuevite*453.59237f*amount;
+                            userDbHelper.addinnformation(value,"- "+quintity1+" pounds"+food,sqLiteDatabase,valuevitc,valuecalc,valueiron,valuepro,valuevitb6,valuevitb12,valuevite);
 
                             listDataAdpter=new ListDataAdpter(getApplicationContext(), R.layout.row_layout);
                             listView.setAdapter(listDataAdpter);
@@ -565,8 +649,24 @@ public class AddRecipe extends BaseActivity {
                                     calory=cursor.getString(0);
                                     Float M=cursor1.getFloat(0);
                                     caloryvalue=M.toString();
-                                    sum=userDbHelper2.getTotal(sqLiteDatabase);
-                                    Text.setText(String.valueOf(sum));
+                                    ArrayList<Float> sums=userDbHelper2.getTotal(sqLiteDatabase);
+                                    Float calorysum=sums.get(0);
+                                    Float vitcsum=sums.get(1);
+                                    Float prosum=sums.get(2);
+                                    Float ironsum=sums.get(3);
+                                    Float calcsum=sums.get(4);
+                                    Float vit6sum=sums.get(5);
+                                    Float vitb12sum=sums.get(6);
+                                    Float vitesum=sums.get(7);
+
+                                    Text.setText(String.valueOf(calorysum));
+                                    Textvitc.setText(String.valueOf(vitcsum));
+                                    Textpro.setText(String.valueOf(prosum));
+                                    Textvitb6.setText(String.valueOf(vit6sum));
+                                    Textvite.setText(String.valueOf(vitesum));
+                                    Textvitb12.setText(String.valueOf(vitb12sum));
+                                    Textiron.setText(String.valueOf(ironsum));
+                                    Textcalc.setText(String.valueOf(calcsum));
                                     DataProvider dataProvider=new DataProvider(calory,caloryvalue,id);
                                     listDataAdpter.add(dataProvider);
 
@@ -574,9 +674,16 @@ public class AddRecipe extends BaseActivity {
 
                             }
                             break;
-                        case "3/4 Cup":
-
-                            userDbHelper.addinnformation(value3,"- "+"3/4 Cup of "+food,sqLiteDatabase);
+                        case "Ounce":
+                            valuevitc=valuevitc*28.3495231f*amount;
+                            value= value*28.3495231f*amount;
+                            valuecalc=valuecalc*28.3495231f*amount;
+                            valuepro=valuepro*28.3495231f*amount;
+                            valueiron=valueiron*28.3495231f*amount;
+                            valuevitb6=valuevitb6*28.3495231f*amount;
+                            valuevitb12=valuevitb12*28.3495231f*amount;
+                            valuevite=valuevite*28.3495231f*amount;
+                            userDbHelper.addinnformation(value,"- "+quintity1+" Ounce of "+food,sqLiteDatabase,valuevitc,valuecalc,valueiron,valuepro,valuevitb6,valuevitb12,valuevite);
 
                             listDataAdpter=new ListDataAdpter(getApplicationContext(), R.layout.row_layout);
                             listView.setAdapter(listDataAdpter);
@@ -595,8 +702,24 @@ public class AddRecipe extends BaseActivity {
                                     calory=cursor.getString(0);
                                     Float M=cursor1.getFloat(0);
                                     caloryvalue=M.toString();
-                                    sum=userDbHelper2.getTotal(sqLiteDatabase);
-                                    Text.setText(String.valueOf(sum));
+                                    ArrayList<Float> sums=userDbHelper2.getTotal(sqLiteDatabase);
+                                    Float calorysum=sums.get(0);
+                                    Float vitcsum=sums.get(1);
+                                    Float prosum=sums.get(2);
+                                    Float ironsum=sums.get(3);
+                                    Float calcsum=sums.get(4);
+                                    Float vit6sum=sums.get(5);
+                                    Float vitb12sum=sums.get(6);
+                                    Float vitesum=sums.get(7);
+
+                                    Text.setText(String.valueOf(calorysum));
+                                    Textvitc.setText(String.valueOf(vitcsum));
+                                    Textpro.setText(String.valueOf(prosum));
+                                    Textvitb6.setText(String.valueOf(vit6sum));
+                                    Textvite.setText(String.valueOf(vitesum));
+                                    Textvitb12.setText(String.valueOf(vitb12sum));
+                                    Textiron.setText(String.valueOf(ironsum));
+                                    Textcalc.setText(String.valueOf(calcsum));
                                     DataProvider dataProvider=new DataProvider(calory,   caloryvalue,id);
                                     listDataAdpter.add(dataProvider);
 
@@ -625,13 +748,14 @@ public class AddRecipe extends BaseActivity {
             @Override
             protected String doInBackground(String... params) {
                 Text = (TextView) findViewById(R.id.text);
+
                 return params[0];
 
             }
         }
 
         RegisterUser ru = new RegisterUser();
-        ru.execute(calory);
+        ru.execute(calory,vit_c,calc,iron,pro,vit_b6,vit_b12,vit_e);
 
 
     }
@@ -666,7 +790,7 @@ public class AddRecipe extends BaseActivity {
                     System.out.println("SELECT_video");
                     Uri selectedImageUri = data.getData();
                     selectedPath = getPath(selectedImageUri);
-                   // t1.setText("SELECT_video Path :" +selectedPath);
+                   t1.setText("SELECT_video Path :" +selectedPath+"");
                     Log.d("path","SELECT_video Path :" +selectedPath);
                 }
                 else if (resultCode == RESULT_CANCELED) {
@@ -755,17 +879,21 @@ public class AddRecipe extends BaseActivity {
             }
 
         } catch (Exception e) {
-            Toast.makeText(this, "some thing went wrong ", Toast.LENGTH_LONG)
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG)
                     .show();
         }
 
     }
     public String getPath(Uri uri) {
-        String[] projection = { MediaStore.Images.Media.DATA };
-        Cursor cursor = managedQuery(uri, projection, null, null, null);
+        String[] proj = { MediaStore.Images.Media.DATA };
+        CursorLoader loader = new CursorLoader(context, uri, proj, null, null, null);
+        Cursor cursor = loader.loadInBackground();
         int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
         cursor.moveToFirst();
-        return cursor.getString(column_index);
+        String result = cursor.getString(column_index);
+        Log.d("videopath",result);
+        cursor.close();
+        return result;
     }
     private class doupload extends AsyncTask<String, Integer, String> {
 
@@ -902,7 +1030,7 @@ public class AddRecipe extends BaseActivity {
         }
     }
 
-    private void Addrecipe(String title , String calory, String secret, String desc, String list, String total, String prep, String cook, final String videoName) {
+    private void Addrecipe(String title , String calory, String secret, String desc, String list, String total, String prep, String cook, final String videoName,String vitc,String pro,String calc,String iron,String vitb6,String vitb12,String vite) {
        /* String urlSuffix = "?name=" + name + "&password=" + password;*/
 
 
@@ -994,6 +1122,7 @@ public class AddRecipe extends BaseActivity {
                  }
                  **/
 
+
                 if (user.equals("app")) {
                     String user1 = pref.getString("user_email", "");
                     data.put("title", params[0]);
@@ -1005,6 +1134,13 @@ public class AddRecipe extends BaseActivity {
                     data.put("prep", params[6]);
                     data.put("cook", params[7]);
                     data.put("video", params[8]);
+                    data.put("vitc", params[9]);
+                    data.put("pro", params[10]);
+                    data.put("calc", params[11]);
+                    data.put("iron", params[12]);
+                    data.put("vitb6", params[13]);
+                    data.put("vitb12", params[14]);
+                    data.put("vite", params[15]);
                     data.put("image", image_str);
                     data.put("video",videoName);
                     data.put("nameimage", nameimage);
@@ -1022,9 +1158,16 @@ public class AddRecipe extends BaseActivity {
                     data.put("total", params[5]);
                     data.put("prep", params[6]);
                     data.put("cook", params[7]);
+                    data.put("vitc", params[9]);
+                    data.put("pro", params[10]);
+                    data.put("calc", params[11]);
+                    data.put("iron", params[12]);
+                    data.put("vitb6", params[13]);
+                    data.put("vitb12", params[14]);
+                    data.put("vite", params[15]);
                     data.put("video", videoName);
                     data.put("image", image_str);
-                    data.put("video",str);
+                    data.put("video",videoName);
                     data.put("nameimage", nameimage);
                     data.put("type", "face");
                     data.put("face_id", user1);
@@ -1058,7 +1201,7 @@ public class AddRecipe extends BaseActivity {
         }
 
         add ru = new add();
-        ru.execute(title,calory,secret,desc,list,total,prep,cook,videoName);
+        ru.execute(title,calory,secret,desc,list,total,prep,cook,videoName,vitc,pro,calc,iron,vitb6,vitb12,vite);
 
        /* ru.execute(urlSuffix);*/
     }
@@ -1076,6 +1219,14 @@ public class AddRecipe extends BaseActivity {
                 String secret="3CH6knCsenas2va8GrHk4mf3JqmUctCM";
                 String title = Title.getText().toString().trim();
                 String food = Text.getText().toString().trim();
+                String vitc = Textvitc.getText().toString().trim();
+                String vite = Textvite.getText().toString().trim();
+                String vitb6 = Textvitb6.getText().toString().trim();
+                String vitb12 = Textvitb12.getText().toString().trim();
+                String pro = Textpro.getText().toString().trim();
+                String iron = Textiron.getText().toString().trim();
+                String calc = Textcalc.getText().toString().trim();
+
                 String desc = Desc.getText().toString().trim();
                 String prep = Prep.getText().toString().trim();
                 String videoName="no video";
@@ -1106,7 +1257,7 @@ public class AddRecipe extends BaseActivity {
                         videoResult = new doupload().execute().get();
                         if (!videoResult.equals("There was an error") && null !=videoResult) {
                             videoName = videoResult;
-                            Addrecipe( title , food, secret,listdesc,list,total,prep,cook,videoName);
+                            Addrecipe( title , food, secret,listdesc,list,total,prep,cook,videoName,vitc,pro,calc,iron,vitb6,vitb12,vite);
                             break;
                         }
                         else {
@@ -1118,7 +1269,7 @@ public class AddRecipe extends BaseActivity {
 
                     }
                           else {
-                        Addrecipe( title , food, secret,listdesc,list,total,prep,cook,videoName);
+                        Addrecipe( title , food, secret,listdesc,list,total,prep,cook,videoName,vitc,pro,calc,iron,vitb6,vitb12,vite);
                         break;
                     }
 

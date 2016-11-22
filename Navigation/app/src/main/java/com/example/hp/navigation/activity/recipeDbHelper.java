@@ -6,6 +6,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import java.util.ArrayList;
+
 /**
  * Created by hp on 03/09/2016.
  */
@@ -18,7 +20,13 @@ public class recipeDbHelper extends SQLiteOpenHelper {
     private static final String CREATE_QUERY= "CREATE TABLE IF NOT EXISTS project (" +
             "_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
             "name TEXT, " +
-
+            "pro FLOAT, " +
+            "iron FLOAT, " +
+            "calc FLOAT, " +
+            "vit_c FLOAT, " +
+            "vit_b6 FLOAT, " +
+            "vit_b12 FLOAT, " +
+            "vit_e FLOAT, " +
             "calory  FLOAT)";
     private static final String CREATE_QUERY_desc= "CREATE TABLE IF NOT EXISTS desc (" +
             "_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -93,12 +101,18 @@ public class recipeDbHelper extends SQLiteOpenHelper {
 
         return empty;
     }
-    public void addinnformation(Float caloryNum, String name, SQLiteDatabase db){
+    public void addinnformation(Float caloryNum, String name, SQLiteDatabase db,Float vit_c,Float calc,Float iron,Float pro,Float vitb6,Float vitb12,Float vite){
         db.execSQL(CREATE_QUERY);
         ContentValues contentValue = new ContentValues();
         contentValue.put("name",name);
         contentValue.put("calory",caloryNum);
 
+        contentValue.put("vit_c",vit_c);
+        contentValue.put("calc",calc);
+        contentValue.put("pro",pro);
+        contentValue.put("vit_b6",vitb6);
+        contentValue.put("vit_b12",vitb12);
+        contentValue.put("vit_e",vite);
         db.insert("project",null,contentValue);
         Log.e("DATABASE OPERATION", "One row is insert");
     }
@@ -203,14 +217,31 @@ public class recipeDbHelper extends SQLiteOpenHelper {
 
         // db.rawQuery(delQuery , null);
     }
-    public float getTotal(SQLiteDatabase db) {
+    public ArrayList<Float> getTotal(SQLiteDatabase db) {
+        ArrayList<Float> array = new ArrayList<Float>();
 
         Cursor cursor = db.rawQuery(
-                "SELECT SUM(calory) FROM project", null);
+                "SELECT SUM(calory),SUM(Vit_C),SUM(pro),SUM(iron),SUM(calc),SUM(vit_b6),SUM(vit_b12),SUM(vit_e) FROM project", null);
         if(cursor.moveToFirst()) {
-            return cursor.getFloat(0);
+            array.add(cursor.getFloat(0));
+            array.add(cursor.getFloat(1));
+            array.add(cursor.getFloat(2));
+            array.add(cursor.getFloat(3));
+            array.add(cursor.getFloat(4));
+            array.add(cursor.getFloat(5));
+            array.add(cursor.getFloat(6));
+            array.add(cursor.getFloat(7));
+            return array;
         }
-        return cursor.getFloat(0);
+        array.add(cursor.getFloat(0));
+        array.add(cursor.getFloat(1));
+        array.add(cursor.getFloat(2));
+        array.add(cursor.getFloat(3));
+        array.add(cursor.getFloat(4));
+        array.add(cursor.getFloat(5));
+        array.add(cursor.getFloat(6));
+        array.add(cursor.getFloat(7));
+        return array;
 
     }
     public void drop(SQLiteDatabase db) {

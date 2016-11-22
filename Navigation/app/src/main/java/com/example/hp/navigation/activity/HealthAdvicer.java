@@ -111,15 +111,15 @@ public class HealthAdvicer extends BaseActivity{
 
 
 
-					//myDataa = userDbHelper3.SelectAll();
-					//	Intent i = new Intent(Intent.ACTION_VIEW);
-					//i.setData(Uri.parse(REGISTER_URL+s));
+				//myDataa = userDbHelper3.SelectAll();
+				//	Intent i = new Intent(Intent.ACTION_VIEW);
+				//i.setData(Uri.parse(REGISTER_URL+s));
 				Double bmi1 =Math.ceil(bmi);
 				Double bmr1 =Math.ceil(bmr);
-					((TextView) findViewById(R.id.bmi_index)).setText(bmi1.toString()+"  ("+b+")");
+				((TextView) findViewById(R.id.bmi_index)).setText(bmi1.toString()+"  ("+b+")");
 				((TextView) findViewById(R.id.bmr_index)).setText(bmr1.toString()+ "Kcal");
-					findViewById(R.id.linearLayout3).setVisibility(LinearLayout.VISIBLE);
-				}
+				findViewById(R.id.linearLayout3).setVisibility(LinearLayout.VISIBLE);
+			}
 
 			private Double getValue(int id) {
 				return new Double(((EditText) findViewById(id)).getText()

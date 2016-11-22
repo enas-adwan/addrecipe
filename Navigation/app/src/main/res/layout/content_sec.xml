@@ -9,194 +9,220 @@
     tools:showIn="@layout/activity_sec"
     android:layout_height="wrap_content"
     android:id="@+id/scrollView2" >
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-
-    android:background="#f1eeee"
-    android:orientation="vertical">
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:id="@+id/imagev"
-            android:layout_centerVertical="true"
-            android:layout_alignEnd="@+id/t"
-            android:scaleType="centerCrop"
-            android:layout_alignRight="@+id/t" />
-
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="152dp"
-            android:layout_height="match_parent"
-            android:weightSum="1"
-            android:layout_marginLeft="10dp">
-
-            <TextView
-                android:layout_width="65dp"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Name:"
-                android:id="@+id/textView"
-                android:textColor="#333131" />
-
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:id="@+id/title1"
-                android:layout_below="@+id/textt"
-                android:layout_weight="0.14"
-                android:textColor="#333131"
-                android:textSize="20dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Total Calories:"
-                android:id="@+id/textView2"
-                android:textColor="#333131" />
-
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:id="@+id/calory1"
-                android:layout_below="@+id/desc1"
-                android:layout_alignBottom="@+id/desc1"
-                android:textColor="#bf801919" />
-        </LinearLayout>
-
-        <GridLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/share"
-                android:src="@android:drawable/ic_menu_share"
-                android:background="@null" />
-        </GridLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="added by :"
-            android:id="@+id/textView13" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="username"
-            android:id="@+id/username" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="vertical"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:weightSum="1">
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
 
-
-
-
-        <TextView
-            android:layout_width="253dp"
-            android:layout_height="40dp"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Ingredient:"
-            android:id="@+id/textViewaa"
-            android:textColor="#333131"
-            android:layout_marginTop="20dp"
-            android:textSize="25dp"
-            android:textStyle="normal|bold|italic" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:id="@+id/integ"
-            android:layout_weight="0.13" />
-        <TextView
-            android:layout_width="253dp"
-            android:layout_height="40dp"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Direction:"
-            android:id="@+id/textViewaahg"
-            android:textColor="#333131"
-            android:layout_marginTop="20dp"
-            android:textSize="25dp"
-            android:textStyle="normal|bold|italic" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:id="@+id/desc1"
-           />
-        <TextView
-            android:layout_width="253dp"
-            android:layout_height="40dp"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Recipe times:"
-            android:id="@+id/textVihjhewaahg"
-            android:textColor="#333131"
-            android:layout_marginTop="20dp"
-            android:textSize="25dp"
-            android:textStyle="normal|bold|italic" />
+        android:background="#f1eeee"
+        android:orientation="vertical">
 
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
+
             android:layout_height="match_parent">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="prepration time : "
-                android:id="@+id/textView9" />
+            <ImageView
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:id="@+id/imagev"
+                android:layout_centerVertical="true"
+                android:layout_alignEnd="@+id/t"
+                android:scaleType="centerCrop"
+                android:layout_alignRight="@+id/t" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:id="@+id/prep1"
-                android:layout_below="@+id/desc1"
-                android:layout_alignEnd="@+id/calory1"
-                android:layout_alignRight="@+id/calory1" />
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="152dp"
+                android:layout_height="match_parent"
+                android:weightSum="1"
+                android:layout_marginLeft="10dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text=" Min."
-                android:id="@+id/textView10" />
+                <TextView
+                    android:layout_width="65dp"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Name:"
+                    android:id="@+id/textView"
+                    android:textColor="#333131" />
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:id="@+id/title1"
+                    android:layout_below="@+id/textt"
+                    android:layout_weight="0.14"
+                    android:textColor="#333131"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Total Calories:"
+                    android:id="@+id/textView2"
+                    android:textColor="#333131" />
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:id="@+id/calory1"
+                    android:layout_below="@+id/desc1"
+                    android:layout_alignBottom="@+id/desc1"
+                    android:textColor="#bf801919" />
+            </LinearLayout>
+
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/share"
+                    android:src="@android:drawable/ic_menu_share"
+                    android:background="@null" />
+            </GridLayout>
+
         </LinearLayout>
+        <TableLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+            <TableRow
+                android:id="@+id/tableRow1"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent">
+
+                <TextView
+                    android:id="@+id/TexatView04" android:text="Calory (Kcal)"
+                    android:layout_weight="1" android:background="#dcdcdc"
+                    android:textColor="#000000"
+                    android:padding="2dip" android:gravity="center"/>
+
+                <TextView
+                    android:id="@+id/TextVieddw04" android:text="Protine (g)"
+                    android:layout_weight="1" android:background="#d3d3d3"
+                    android:textColor="#000000"
+                    android:padding="2dip" android:gravity="center"/>
+
+                <TextView
+                    android:id="@+id/TextViaewdd04" android:text="Iron (mg)"
+                    android:layout_weight="1" android:background="#cac9c9"
+                    android:textColor="#000000"
+                    android:padding="2dip" android:gravity="center"/>
+                <TextView
+                    android:id="@+id/TextViaew04" android:text="Calicum (mg)"
+                    android:layout_weight="1" android:background="#cac9c9"
+                    android:textColor="#000000"
+                    android:padding="2dip" android:gravity="center"/>
+
+
+
+            </TableRow>
+            <TableRow
+                android:id="@+id/tableRow2"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent">
+
+                <TextView
+                    android:id="@+id/textcal" android:text="0"
+                    android:layout_weight="1" android:background="#dcdcdc"
+                    android:textColor="#000000"
+                    android:padding="2dip" android:gravity="center"/>
+
+                <TextView
+                    android:id="@+id/text_pro" android:text="0"
+                    android:layout_weight="1" android:background="#d3d3d3"
+                    android:textColor="#000000"
+                    android:padding="2dip" android:gravity="center"/>
+
+                <TextView
+                    android:id="@+id/text_iron" android:text="0"
+                    android:layout_weight="1" android:background="#cac9c9"
+                    android:textColor="#000000"
+                    android:padding="2dip" android:gravity="center"/>
+                <TextView
+                    android:id="@+id/text_calc" android:text="0"
+                    android:layout_weight="1" android:background="#cac9c9"
+                    android:textColor="#000000"
+                    android:padding="2dip" android:gravity="center"/>
+
+
+
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tableRow3"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent">
+
+                <TextView
+                    android:id="@+id/TexatVaiew04" android:text="Vit_B12 (µg)"
+                    android:layout_weight="1" android:background="#dcdcdc"
+                    android:textColor="#000000"
+                    android:padding="2dip" android:gravity="center"/>
+
+                <TextView
+                    android:id="@+id/TextViedw04" android:text="Vit_c (mg)"
+                    android:layout_weight="1" android:background="#d3d3d3"
+                    android:textColor="#000000"
+                    android:padding="2dip" android:gravity="center"/>
+
+                <TextView
+                    android:id="@+id/TextaaViaewdd04" android:text="Vit_B6 (mg)"
+                    android:layout_weight="1" android:background="#cac9c9"
+                    android:textColor="#000000"
+                    android:padding="2dip" android:gravity="center"/>
+                <TextView
+                    android:id="@+id/TextViaaaew04" android:text="Vit_E (mg)"
+                    android:layout_weight="1" android:background="#cac9c9"
+                    android:textColor="#000000"
+                    android:padding="2dip" android:gravity="center"/>
+
+
+
+            </TableRow>
+            <TableRow
+                android:id="@+id/tableRow4"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent">
+
+                <TextView
+                    android:id="@+id/text_b12" android:text="0"
+                    android:layout_weight="1" android:background="#dcdcdc"
+                    android:textColor="#000000"
+                    android:padding="2dip" android:gravity="center"/>
+
+                <TextView
+                    android:id="@+id/text_c" android:text="0"
+                    android:layout_weight="1" android:background="#d3d3d3"
+                    android:textColor="#000000"
+                    android:padding="2dip" android:gravity="center"/>
+
+                <TextView
+                    android:id="@+id/text_b6" android:text="0"
+                    android:layout_weight="1" android:background="#cac9c9"
+                    android:textColor="#000000"
+                    android:padding="2dip" android:gravity="center"/>
+                <TextView
+                    android:id="@+id/text_e" android:text="0"
+                    android:layout_weight="1" android:background="#cac9c9"
+                    android:textColor="#000000"
+                    android:padding="2dip" android:gravity="center"/>
+
+
+
+            </TableRow>
+        </TableLayout>
 
         <LinearLayout
             android:orientation="horizontal"
@@ -207,119 +233,223 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:id="@+id/textt"
-                android:layout_alignParentTop="true"
-                android:text="cooking time : " />
+                android:text="added by :"
+                android:id="@+id/textView13" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:id="@+id/cook1"
-                android:layout_below="@+id/prep1"
-                android:layout_alignEnd="@+id/prep1"
-                android:layout_alignRight="@+id/prep1" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text=" Min."
-                android:id="@+id/textView8" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="timer total"
-                android:id="@+id/totalbutton"
-                android:layout_below="@+id/cook1"
-                android:layout_toEndOf="@+id/cook1"
-                android:layout_toRightOf="@+id/cook1" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:id="@+id/t"
-                android:layout_below="@+id/total1"
-                android:layout_toEndOf="@+id/totalbutton"
-                android:layout_toRightOf="@+id/totalbutton" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="stop "
-                android:id="@+id/stop"
-                android:layout_alignTop="@+id/totalbutton"
-                android:layout_alignStart="@+id/t"
-                android:layout_alignLeft="@+id/t" />
+                android:text="username"
+                android:id="@+id/username" />
 
         </LinearLayout>
 
         <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="total time : "
-                android:id="@+id/textView11" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:id="@+id/total1"
-                android:layout_below="@+id/cook1"
-                android:layout_alignEnd="@+id/cook1"
-                android:layout_alignRight="@+id/cook1" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text=" Min."
-                android:id="@+id/textView12" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/videolayout"
             android:orientation="vertical"
-            android:layout_width="152dp"
-            android:layout_height="200dp"
-            android:weightSum="1"
-            android:layout_marginLeft="10dp">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:weightSum="1">
+
+
+
+
             <TextView
                 android:layout_width="253dp"
                 android:layout_height="40dp"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Recipe video :"
-                android:id="@+id/tekxtVihjhewaahg"
+                android:text="Ingredient:"
+                android:id="@+id/textViewaa"
                 android:textColor="#333131"
                 android:layout_marginTop="20dp"
                 android:textSize="25dp"
                 android:textStyle="normal|bold|italic" />
 
-            <FrameLayout
-                android:id="@+id/videoViewWrapper"
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true" >
-                <VideoView
-                    android:id="@+id/myVideo"
-                    android:layout_width="265dp"
-                    android:layout_height="146dp"
-                    android:layout_centerInParent="true" />
-            </FrameLayout>
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:id="@+id/integ"
+                android:layout_weight="0.13" />
+            <TextView
+                android:layout_width="253dp"
+                android:layout_height="40dp"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Direction:"
+                android:id="@+id/textViewaahg"
+                android:textColor="#333131"
+                android:layout_marginTop="20dp"
+                android:textSize="25dp"
+                android:textStyle="normal|bold|italic" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:id="@+id/desc1"
+                />
+            <TextView
+                android:layout_width="253dp"
+                android:layout_height="40dp"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Recipe times:"
+                android:id="@+id/textVihjhewaahg"
+                android:textColor="#333131"
+                android:layout_marginTop="20dp"
+                android:textSize="25dp"
+                android:textStyle="normal|bold|italic" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="prepration time : "
+                    android:id="@+id/textView9" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:id="@+id/prep1"
+                    android:layout_below="@+id/desc1"
+                    android:layout_alignEnd="@+id/calory1"
+                    android:layout_alignRight="@+id/calory1" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text=" Min."
+                    android:id="@+id/textView10" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:id="@+id/textt"
+                    android:layout_alignParentTop="true"
+                    android:text="cooking time : " />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:id="@+id/cook1"
+                    android:layout_below="@+id/prep1"
+                    android:layout_alignEnd="@+id/prep1"
+                    android:layout_alignRight="@+id/prep1" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text=" Min."
+                    android:id="@+id/textView8" />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="timer total"
+                    android:id="@+id/totalbutton"
+                    android:layout_below="@+id/cook1"
+                    android:layout_toEndOf="@+id/cook1"
+                    android:layout_toRightOf="@+id/cook1" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:id="@+id/t"
+                    android:layout_below="@+id/total1"
+                    android:layout_toEndOf="@+id/totalbutton"
+                    android:layout_toRightOf="@+id/totalbutton" />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="stop "
+                    android:id="@+id/stop"
+                    android:layout_alignTop="@+id/totalbutton"
+                    android:layout_alignStart="@+id/t"
+                    android:layout_alignLeft="@+id/t" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="total time : "
+                    android:id="@+id/textView11" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:id="@+id/total1"
+                    android:layout_below="@+id/cook1"
+                    android:layout_alignEnd="@+id/cook1"
+                    android:layout_alignRight="@+id/cook1" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text=" Min."
+                    android:id="@+id/textView12" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/videolayout"
+                android:orientation="vertical"
+                android:layout_width="152dp"
+                android:layout_height="200dp"
+                android:weightSum="1"
+                android:layout_marginLeft="10dp">
+                <TextView
+                    android:layout_width="253dp"
+                    android:layout_height="40dp"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Recipe video :"
+                    android:id="@+id/tekxtVihjhewaahg"
+                    android:textColor="#333131"
+                    android:layout_marginTop="20dp"
+                    android:textSize="25dp"
+                    android:textStyle="normal|bold|italic" />
+
+                <FrameLayout
+                    android:id="@+id/videoViewWrapper"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true" >
+                    <VideoView
+                        android:id="@+id/myVideo"
+                        android:layout_width="265dp"
+                        android:layout_height="146dp"
+                        android:layout_centerInParent="true" />
+                </FrameLayout>
+
+            </LinearLayout>
 
         </LinearLayout>
 
+
     </LinearLayout>
-
-
-</LinearLayout>
 
 </ScrollView>

@@ -121,9 +121,24 @@ public class ListDataAdpter extends ArrayAdapter  {
                 userDbHelper.delete(sqLiteDatabase,i);
 
                 notifyDataSetChanged();
-                float  sum=userDbHelper.getTotal(sqLiteDatabase);
 
-                AddRecipe.Text.setText(String.valueOf(sum)+"Kcal");
+                ArrayList<Float> sums=userDbHelper.getTotal(sqLiteDatabase);
+                Float calorysum=sums.get(0);
+                Float vitcsum=sums.get(1);
+                Float prosum=sums.get(2);
+                Float ironsum=sums.get(3);
+                Float calcsum=sums.get(4);
+                Float vit6sum=sums.get(5);
+                Float vitb12sum=sums.get(6);
+                Float vitesum=sums.get(7);
+                AddRecipe.Text.setText(String.valueOf(calorysum)+"Kcal");
+                AddRecipe.Textvitc.setText(String.valueOf(vitcsum));
+                AddRecipe.Textpro.setText(String.valueOf(prosum));
+                AddRecipe.Textvitb6.setText(String.valueOf(vit6sum));
+                AddRecipe.Textvite.setText(String.valueOf(vitesum));
+                AddRecipe.Textvitb12.setText(String.valueOf(vitb12sum));
+                AddRecipe.Textiron.setText(String.valueOf(ironsum));
+                AddRecipe.Textcalc.setText(String.valueOf(calcsum));
                 AddRecipe.setListViewHeightBasedOnItems(listView);
                 Toast.makeText(getContext(), m+position+i , Toast.LENGTH_LONG).show();
             }

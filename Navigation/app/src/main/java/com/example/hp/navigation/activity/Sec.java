@@ -67,6 +67,14 @@ public class Sec extends BaseActivity {
     public String all="";
     public TextView T;
     public Bitmap bmp;
+    public static TextView Textcal;
+    public static TextView Textpro;
+    public static TextView Textcalc;
+    public static TextView Textiron;
+    public static TextView Textvitc;
+    public static TextView Textvitb6;
+    public static TextView Textvitb12;
+    public static TextView Textvite;
     public  ImageView imagevieww;
     private int position = 0;
     private MediaController mediaController;
@@ -75,24 +83,18 @@ public class Sec extends BaseActivity {
     public static final String mBroadcastStringAction = "com.truiton.broadcast.string";
     private final static String TAG = "BroadcastService";
    public Intent i;
-   String flag="0";
-    int ii;
-    CountDownTimer countdown= null;;
-    public MediaPlayer mp;
+
     recipeDbHelper userDbHelper2;
     SQLiteDatabase sqLiteDatabase;
     LinearLayout videoLayout;
     Cursor cursor;
-    Cursor cursor1;
-    Cursor cursor2;
+
     int r=0;
-    int count = 0;
-    boolean[] timerProcessing = { false };
-    boolean[] timerStarts = { false };
+
    // public MyCount timer;
     public Button b;
     public Button s;
-    public Button Go;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -108,6 +110,14 @@ public class Sec extends BaseActivity {
         share = (ImageButton) findViewById(R.id.share);
      imagevieww = (ImageView) findViewById(R.id.imagev);
         vidView = (VideoView)findViewById(R.id.myVideo);
+        Textvitc=(TextView) findViewById(R.id.text_c);
+        Textcal=(TextView) findViewById(R.id.textcal);
+        Textpro=(TextView) findViewById(R.id.text_pro);
+        Textiron=(TextView) findViewById(R.id.text_iron);
+        Textcalc=(TextView) findViewById(R.id.text_calc);
+        Textvitb6=(TextView) findViewById(R.id.text_b6);
+        Textvitb12=(TextView) findViewById(R.id.text_b12);
+        Textvite=(TextView) findViewById(R.id.text_e);
          videoLayout=(LinearLayout)this.findViewById(R.id.videolayout);
         // Set the media controller buttons
         if (mediaController == null) {
@@ -584,6 +594,8 @@ public class Sec extends BaseActivity {
 
 
     }
+
+
     // When you change direction of phone, this method will be called.
     // It store the state of video (Current position)
     @Override
@@ -641,12 +653,19 @@ public class Sec extends BaseActivity {
             public String video = "";
             public String list = "";
             public String User = "";
+            public String vitc = "";
+            public String pro = "";
+            public String iron = "";
+            public String calc = "";
+            public String vitb6 = "";
+            public String vitb12 = "";
+            public String vite = "";
             public Integer id;
             ImageView imageview;
             public String all="";
             public String alldesc="";
             public String name1 = "";
-            private TextView Text;
+
             private LoginManager loginManager;
             ArrayList<Record> records;
             Vivsadapter vivsadapter;
@@ -699,6 +718,13 @@ Log.d("result",s);
                         rating = c.getString("rating");
                         photo = c.getString("photo");
                         User = c.getString("username");
+                        vitc = c.getString("vitc");
+                        pro = c.getString("pro");
+                        calc = c.getString("calc");
+                        iron = c.getString("iron");
+                        vitb6 = c.getString("vitb6");
+                        vitb12 = c.getString("vitb12");
+                        vite = c.getString("vite");
 
                       //  JSONArray it = c.getJSONArray("list");
                     //    list = it.toString();
@@ -761,7 +787,8 @@ Log.d("result",s);
 
 
                     }
-                    video=video.trim();
+
+                    video=video.replaceAll("\\s","");
                     if(video.equals("no video")){
                         videoLayout.setVisibility(LinearLayout.GONE);
                     }
@@ -772,14 +799,23 @@ Log.d("result",s);
 
                         vidView.requestFocus();
                     }
-                   titl.setText(title);
+                    titl.setText(title);
                     des.setText(alldesc);
                     calor.setText(calory);
                     pre.setText(prep);
                     tota.setText(total);
                     coo.setText(cook);
+                    Textcal.setText(calory);
                     Integ.setText(all);
                     Username.setText(User);
+                    Textvitb6.setText(vitb6);
+
+                    Textvitb12.setText(vitb12);
+                    Textvite.setText(vite);
+                    Textpro.setText(pro);
+                    Textiron.setText(iron);
+                    Textcalc.setText(calc);
+                    Textvitc.setText(vitc);
                     Toast.makeText(getApplicationContext(), cook, Toast.LENGTH_LONG).show();
                     vivsadapter = new Vivsadapter(Sec.this,records);
 
@@ -810,6 +846,16 @@ Log.d("result",s);
                     e.printStackTrace();
 
                 }
+
+                Username.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        startActivity(new Intent(Sec.this, profile.class));
+
+                    }
+                });
+
+
                 share.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View arg0)  {
                         FacebookSdk.sdkInitialize(getApplicationContext());
@@ -973,7 +1019,7 @@ Log.d("result",s);
 
             @Override
             public String doInBackground(String... params) {
-                Text = (TextView) findViewById(R.id.textt);
+
 
                 try {
                     String line, newjson = "";

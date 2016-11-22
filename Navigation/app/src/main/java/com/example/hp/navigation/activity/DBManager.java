@@ -5,7 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-
+import java.util.ArrayList;
 public class DBManager extends SQLiteOpenHelper {
 
     private static final int DATABASE_VERSION = 1;
@@ -15,14 +15,15 @@ public class DBManager extends SQLiteOpenHelper {
         super(context, "data.db", null, DATABASE_VERSION);
 
     }
-    public Integer findcalory(String s) {
+    public ArrayList<String> findcalory(String s) {
 
         String rrr="n";
+        ArrayList<String> array = new ArrayList<String>();
         Integer rr=0;
         String mm;
         SQLiteDatabase db = this.getWritableDatabase();
 
-        String selectStmt = "select Energ_Kcal from foodtable where Shrt_Desc ='"+s+"'";
+        String selectStmt = "select Energ_Kcal , Vit_C , Calcium , Iron , Protein , Vit_B6 , Vit_B12 , Vit_E  from foodtable where Shrt_Desc ='"+s+"'";
 
         Cursor cursor = db.rawQuery(selectStmt, null);
 
@@ -31,12 +32,19 @@ public class DBManager extends SQLiteOpenHelper {
 
 
             //rrr= cursor.getString(1);
-            rr=     cursor.getInt(0);
-
+           array.add(cursor.getString(0));
+           array.add(cursor.getString(1));
+            array.add(cursor.getString(2));
+            array.add(cursor.getString(3));
+            array.add(cursor.getString(4));
+            array.add(cursor.getString(5));
+            array.add(cursor.getString(6));
+            array.add(cursor.getString(7));
+           // rr=     cursor.getInt(1);
 
         }
         // mm=rr.toString();
-        return rr;
+        return array;
 
 
     }
