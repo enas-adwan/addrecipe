@@ -17,6 +17,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.MatrixCursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.BaseColumns;
@@ -72,7 +73,8 @@ public class BaseActivity extends ActionBarActivity {
 	 */
 
 	protected ListView mDrawerList;
-
+	recipeDbHelper userDbHelper2;
+	SQLiteDatabase sqLiteDatabase;
 	/**
 	 * List item array for navigation drawer items. 
 	 * */
@@ -222,7 +224,14 @@ public class BaseActivity extends ActionBarActivity {
 				startActivity(new Intent(this, profile.class));
 				break;
 			case 5:
-				startActivity(new Intent(this, HealthAdvicer.class));
+
+				userDbHelper2=new recipeDbHelper(getApplicationContext());
+				sqLiteDatabase=userDbHelper2.getReadableDatabase();
+				if(!userDbHelper2.istabledescexisttracking(sqLiteDatabase)){
+					startActivity(new Intent(this, trackingdailycalory.class));}
+				else {
+					startActivity(new Intent(this, HealthAdvicer.class));}
+
 				break;
 			case 6:
 				SharedPreferences type_user = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);

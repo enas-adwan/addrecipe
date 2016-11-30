@@ -32,5 +32,6 @@ dependencies {
     compile 'com.android.support:design:24.1.1'
     compile 'com.squareup.okhttp3:okhttp:3.3.1'
     compile 'com.nbsp:library:1.09'
+    compile 'com.github.sundeepk:compact-calendar-view:1.9.2-beta'
 
 }

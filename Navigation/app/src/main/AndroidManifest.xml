@@ -4,6 +4,7 @@
     package="com.navigation.drawer.activity"
     android:versionCode="1"
     android:versionName="1.0">
+
     <uses-sdk
         android:minSdkVersion="11"
         android:targetSdkVersion="14" />
@@ -59,12 +60,10 @@
             tools:replace="android:theme" />
         <activity
             android:name="com.example.hp.navigation.activity.BaseActivity"
-            android:label="@string/app_name"></activity>
+            android:label="@string/app_name" />
         <activity
             android:name="com.example.hp.navigation.activity.ShowRecipe"
-            android:label="@string/title_activity_sec"
-
-        />
+            android:label="@string/title_activity_sec" />
         <activity
             android:name="com.example.hp.navigation.activity.Sec"
             android:label="@string/title_activity_sec"
@@ -81,7 +80,7 @@
 
         <activity
             android:name="com.example.hp.navigation.activity.Showfav"
-            android:label="@string/title_activity_showfav"></activity>
+            android:label="@string/title_activity_showfav" />
         <activity
             android:name="com.example.hp.navigation.activity.Showonefav"
             android:label="@string/title_activity_showonefav" />
@@ -91,12 +90,18 @@
         <activity
             android:name="com.example.hp.navigation.activity.Showonesqliteoffline"
             android:label="@string/title_activity_showonesqliteoffline" />
+        <activity
+            android:name="com.example.hp.navigation.activity.AddRecipe"
+            android:label="Add Recipe" />
 
-        <activity android:name="com.example.hp.navigation.activity.AddRecipe"
-            android:label="Add Recipe"/>
         <activity
             android:name="com.example.hp.navigation.activity.searchfilter"
             android:label="@string/title_activity_searchfilter"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name="com.example.hp.navigation.activity.trackingdailycalory"
+            android:label="@string/title_activity_trackingdailycalory"
             android:theme="@style/AppTheme"></activity>
     </application>
+
 </manifest>

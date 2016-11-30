@@ -1,21 +1,23 @@
 package com.example.hp.navigation.activity;
-
-import android.app.Activity;
-import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import android.content.Intent;
 
 import com.navigation.drawer.activity.R;
 
-public class HealthAdvicer extends BaseActivity{
+//import android.asynctask.library.JSONParser;
+//import android.support.v4.view.MenuItemCompat;
+//import android.support.v7.widget.SearchView;
+
+
+public class HealthAdvicer extends BaseActivity {
 	/** Called when the activity is first created. */
 	private Spinner spinner;
 	private Spinner spinner1;
@@ -110,16 +112,20 @@ public class HealthAdvicer extends BaseActivity{
 
 
 
+				else {
+					userDbHelper3=new recipeDbHelper(getApplicationContext());
+					sqLiteDatabase=userDbHelper3.getWritableDatabase();
 
-				//myDataa = userDbHelper3.SelectAll();
-				//	Intent i = new Intent(Intent.ACTION_VIEW);
-				//i.setData(Uri.parse(REGISTER_URL+s));
-				Double bmi1 =Math.ceil(bmi);
-				Double bmr1 =Math.ceil(bmr);
-				((TextView) findViewById(R.id.bmi_index)).setText(bmi1.toString()+"  ("+b+")");
-				((TextView) findViewById(R.id.bmr_index)).setText(bmr1.toString()+ "Kcal");
-				findViewById(R.id.linearLayout3).setVisibility(LinearLayout.VISIBLE);
-			}
+					userDbHelper3.addinnformationtracking( bmr.toString(),sqLiteDatabase);
+					//myDataa = userDbHelper3.SelectAll();
+					//	Intent i = new Intent(Intent.ACTION_VIEW);
+					//i.setData(Uri.parse(REGISTER_URL+s));
+					Intent i = new Intent(getApplicationContext(), trackingdailycalory.class);
+					startActivity(i);
+					//((TextView) findViewById(R.id.bmi_index)).setText(bmi.toString()+b);
+					//((TextView) findViewById(R.id.bmr_index)).setText(bmr.toString());
+					//findViewById(R.id.linearLayout3).setVisibility(LinearLayout.VISIBLE);
+				}}
 
 			private Double getValue(int id) {
 				return new Double(((EditText) findViewById(id)).getText()

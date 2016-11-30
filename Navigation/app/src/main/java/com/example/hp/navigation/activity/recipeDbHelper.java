@@ -17,6 +17,11 @@ public class recipeDbHelper extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION=5;
     // private static final String CREATE_QUERY="CREATE TABLE "+ ShowCalory.NewrecipeInfo.TABLE_NAME+"("+
     //    ShowCalory.NewrecipeInfo.recipe_calory+" FLOAT );";
+    private static final String CREATE_QUERY_tracking= "CREATE TABLE IF NOT EXISTS tracking (" +
+            "_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            "bmr TEXT, " +
+
+            "calory  FLOAT)";
     private static final String CREATE_QUERY= "CREATE TABLE IF NOT EXISTS project (" +
             "_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
             "name TEXT, " +
@@ -91,6 +96,13 @@ public class recipeDbHelper extends SQLiteOpenHelper {
 
         return empty;
     }
+    public Cursor getinformationtracking(SQLiteDatabase db){
+        Cursor cursor;
+        String[] projections={"bmr"};
+
+        cursor= db.query("tracking", projections, null, null, null, null, null);
+        return cursor;
+    }
     public boolean istabledescexistsearch( SQLiteDatabase db){
         boolean empty = true;
         Cursor cur = db.rawQuery("SELECT COUNT(*) FROM search", null);
@@ -100,6 +112,15 @@ public class recipeDbHelper extends SQLiteOpenHelper {
         cur.close();
 
         return empty;
+    }
+    public void addinnformationtracking( String bmr, SQLiteDatabase db){
+        db.execSQL(CREATE_QUERY_tracking);
+        ContentValues contentValue = new ContentValues();
+        contentValue.put("bmr",bmr);
+
+
+        db.insert("tracking",null,contentValue);
+        Log.e("DATABASE OPERATION", "One row is insert");
     }
     public void addinnformation(Float caloryNum, String name, SQLiteDatabase db,Float vit_c,Float calc,Float iron,Float pro,Float vitb6,Float vitb12,Float vite){
         db.execSQL(CREATE_QUERY);
@@ -255,6 +276,17 @@ public class recipeDbHelper extends SQLiteOpenHelper {
         Log.e("droppp", "drop");
         db.execSQL("DROP TABLE IF EXISTS desc");
 
+    }
+    public boolean istabledescexisttracking( SQLiteDatabase db){
+        db.execSQL(CREATE_QUERY_tracking);
+        boolean empty = true;
+        Cursor cur = db.rawQuery("SELECT COUNT(*) FROM tracking", null);
+        if (cur != null && cur.moveToFirst()) {
+            empty = (cur.getInt (0) == 0);
+        }
+        cur.close();
+
+        return empty;
     }
     public void droptables(SQLiteDatabase db) {
 

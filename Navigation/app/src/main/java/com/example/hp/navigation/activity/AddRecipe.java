@@ -236,14 +236,37 @@ public class AddRecipe extends BaseActivity {
                 String food = autoCom.getText().toString().trim();
                 ArrayList<String> m = myDb.findcalory(food);
                 String cal=m.get(0);
+                if(cal==null){
+                    cal="0";
+                }
                String vitc=m.get(1);
+                if(vitc==null){
+                    vitc="0";
+                }
                 String calc=m.get(2);
+                if(calc==null){
+                    calc="0";
+                }
                 String iron=m.get(3);
+                if(iron==null){
+                    iron="0";
+                }
                 String pro=m.get(4);
+                if(pro==null){
+                    pro="0";
+                }
                 String vit_b6=m.get(5);
+                if(vit_b6==null){
+                    vit_b6="0";
+                }
                 String vit_b12=m.get(6);
+                if(vit_b12==null){
+                    vit_b12="0";
+                }
                 String vit_e=m.get(7);
-
+                if(vit_e==null){
+                    vit_e="0";
+                }
                 //Toast.makeText(getApplicationContext(), numberAsString  , Toast.LENGTH_LONG).show();
 
                 calorycalc(cal,vitc,calc,iron,pro,vit_b6,vit_b12,vit_e);
