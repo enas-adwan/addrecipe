@@ -16,20 +16,13 @@ package com.example.hp.navigation.activity;
         import java.io.OutputStream;
 
 public class DataBaseHelper extends SQLiteOpenHelper {
-
     private static final String TAG = "DataBaseHelper";
-
     //The Android's default system path of your application database.
     private static String DB_PATH = "/data/data/" + BuildConfig.APPLICATION_ID + "/databases/";
-
     private static String DB_NAME = "project.sqlite";
-
     public SQLiteDatabase myDataBase;
-
     private final Context context;
     private final Context myContext;
-
-
     /**
      * Constructor
      * Takes and keeps a reference of the passed context in order to access to the application assets and resources.
@@ -37,13 +30,10 @@ public class DataBaseHelper extends SQLiteOpenHelper {
      * @param context
      */
     public DataBaseHelper(Context context) {
-
         super(context, DB_NAME, null, 1);
         this.context = context;
         this.myContext = context;
-
     }
-
     /**
      * Creates a empty database on the system and rewrites it with your own database.
      */

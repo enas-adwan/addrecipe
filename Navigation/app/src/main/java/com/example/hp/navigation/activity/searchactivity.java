@@ -39,6 +39,7 @@ public class searchactivity extends BaseActivity{
     String total;
     String calory;
     String qan;
+    String c;
     public static RecyclerView mRecyclerView;
     public static ListView listVieww;
     @Override
@@ -54,8 +55,9 @@ public class searchactivity extends BaseActivity{
         calory=getIntent().getStringExtra("calory");
         total=getIntent().getStringExtra("total");
         qan=getIntent().getStringExtra("qan");
-       // Toast.makeText(getApplicationContext(), list, Toast.LENGTH_LONG).show();
-      //  Log.e("DATABASE OPERATION", list);
+        c=getIntent().getStringExtra("ch");
+        // Toast.makeText(getApplicationContext(), list, Toast.LENGTH_LONG).show();
+        //  Log.e("DATABASE OPERATION", list);
         //  listVieww=(ListView)findViewById(R.id.lv);
         jso(title,calory,list,total,qan);
         /*  FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -234,7 +236,7 @@ public class searchactivity extends BaseActivity{
                     httpURLConnection.setDoInput(true);
                     OutputStream outputStream = httpURLConnection.getOutputStream();
                     BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
-                    String post_data = URLEncoder.encode("title","UTF-8")+"="+ URLEncoder.encode(number,"UTF-8")+"&"+ URLEncoder.encode("calory","UTF-8")+"="+ URLEncoder.encode(calory,"UTF-8")+"&"+ URLEncoder.encode("list","UTF-8")+"="+ URLEncoder.encode(list,"UTF-8")+"&"+ URLEncoder.encode("total","UTF-8")+"="+ URLEncoder.encode(total,"UTF-8")+"&"+ URLEncoder.encode("qan","UTF-8")+"="+ URLEncoder.encode(qan,"UTF-8");
+                    String post_data = URLEncoder.encode("title","UTF-8")+"="+ URLEncoder.encode(number,"UTF-8")+"&"+ URLEncoder.encode("calory","UTF-8")+"="+ URLEncoder.encode(calory,"UTF-8")+"&"+ URLEncoder.encode("list","UTF-8")+"="+ URLEncoder.encode(list,"UTF-8")+"&"+ URLEncoder.encode("total","UTF-8")+"="+ URLEncoder.encode(total,"UTF-8")+"&"+ URLEncoder.encode("qan","UTF-8")+"="+ URLEncoder.encode(qan,"UTF-8")+ "&"+URLEncoder.encode("c","UTF-8")+"="+ URLEncoder.encode(c,"UTF-8");
                     //Toast.makeText(getApplicationContext(),post_data, Toast.LENGTH_LONG).show();
                     bufferedWriter.write(post_data);
                     bufferedWriter.flush();

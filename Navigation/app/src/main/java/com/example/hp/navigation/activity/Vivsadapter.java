@@ -58,7 +58,7 @@ public class Vivsadapter extends RecyclerView.Adapter<Vivsadapter.MasonryView>  
     }
     public Vivsadapter(Vivsadapter Vivs) {
 
-  this.Vivs=Vivs;
+        this.Vivs=Vivs;
 
     }
 
@@ -103,32 +103,53 @@ public class Vivsadapter extends RecyclerView.Adapter<Vivsadapter.MasonryView>  
         holder.card.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-              if(  ShowRecipe.mRecyclerView.getTag()=="sec") {
-                  String title1 = gettitle(position);
-                  Toast.makeText(context, title1, Toast.LENGTH_LONG).show();
-                  Intent i = new Intent(context,Sec.class);
-                  i.putExtra("title", title1);
-                  i.putExtra("type", "sec");
-                  context.startActivity(i);
-              }else if ( Showfav.mRecyclerView.getTag()=="fav"){
-                  String title1 = gettitle(position);
-                  Toast.makeText(context, title1+"  fav", Toast.LENGTH_LONG).show();
-                  Intent i = new Intent(context, Sec.class);
-                  i.putExtra("title", title1);
-                  i.putExtra("type", "fav");
-                  context.startActivity(i);
+                if(  ShowRecipe.mRecyclerView.getTag()=="sec") {
+                    String title1 = gettitle(position);
+                    Toast.makeText(context, title1, Toast.LENGTH_LONG).show();
+                    Intent i = new Intent(context,Sec.class);
+                    i.putExtra("title", title1);
+                    i.putExtra("type", "sec");
+                    context.startActivity(i);
+
+                }
 
 
-              }else if ( ShowRecipe.mRecyclerView.getTag()=="offline"){
-                  String title1 = gettitle(position);
-                  Toast.makeText(context, title1+"  offline", Toast.LENGTH_LONG).show();
-                  Intent i = new Intent(context, Sec.class);
-                  i.putExtra("title", title1);
-                  i.putExtra("type", "offline");
-                  context.startActivity(i);
+                else if ( searchactivity.mRecyclerView!=null){
+                if(  searchactivity.mRecyclerView.getTag()=="sec") {
+                    String title1 = gettitle(position);
+                    Toast.makeText(context, title1, Toast.LENGTH_LONG).show();
+                    Intent i = new Intent(context,Sec.class);
+                    i.putExtra("title", title1);
+                    i.putExtra("type", "sec");
+                    context.startActivity(i);
+
+                }}
 
 
-              }
+
+
+
+
+                else if ( Showfav.mRecyclerView!=null){
+                    if(Showfav.mRecyclerView.getTag()=="fav") {
+                        String title1 = gettitle(position);
+                        Toast.makeText(context, title1 + "  fav", Toast.LENGTH_LONG).show();
+                        Intent i = new Intent(context, Sec.class);
+                        i.putExtra("title", title1);
+                        i.putExtra("type", "fav");
+                        context.startActivity(i);
+                    }
+
+                }else if ( ShowRecipe.mRecyclerView.getTag()=="offline"){
+                    String title1 = gettitle(position);
+                    Toast.makeText(context, title1+"  offline", Toast.LENGTH_LONG).show();
+                    Intent i = new Intent(context, Sec.class);
+                    i.putExtra("title", title1);
+                    i.putExtra("type", "offline");
+                    context.startActivity(i);
+
+
+                }
 
 
 
@@ -142,18 +163,18 @@ public class Vivsadapter extends RecyclerView.Adapter<Vivsadapter.MasonryView>  
         bmp = BitmapFactory.decodeByteArray(qrimage, 0, qrimage.length);
         holder.imageview.setImageBitmap(bmp);
         holder.rowTitle.setText(temp.getName());
-       // holder.rowDescription.setText(String.valueOf(temp.getNoid()));
+        // holder.rowDescription.setText(String.valueOf(temp.getNoid()));
         if(Float.valueOf(temp.getRating())!=0){
-        holder.ratingBar.setRating(Float.valueOf(temp.getRating()));}
+            holder.ratingBar.setRating(Float.valueOf(temp.getRating()));}
         else{
             holder.ratingBar.setRating(0);
 
         }
         holder.favoriteImg.setFocusable(false);
 
-       // holder.ratingBar.setFocusable(false);
-       // holder.ratingBar.setRating(0);
-       // holder.shareimage.setFocusable(false);
+        // holder.ratingBar.setFocusable(false);
+        // holder.ratingBar.setRating(0);
+        // holder.shareimage.setFocusable(false);
         userDbHelper2=new recipeDbHelper(context);
         sqLiteDatabase=userDbHelper2.getReadableDatabase();
         title=   gettitle( position);
@@ -203,9 +224,9 @@ public class Vivsadapter extends RecyclerView.Adapter<Vivsadapter.MasonryView>  
                     String title2=   gettitle( position);
                     userDbHelper2.deletefav(sqLiteDatabase,title2);
                     //if(Showfav.listView!=null){
-                      //  list.remove(position);
+                    //  list.remove(position);
 
-                  //  }
+                    //  }
                     if (Showfav.mRecyclerView!=null ){
                         if(Showfav.mRecyclerView.getTag()=="fav") {
                             String title1 = gettitle(position);
@@ -226,7 +247,7 @@ public class Vivsadapter extends RecyclerView.Adapter<Vivsadapter.MasonryView>  
             }
         });
         if(userDbHelper2.Checkranking(title,sqLiteDatabase)){
-           holder.ratingBar.setEnabled(false);
+            holder.ratingBar.setEnabled(false);
             //holder. ratingBar.setClickable(true);
             LayerDrawable starss = (LayerDrawable)   holder.ratingBar.getProgressDrawable();
             starss.getDrawable(2).setColorFilter(Color.RED, PorterDuff.Mode.SRC_ATOP);
@@ -261,7 +282,7 @@ public class Vivsadapter extends RecyclerView.Adapter<Vivsadapter.MasonryView>  
                     float stars = (float) starsf + 2;
 
                     DecimalFormat decimalFormat = new DecimalFormat("#.#");
-                  float curRate = Float.valueOf(decimalFormat.format((stars
+                    float curRate = Float.valueOf(decimalFormat.format((stars
                             * count + starsf)
                             / ++count));
                     String title1=   gettitle( position);
@@ -273,7 +294,7 @@ public class Vivsadapter extends RecyclerView.Adapter<Vivsadapter.MasonryView>  
                             str1, Toast.LENGTH_SHORT)
                             .show();
                     Float r=Float.valueOf(str1);
-               holder.ratingBar.setRating(r);
+                    holder.ratingBar.setRating(r);
                     if(isOnline()){
                         holder.ratingBar.setEnabled(false);
                         LayerDrawable starss = (LayerDrawable)       holder.ratingBar.getProgressDrawable();
@@ -322,13 +343,13 @@ public class Vivsadapter extends RecyclerView.Adapter<Vivsadapter.MasonryView>  
             }
         });*/
 
-    setAnimation(holder.card, position);
-     //   setFadeAnimation(holder.card);
+        setAnimation(holder.card, position);
+        //   setFadeAnimation(holder.card);
     }
 
     @Override
     public long getItemId(int position) {
-      //  return list.get(position);
+        //  return list.get(position);
         return 0;
     }
 
@@ -358,14 +379,14 @@ public class Vivsadapter extends RecyclerView.Adapter<Vivsadapter.MasonryView>  
 
 
             // Find Views
-      //  listView = (ListView)itemView.findViewById(R.id.lv);
-          ratingBar= (RatingBar) itemView.findViewById(R.id.ratingBar);
-        rowTitle = (TextView) itemView.findViewById(R.id.nam);
-       // rowDescription = (TextView) itemView.findViewById(R.id.idd);
+            //  listView = (ListView)itemView.findViewById(R.id.lv);
+            ratingBar= (RatingBar) itemView.findViewById(R.id.ratingBar);
+            rowTitle = (TextView) itemView.findViewById(R.id.nam);
+            // rowDescription = (TextView) itemView.findViewById(R.id.idd);
             //  ListView lv = (ListView)MainActivity.findViewById(R.id.li);
-       imageview = (ImageView) itemView.findViewById(R.id.imageV);
+            imageview = (ImageView) itemView.findViewById(R.id.imageV);
             card=(CardView)itemView.findViewById(R.id.card_view);
-          favoriteImg = (ImageView) itemView.findViewById(R.id.imgbtn_favorite);
+            favoriteImg = (ImageView) itemView.findViewById(R.id.imgbtn_favorite);
 
         }
     }
@@ -384,9 +405,9 @@ public class Vivsadapter extends RecyclerView.Adapter<Vivsadapter.MasonryView>  
     {
         // If the bound view wasn't previously displayed on screen, it's animated
 
-          Animation animation = AnimationUtils.loadAnimation(context,   R.anim.slide_down);
-            viewToAnimate.startAnimation(animation);
-            lastPosition = position;
+        Animation animation = AnimationUtils.loadAnimation(context,   R.anim.slide_down);
+        viewToAnimate.startAnimation(animation);
+        lastPosition = position;
 
     }
 

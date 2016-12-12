@@ -46,7 +46,7 @@
                     app:compactCalendarTextSize="12sp" />
             </LinearLayout>
 
-            <android.support.v7.widget.Toolbar
+         <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
 
                 android:layout_width="match_parent"
@@ -101,9 +101,9 @@
             </android.support.v7.widget.Toolbar>
 
         </android.support.design.widget.CollapsingToolbarLayout>
+
         <include layout="@layout/content_trackingdailycalory" />
     </android.support.design.widget.AppBarLayout>
-
 
 
 </android.support.design.widget.CoordinatorLayout>

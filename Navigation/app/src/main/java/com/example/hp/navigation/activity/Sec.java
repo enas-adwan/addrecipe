@@ -5,6 +5,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
@@ -18,6 +19,9 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -33,31 +37,39 @@ import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
+import com.facebook.login.widget.ProfilePictureView;
 import com.facebook.share.Sharer;
 import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareDialog;
 import com.navigation.drawer.activity.R;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
-public class Sec extends BaseActivity {
+public class Sec extends BaseActivity implements View.OnClickListener  {
     String title;
     public TextView titl;
     public TextView calor;
     public TextView Username;
+    JSONArray peoples = null;
+    String myJSON;
+    private static final String TAG_RESULTS="result";
+    private static final String TAG_name = "name";
     public TextView pre;
     public TextView des;
     public TextView coo;
@@ -88,7 +100,8 @@ public class Sec extends BaseActivity {
     SQLiteDatabase sqLiteDatabase;
     LinearLayout videoLayout;
     Cursor cursor;
-
+    WebView simpleWebView;
+    Button loadWebPage;
     int r=0;
 
    // public MyCount timer;
@@ -105,6 +118,7 @@ public class Sec extends BaseActivity {
          */
         mDrawerList.setItemChecked(position, true);
         setTitle(listArray[position]);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
        // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         b = (Button) findViewById(R.id.totalbutton);
         share = (ImageButton) findViewById(R.id.share);
@@ -119,42 +133,12 @@ public class Sec extends BaseActivity {
         Textvitb12=(TextView) findViewById(R.id.text_b12);
         Textvite=(TextView) findViewById(R.id.text_e);
          videoLayout=(LinearLayout)this.findViewById(R.id.videolayout);
-        // Set the media controller buttons
-        if (mediaController == null) {
-            mediaController = new MediaController(Sec.this);
-
-            // Set the videoView that acts as the anchor for the MediaController.
-            mediaController.setAnchorView(vidView);
-
-
-            // Set MediaController for VideoView
-            vidView.setMediaController(mediaController);
-        }
-
-        // When the video file ready for playback.
-        vidView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-
-            public void onPrepared(MediaPlayer mediaPlayer) {
-
-
-                vidView.seekTo(position);
-                if (position == 0) {
-                    vidView.start();
-                }
-
-                // When video Screen change size.
-                mediaPlayer.setOnVideoSizeChangedListener(new MediaPlayer.OnVideoSizeChangedListener() {
-                    @Override
-                    public void onVideoSizeChanged(MediaPlayer mp, int width, int height) {
-
-                        // Re-Set the videoView that acts as the anchor for the MediaController
-                        mediaController.setAnchorView(vidView);
-
-                    }
-                });
-            }
-        });
-
+        loadWebPage = (Button) findViewById(R.id.loadWebPage);
+        loadWebPage.setOnClickListener(this);
+        simpleWebView = (WebView) findViewById(R.id.simpleWebView);
+        simpleWebView.getSettings().setSupportZoom(true);
+        simpleWebView.getSettings().setBuiltInZoomControls(true);
+        simpleWebView.getSettings().setDisplayZoomControls(false);
         // Go = (Button) findViewById(R.id.go);
         title=getIntent().getStringExtra("title");
         titl = (TextView) findViewById(R.id.title1);
@@ -591,8 +575,58 @@ public class Sec extends BaseActivity {
             long millisUntilFinished = intent.getLongExtra("count", 0);
             Log.i(TAG, "Countdown : " +  millisUntilFinished / 1000);
         }*/
+        // Set the media controller buttons
+        if (mediaController == null) {
+            mediaController = new MediaController(Sec.this);
+
+            // Set the videoView that acts as the anchor for the MediaController.
+            mediaController.setAnchorView(vidView);
 
 
+            // Set MediaController for VideoView
+            vidView.setMediaController(mediaController);
+        }
+
+        // When the video file ready for playback.
+        vidView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+
+            public void onPrepared(MediaPlayer mediaPlayer) {
+                vidView.seekTo(position);
+                //    if (position == 0) {
+                //        vidView.start();
+                //   }
+
+                // When video Screen change size.
+                mediaPlayer.setOnVideoSizeChangedListener(new MediaPlayer.OnVideoSizeChangedListener() {
+                    @Override
+                    public void onVideoSizeChanged(MediaPlayer mp, int width, int height) {
+
+                        // Re-Set the videoView that acts as the anchor for the MediaController
+                        mediaController.setAnchorView(vidView);
+
+                    }
+                });
+            }
+        });
+
+    }
+
+
+    @Override
+    public void onClick(View v) {
+        String t=title;
+                simpleWebView.setWebViewClient(new MyWebViewClient());
+                String url = "http://10.0.2.2/index.php?recipe="+t;
+                simpleWebView.getSettings().setJavaScriptEnabled(true);
+                simpleWebView.loadUrl(url); // load a web page in a web view
+    }
+
+    private class MyWebViewClient extends WebViewClient {
+        @Override
+        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            view.loadUrl(url);
+            return true;
+        }
     }
 
 
@@ -789,7 +823,7 @@ Log.d("result",s);
                     }
 
                     video=video.replaceAll("\\s","");
-                    if(video.equals("no video")){
+                    if(video.equals("novideo")){
                         videoLayout.setVisibility(LinearLayout.GONE);
                     }
                     else {
@@ -850,8 +884,8 @@ Log.d("result",s);
                 Username.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        startActivity(new Intent(Sec.this, profile.class));
-
+                        GetchifData g = new GetchifData();
+                        g.execute(User,title);
                     }
                 });
 
@@ -1073,6 +1107,96 @@ Log.d("result",s);
 
 
     }
+
+
+    public class GetchifData extends AsyncTask<String,Void,String> {
+        protected String doInBackground(String... params) {
+            String login_url = "http://10.0.2.2/getchif_data.php";
+            try
+            {
+                String chif = params[0];
+                String recipe_title = params[1];
+                URL url = new URL(login_url);
+                HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setDoOutput(true);
+                httpURLConnection.setDoInput(true);
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+                String post_data = URLEncoder.encode("chif","UTF-8")+"="+URLEncoder.encode(chif,"UTF-8")+"&"
+                        +URLEncoder.encode("title","UTF-8")+"="+URLEncoder.encode(recipe_title,"UTF-8");
+                bufferedWriter.write(post_data);
+                bufferedWriter.flush();
+                bufferedWriter.close();
+                outputStream.close();
+                InputStream inputStream = httpURLConnection.getInputStream();
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream,"iso-8859-1"));
+                String result="";
+                String line="";
+                while((line = bufferedReader.readLine())!= null)
+                {
+                    result += line;
+                }
+                bufferedReader.close();
+                inputStream.close();
+                httpURLConnection.disconnect();
+                return result;
+            }
+            catch (MalformedURLException e)
+            {
+                e.printStackTrace();
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+            return null;
+        }
+        @Override
+        protected void onPreExecute()
+        {
+            String s="start";
+            Log.d("get chif data",s );
+        }
+        @Override
+        protected void onPostExecute(String result)
+        {
+            Log.d("get chif data",result);
+            myJSON=result;
+            try {
+                JSONObject jsonObj = new JSONObject(myJSON);
+                peoples = jsonObj.getJSONArray(TAG_RESULTS);
+                for(int i=0;i<peoples.length();i++){
+                    JSONObject c = peoples.getJSONObject(i);
+                    String db_type = c.getString("chif_type");
+                    String db_appid = c.getString("chif_appid");
+                    String db_faceid = c.getString("chif_faceid");
+                    SharedPreferences pref = getSharedPreferences("MyPref", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = pref.edit();
+                    editor.putString("chif_type", db_type);
+                    if(db_appid.equals("noid")){
+                        editor.putString("chif_id", db_faceid);
+                    }
+                    if(db_faceid.equals("noid")){
+                        editor.putString("chif_id", db_appid);
+                    }
+
+
+
+                    editor.commit();
+                }
+                startActivity(new Intent(Sec.this, chifProfile.class));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        @Override
+        protected void onProgressUpdate(Void... values) {
+            super.onProgressUpdate(values);
+        }
+    }
+
+
 
     public static void jsorating(String title, String rating) {
 

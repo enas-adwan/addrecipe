@@ -6,7 +6,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by hp on 03/09/2016.
@@ -19,7 +23,14 @@ public class recipeDbHelper extends SQLiteOpenHelper {
     //    ShowCalory.NewrecipeInfo.recipe_calory+" FLOAT );";
     private static final String CREATE_QUERY_tracking= "CREATE TABLE IF NOT EXISTS tracking (" +
             "_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+
             "bmr TEXT, " +
+
+            "calory  FLOAT)";
+    private static final String CREATE_QUERY_tracking_project= "CREATE TABLE IF NOT EXISTS projecttrack (" +
+            "_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            "name TEXT, " +
+            "currdate TEXT, " +
 
             "calory  FLOAT)";
     private static final String CREATE_QUERY= "CREATE TABLE IF NOT EXISTS project (" +
@@ -96,10 +107,35 @@ public class recipeDbHelper extends SQLiteOpenHelper {
 
         return empty;
     }
+    public List<Contact> getAllContacts(String d) {
+        List<Contact> contactList = new ArrayList<Contact>();
+        // Select All Query
+        String selectQuery = "SELECT  * FROM " + "projecttrack";
+        selectQuery += " WHERE "+"currdate"+" LIKE '"+d+"%'";
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                Contact contact = new Contact();
+                contact.setID(Integer.parseInt(cursor.getString(0)));
+                contact.setName(cursor.getString(1));
+                contact.setCalory(Float.parseFloat(cursor.getString(3)));
+                contact.setDate(cursor.getString(2));
+
+                // Adding contact to list
+                contactList.add(contact);
+            } while (cursor.moveToNext());
+        }
+        // return contact list
+        return contactList;
+    }
     public Cursor getinformationtracking(SQLiteDatabase db){
         Cursor cursor;
-        String[] projections={"bmr"};
 
+        String[] projections={"bmr"};
+        Log.e("DATABASE OPERATION", "tracjt");
         cursor= db.query("tracking", projections, null, null, null, null, null);
         return cursor;
     }
@@ -137,6 +173,19 @@ public class recipeDbHelper extends SQLiteOpenHelper {
         db.insert("project",null,contentValue);
         Log.e("DATABASE OPERATION", "One row is insert");
     }
+    public void addinnformationtrack(Float caloryNum, String name, SQLiteDatabase db){
+        db.execSQL(CREATE_QUERY_tracking_project);
+        ContentValues contentValue = new ContentValues();
+        contentValue.put("name",name);
+        contentValue.put("calory",caloryNum);
+
+        SimpleDateFormat sdf = new SimpleDateFormat(
+                "yyyy-MM-dd", Locale.ENGLISH);
+        String currentDateandTime = sdf.format(new Date());
+        contentValue.put("currdate",currentDateandTime);
+        db.insert("projecttrack",null,contentValue);
+        Log.e("DATABASE OPERATION", "One row is insert");
+    }
     public void addinnformationdesc( String name, SQLiteDatabase db){
         db.execSQL(CREATE_QUERY_desc);
         ContentValues contentValue = new ContentValues();
@@ -167,6 +216,19 @@ public class recipeDbHelper extends SQLiteOpenHelper {
         cursor= db.query("project", projections, null, null, null, null, null);
         return cursor;
     }
+    public Cursor getinformationtrack(SQLiteDatabase db){
+        db.execSQL(CREATE_QUERY_tracking_project);
+        SimpleDateFormat sdf = new SimpleDateFormat(
+                "yyyy-MM-dd", Locale.ENGLISH);
+        String currentDateandTime = sdf.format(new Date());
+
+
+        String selectQuery = "SELECT name FROM " + "projecttrack";
+        selectQuery += " WHERE "+"currdate"+" LIKE '"+currentDateandTime+"%'";
+
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        return cursor;
+    }
     public Cursor getinformationdesc(SQLiteDatabase db){
         Cursor cursor;
         String[] projections={"name"};
@@ -186,6 +248,18 @@ public class recipeDbHelper extends SQLiteOpenHelper {
         String[] projections={"_id"};
 
         cursor= db.query("project", projections, null, null, null, null, null);
+        return cursor;
+    }
+    public Cursor getinformationidtrack(SQLiteDatabase db){
+        SimpleDateFormat sdf = new SimpleDateFormat(
+                "yyyy-MM-dd", Locale.ENGLISH);
+        String currentDateandTime = sdf.format(new Date());
+
+
+        String selectQuery = "SELECT _id FROM " + "projecttrack";
+        selectQuery += " WHERE "+"currdate"+" LIKE '"+currentDateandTime+"%'";
+
+        Cursor cursor = db.rawQuery(selectQuery, null);
         return cursor;
     }
     public Cursor getinformationiddesc(SQLiteDatabase db){
@@ -211,11 +285,33 @@ public class recipeDbHelper extends SQLiteOpenHelper {
         cursor= db.query("project", projections,null , null, null, null, null);
         return cursor;
     }
+    public Cursor getinformation2track(SQLiteDatabase db){
+        SimpleDateFormat sdf = new SimpleDateFormat(
+                "yyyy-MM-dd", Locale.ENGLISH);
+        String currentDateandTime = sdf.format(new Date());
 
+
+        String selectQuery = "SELECT calory FROM " + "projecttrack";
+        selectQuery += " WHERE "+"currdate"+" LIKE '"+currentDateandTime+"%'";
+
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        return cursor;
+    }
 
     public void delete(SQLiteDatabase db, int id) {
         String where = "_id ='" + id+"'";
         db.delete("project", where, null);
+        Log.e("DATABASE OPERATION", "delete.");
+        // String delQuery = "DELETE FROM project WHERE name='"+name+"' ";
+
+        // db.rawQuery(delQuery , null);
+    }
+    public void deletetrack(SQLiteDatabase db, int id) {
+        SimpleDateFormat sdf = new SimpleDateFormat(
+                "yyyy-MM-dd", Locale.ENGLISH);
+        String currentDateandTime = sdf.format(new Date());
+        String where = "_id ='" + id+"'and currdate ='"+ currentDateandTime+"'";
+        db.delete("projecttrack", where, null);
         Log.e("DATABASE OPERATION", "delete.");
         // String delQuery = "DELETE FROM project WHERE name='"+name+"' ";
 
@@ -262,6 +358,21 @@ public class recipeDbHelper extends SQLiteOpenHelper {
         array.add(cursor.getFloat(5));
         array.add(cursor.getFloat(6));
         array.add(cursor.getFloat(7));
+        return array;
+
+    }
+    public ArrayList<Float> getTotaltrack(SQLiteDatabase db) {
+        ArrayList<Float> array = new ArrayList<Float>();
+
+        Cursor cursor = db.rawQuery(
+                "SELECT SUM(calory) FROM projecttrack", null);
+        if(cursor.moveToFirst()) {
+            array.add(cursor.getFloat(0));
+
+            return array;
+        }
+        array.add(cursor.getFloat(0));
+
         return array;
 
     }

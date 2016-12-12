@@ -26,7 +26,8 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
 
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_marginBottom="10dp">
 
             <ImageView
                 android:layout_width="150dp"
@@ -50,7 +51,7 @@
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="Name:"
                     android:id="@+id/textView"
-                    android:textColor="#333131" />
+                    android:textColor="#141313" />
 
                 <TextView
                     android:layout_width="fill_parent"
@@ -59,7 +60,7 @@
                     android:id="@+id/title1"
                     android:layout_below="@+id/textt"
                     android:layout_weight="0.14"
-                    android:textColor="#333131"
+                    android:textColor="#141313"
                     android:textSize="20dp" />
 
                 <TextView
@@ -68,7 +69,7 @@
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="Total Calories:"
                     android:id="@+id/textView2"
-                    android:textColor="#333131" />
+                    android:textColor="#141313" />
 
                 <TextView
                     android:layout_width="fill_parent"
@@ -93,6 +94,37 @@
             </GridLayout>
 
         </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Added By :"
+                android:id="@+id/textView13"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:textColor="#141313" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="username"
+                android:clickable="true"
+                android:id="@+id/username"
+                android:textIsSelectable="false"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:textColor="#141313" />
+
+        </LinearLayout>
+
         <TableLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent">
@@ -100,7 +132,8 @@
             <TableRow
                 android:id="@+id/tableRow1"
                 android:layout_height="wrap_content"
-                android:layout_width="match_parent">
+                android:layout_width="match_parent"
+                android:layout_marginTop="10dp">
 
                 <TextView
                     android:id="@+id/TexatView04" android:text="Calory (Kcal)"
@@ -163,7 +196,8 @@
             <TableRow
                 android:id="@+id/tableRow3"
                 android:layout_height="match_parent"
-                android:layout_width="match_parent">
+                android:layout_width="match_parent"
+                android:layout_marginTop="10dp">
 
                 <TextView
                     android:id="@+id/TexatVaiew04" android:text="Vit_B12 (µg)"
@@ -225,40 +259,19 @@
         </TableLayout>
 
         <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="added by :"
-                android:id="@+id/textView13" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="username"
-                android:id="@+id/username" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:weightSum="1">
+            android:weightSum="1"
+            android:orientation="vertical">
 
 
 
 
             <TextView
                 android:layout_width="253dp"
-                android:layout_height="40dp"
+                android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Ingredient:"
+                android:text="Ingredients:"
                 android:id="@+id/textViewaa"
                 android:textColor="#333131"
                 android:layout_marginTop="20dp"
@@ -275,7 +288,7 @@
                 android:layout_width="253dp"
                 android:layout_height="40dp"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Direction:"
+                android:text="Directions:"
                 android:id="@+id/textViewaahg"
                 android:textColor="#333131"
                 android:layout_marginTop="20dp"
@@ -292,7 +305,7 @@
                 android:layout_width="253dp"
                 android:layout_height="40dp"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Recipe times:"
+                android:text="Time:"
                 android:id="@+id/textVihjhewaahg"
                 android:textColor="#333131"
                 android:layout_marginTop="20dp"
@@ -307,14 +320,16 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="prepration time : "
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textStyle="bold|italic"
+                    android:text="Prepration Time : "
                     android:id="@+id/textView9" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textStyle="bold"
                     android:id="@+id/prep1"
                     android:layout_below="@+id/desc1"
                     android:layout_alignEnd="@+id/calory1"
@@ -323,10 +338,18 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textStyle="bold|italic"
                     android:text=" Min."
                     android:id="@+id/textView10" />
             </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="---------------------------------------------------------------------"
+                android:id="@+id/textView1a27" />
 
             <LinearLayout
                 android:orientation="horizontal"
@@ -336,15 +359,18 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textStyle="bold|italic"
                     android:id="@+id/textt"
                     android:layout_alignParentTop="true"
-                    android:text="cooking time : " />
+                    android:text="Cooking Time : "
+                   />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textStyle="bold"
                     android:id="@+id/cook1"
                     android:layout_below="@+id/prep1"
                     android:layout_alignEnd="@+id/prep1"
@@ -353,55 +379,79 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textStyle="bold|italic"
                     android:text=" Min."
                     android:id="@+id/textView8" />
 
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="timer total"
-                    android:id="@+id/totalbutton"
-                    android:layout_below="@+id/cook1"
-                    android:layout_toEndOf="@+id/cook1"
-                    android:layout_toRightOf="@+id/cook1" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:id="@+id/t"
-                    android:layout_below="@+id/total1"
-                    android:layout_toEndOf="@+id/totalbutton"
-                    android:layout_toRightOf="@+id/totalbutton" />
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="stop "
-                    android:id="@+id/stop"
-                    android:layout_alignTop="@+id/totalbutton"
-                    android:layout_alignStart="@+id/t"
-                    android:layout_alignLeft="@+id/t" />
 
             </LinearLayout>
-
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Start cooking timer"
+                android:id="@+id/totalbutton"
+                android:layout_below="@+id/cook1"
+                android:layout_toEndOf="@+id/cook1"
+                android:layout_toRightOf="@+id/cook1"
+                android:background="#d3cece"
+                android:layout_marginRight="10dp"
+                android:paddingRight="10dp"
+                android:paddingLeft="10dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:id="@+id/t"
+                android:layout_below="@+id/total1"
+                android:layout_toEndOf="@+id/totalbutton"
+                android:layout_toRightOf="@+id/totalbutton" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Stop Cooking Timer "
+                android:id="@+id/stop"
+                android:layout_alignTop="@+id/totalbutton"
+                android:layout_alignStart="@+id/t"
+                android:layout_alignLeft="@+id/t"
+                android:background="#d3cece"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp" />
+            </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="---------------------------------------------------------------------"
+                android:id="@+id/textView1aF27" />
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="10dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="total time : "
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textStyle="bold|italic"
+                    android:text="Total Time : "
                     android:id="@+id/textView11" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textStyle="bold"
                     android:id="@+id/total1"
                     android:layout_below="@+id/cook1"
                     android:layout_alignEnd="@+id/cook1"
@@ -410,7 +460,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textStyle="bold|italic"
                     android:text=" Min."
                     android:id="@+id/textView12" />
             </LinearLayout>
@@ -446,6 +497,32 @@
                 </FrameLayout>
 
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <Button
+                    android:id="@+id/loadWebPage"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
+                    android:background="#444"
+                    android:text="Load Web Page"
+                    android:textColor="#fff"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+            <WebView
+                android:id="@+id/simpleWebView"
+                android:layout_width="match_parent"
+                android:layout_height="0dip"
+                android:layout_weight="1"
+                android:scrollbars="none" />
 
         </LinearLayout>
 

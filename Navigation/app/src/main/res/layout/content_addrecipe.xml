@@ -137,7 +137,8 @@
                 android:fontFamily="@string/abc_font_family_button_material"
                 android:textStyle="bold|italic"
                 android:textColor="#333131"
-                android:textSize="15dp" />
+                android:textSize="15dp"
+                android:layout_marginBottom="5dp" />
 
         </LinearLayout>
 
@@ -179,7 +180,8 @@
             <TableRow
                 android:id="@+id/tableRow2"
                 android:layout_height="wrap_content"
-                android:layout_width="match_parent">
+                android:layout_width="match_parent"
+                android:layout_marginBottom="10dp">
 
                 <TextView
                     android:id="@+id/text" android:text="0"

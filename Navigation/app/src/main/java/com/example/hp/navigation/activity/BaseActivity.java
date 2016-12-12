@@ -287,7 +287,7 @@ public class BaseActivity extends ActionBarActivity {
 		}
 		if (searchView != null) {
 			searchView.setSearchableInfo(searchManager.getSearchableInfo(BaseActivity.this.getComponentName()));
-			searchView.setIconified(false);
+			//searchView.setIconified(false);
 			searchView.setSuggestionsAdapter(myAdapter);
 			// Getting selected (clicked) item suggestion
 			searchView.setOnSuggestionListener(new SearchView.OnSuggestionListener() {
