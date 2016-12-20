@@ -56,7 +56,7 @@ public class ShowRecipe extends BaseActivity {
          * Setting title and itemChecked
          */
         mDrawerList.setItemChecked(position, true);
-        setTitle(listArray[position]);
+        setTitle("Show Recipes");
         mRecyclerView = (RecyclerView) findViewById(R.id.masonry_grid);
        // listVieww=(ListView)findViewById(R.id.lv);
         //  Text = (TextView) findViewById(R.id.text);
@@ -71,12 +71,12 @@ public class ShowRecipe extends BaseActivity {
 if(isOnline()){
             //we are connected to a network
             connected = true;
-            Toast.makeText(getApplicationContext(), "connected", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Connected to internet (online mode)", Toast.LENGTH_SHORT).show();
             jso();
         } else {
             connected = false;
 sqliteoffline();
-            Toast.makeText(getApplicationContext(), "notconnected", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Not connected to internet (offline mode)", Toast.LENGTH_SHORT).show();
         }
 
 

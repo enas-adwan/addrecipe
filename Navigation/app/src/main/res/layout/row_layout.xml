@@ -11,7 +11,7 @@
         android:layout_height="match_parent"
         android:id="@+id/calory_number"
         android:text="calory"
-        android:textColor="#000000"
+        android:textColor="#360b0b"
         android:gravity="left" />
 
     <TextView

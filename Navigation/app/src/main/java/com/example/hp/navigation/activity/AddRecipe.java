@@ -115,7 +115,7 @@ public class AddRecipe extends BaseActivity {
     Integer r = 0;
     private static final String TAG = "DataBaseHelper";
 
-    public AutoCompleteTextView autoCom;
+    public static AutoCompleteTextView autoCom;
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -293,7 +293,8 @@ public class AddRecipe extends BaseActivity {
                 userDbHelper = new recipeDbHelper(getApplicationContext());
                 sqLiteDatabase = userDbHelper.getWritableDatabase();
                 userDbHelper.addinnformationdesc(food, sqLiteDatabase);
-
+                Desc.setText("");
+                Toast.makeText(AddRecipe.this, "A direction has been added", Toast.LENGTH_SHORT).show();
                 listDataAdpter = new ListDataAdpterdesc(getApplicationContext(), R.layout.row_layout1);
                 listV.setAdapter(listDataAdpter);
                 userDbHelper2 = new recipeDbHelper(getApplicationContext());
@@ -365,7 +366,7 @@ public class AddRecipe extends BaseActivity {
         });
 
 
-        buttonChoosvideo = (Button) findViewById(R.id.button); //video
+        buttonChoosvideo = (Button) findViewById(R.id.videobutton); //video
         buttonChoosvideo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -533,6 +534,7 @@ public class AddRecipe extends BaseActivity {
 
                     }
                     food = autoCom.getText().toString().trim();
+                    String foodsmall=food.toLowerCase();
                     //   Toast.makeText(getApplicationContext(), s  , Toast.LENGTH_LONG).show();
 
 
@@ -547,7 +549,7 @@ public class AddRecipe extends BaseActivity {
                             valuevitb6=(valuevitb6/6.666666666666667f)*amount;
                             valuevitb12=(valuevitb12/6.666666666666667f)*amount;
                             valuevite=(valuevite/6.666666666666667f)*amount;
-                            userDbHelper.addinnformation(value,"- "+quintity1+" Spoon of "+food,sqLiteDatabase,valuevitc,valuecalc,valueiron,valuepro,valuevitb6,valuevitb12,valuevite);
+                            userDbHelper.addinnformation(value,"- "+quintity1+" Spoon of "+foodsmall,sqLiteDatabase,valuevitc,valuecalc,valueiron,valuepro,valuevitb6,valuevitb12,valuevite);
 
                             listDataAdpter=new ListDataAdpter(getApplicationContext(), R.layout.row_layout);
                             listView.setAdapter(listDataAdpter);
@@ -575,18 +577,38 @@ Float calorysum=sums.get(0);
                                     Float vitb12sum=sums.get(6);
                                     Float vitesum=sums.get(7);
 
-                                    Text.setText(String.valueOf(calorysum));
-                                    Textvitc.setText(String.valueOf(vitcsum));
-                                    Textpro.setText(String.valueOf(prosum));
-                                    Textvitb6.setText(String.valueOf(vit6sum));
-                                    Textvite.setText(String.valueOf(vitesum));
-                                    Textvitb12.setText(String.valueOf(vitb12sum));
-                                    Textiron.setText(String.valueOf(ironsum));
-                                    Textcalc.setText(String.valueOf(calcsum));
+                                    Double call=Double.valueOf(calorysum);
+                                    double calorydouble = Math.round(call*100.0)/100.0;
+                                    Double vitc=Double.valueOf(vitcsum);
+                                    double vitcdouble = Math.round(vitc*100.0)/100.0;
+                                    Double vitb12=Double.valueOf(vitb12sum);
 
-                                    DataProvider dataProvider=new DataProvider(calory, caloryvalue,id);
+                                    double vitb12double = Math.round(vitb12*100.0)/100.0;
+                                    Double vite=Double.valueOf(vitesum);
+
+                                    double vitedouble = Math.round(vite*100.0)/100.0;
+                                    Double vitb6=Double.valueOf(vit6sum);
+
+                                    double vitb6double = Math.round(vitb6*100.0)/100.0;
+                                    Double pros=Double.valueOf(prosum);
+                                    double prodouble = Math.round(pros*100.0)/100.0;
+                                    Double iron=Double.valueOf(ironsum);
+                                    double irondouble = Math.round(iron*100.0)/100.0;
+                                    Double calc=Double.valueOf(calcsum);
+                                    double calcdouble = Math.round(calc*100.0)/100.0;
+                                    Text.setText(String.valueOf(calorydouble));
+                                    Textvitc.setText(String.valueOf(vitcdouble ));
+                                    Textpro.setText(String.valueOf(prodouble));
+                                    Textvitb6.setText(String.valueOf(vitb6double));
+                                    Textvite.setText(String.valueOf(vitedouble));
+                                    Textvitb12.setText(String.valueOf(vitb12double));
+                                    Textiron.setText(String.valueOf(irondouble));
+                                    Textcalc.setText(String.valueOf(calcdouble));
+
+                                    DataProvider dataProvider=new DataProvider(calory,   caloryvalue,id);
                                     listDataAdpter.add(dataProvider);
-
+                                   autoCom.setText("");
+                                    Toast.makeText(AddRecipe.this, "New  Ingredient  has been added", Toast.LENGTH_SHORT).show();
                                 }while (cursor.moveToNext()&&cursor1.moveToNext()&&cursor2.moveToNext());
 
                             }
@@ -602,7 +624,8 @@ Float calorysum=sums.get(0);
                             valuevitb6=valuevitb6*1.1f*amount;
                             valuevitb12=valuevitb12*1.1f*amount;
                             valuevite=valuevite*1.1f*amount;
-                            userDbHelper.addinnformation(value,"- "+quintity1+" Cup of"+food,sqLiteDatabase,valuevitc,valuecalc,valueiron,valuepro,valuevitb6,valuevitb12,valuevite);
+
+                            userDbHelper.addinnformation(value,"- "+quintity1+" Cup of "+foodsmall,sqLiteDatabase,valuevitc,valuecalc,valueiron,valuepro,valuevitb6,valuevitb12,valuevite);
 
                             listDataAdpter=new ListDataAdpter(getApplicationContext(), R.layout.row_layout);
                             listView.setAdapter(listDataAdpter);
@@ -630,16 +653,37 @@ Float calorysum=sums.get(0);
                                     Float vitb12sum=sums.get(6);
                                     Float vitesum=sums.get(7);
 
-                                    Text.setText(String.valueOf(calorysum));
-                                    Textvitc.setText(String.valueOf(vitcsum));
-                                    Textpro.setText(String.valueOf(prosum));
-                                    Textvitb6.setText(String.valueOf(vit6sum));
-                                    Textvite.setText(String.valueOf(vitesum));
-                                    Textvitb12.setText(String.valueOf(vitb12sum));
-                                    Textiron.setText(String.valueOf(ironsum));
-                                    Textcalc.setText(String.valueOf(calcsum));
-                                    DataProvider dataProvider=new DataProvider(calory,  caloryvalue,id);
+                                    Double call=Double.valueOf(calorysum);
+                                    double calorydouble = Math.round(call*100.0)/100.0;
+                                    Double vitc=Double.valueOf(vitcsum);
+                                    double vitcdouble = Math.round(vitc*100.0)/100.0;
+                                    Double vitb12=Double.valueOf(vitb12sum);
+
+                                    double vitb12double = Math.round(vitb12*100.0)/100.0;
+                                    Double vite=Double.valueOf(vitesum);
+
+                                    double vitedouble = Math.round(vite*100.0)/100.0;
+                                    Double vitb6=Double.valueOf(vit6sum);
+
+                                    double vitb6double = Math.round(vitb6*100.0)/100.0;
+                                    Double pros=Double.valueOf(prosum);
+                                    double prodouble = Math.round(pros*100.0)/100.0;
+                                    Double iron=Double.valueOf(ironsum);
+                                    double irondouble = Math.round(iron*100.0)/100.0;
+                                    Double calc=Double.valueOf(calcsum);
+                                    double calcdouble = Math.round(calc*100.0)/100.0;
+                                    Text.setText(String.valueOf(calorydouble));
+                                    Textvitc.setText(String.valueOf(vitcdouble ));
+                                    Textpro.setText(String.valueOf(prodouble));
+                                    Textvitb6.setText(String.valueOf(vitb6double));
+                                    Textvite.setText(String.valueOf(vitedouble));
+                                    Textvitb12.setText(String.valueOf(vitb12double));
+                                    Textiron.setText(String.valueOf(irondouble));
+                                    Textcalc.setText(String.valueOf(calcdouble));
+                                    DataProvider dataProvider=new DataProvider(calory,   caloryvalue,id);
                                     listDataAdpter.add(dataProvider);
+                                    autoCom.setText("");
+                                    Toast.makeText(AddRecipe.this, "New  Ingredient  has been added", Toast.LENGTH_SHORT).show();
 
                                 }while (cursor.moveToNext()&&cursor1.moveToNext()&&cursor2.moveToNext());
 
@@ -654,7 +698,7 @@ Float calorysum=sums.get(0);
                             valuevitb6=valuevitb6*453.59237f*amount;
                             valuevitb12=valuevitb12*453.59237f*amount;
                             valuevite=valuevite*453.59237f*amount;
-                            userDbHelper.addinnformation(value,"- "+quintity1+" pounds"+food,sqLiteDatabase,valuevitc,valuecalc,valueiron,valuepro,valuevitb6,valuevitb12,valuevite);
+                            userDbHelper.addinnformation(value,"- "+quintity1+" pounds "+foodsmall,sqLiteDatabase,valuevitc,valuecalc,valueiron,valuepro,valuevitb6,valuevitb12,valuevite);
 
                             listDataAdpter=new ListDataAdpter(getApplicationContext(), R.layout.row_layout);
                             listView.setAdapter(listDataAdpter);
@@ -682,16 +726,38 @@ Float calorysum=sums.get(0);
                                     Float vitb12sum=sums.get(6);
                                     Float vitesum=sums.get(7);
 
-                                    Text.setText(String.valueOf(calorysum));
-                                    Textvitc.setText(String.valueOf(vitcsum));
-                                    Textpro.setText(String.valueOf(prosum));
-                                    Textvitb6.setText(String.valueOf(vit6sum));
-                                    Textvite.setText(String.valueOf(vitesum));
-                                    Textvitb12.setText(String.valueOf(vitb12sum));
-                                    Textiron.setText(String.valueOf(ironsum));
-                                    Textcalc.setText(String.valueOf(calcsum));
-                                    DataProvider dataProvider=new DataProvider(calory,caloryvalue,id);
+
+                                    Double call=Double.valueOf(calorysum);
+                                    double calorydouble = Math.round(call*100.0)/100.0;
+                                    Double vitc=Double.valueOf(vitcsum);
+                                    double vitcdouble = Math.round(vitc*100.0)/100.0;
+                                    Double vitb12=Double.valueOf(vitb12sum);
+
+                                    double vitb12double = Math.round(vitb12*100.0)/100.0;
+                                    Double vite=Double.valueOf(vitesum);
+
+                                    double vitedouble = Math.round(vite*100.0)/100.0;
+                                    Double vitb6=Double.valueOf(vit6sum);
+
+                                    double vitb6double = Math.round(vitb6*100.0)/100.0;
+                                    Double pros=Double.valueOf(prosum);
+                                    double prodouble = Math.round(pros*100.0)/100.0;
+                                    Double iron=Double.valueOf(ironsum);
+                                    double irondouble = Math.round(iron*100.0)/100.0;
+                                    Double calc=Double.valueOf(calcsum);
+                                    double calcdouble = Math.round(calc*100.0)/100.0;
+                                    Text.setText(String.valueOf(calorydouble));
+                                    Textvitc.setText(String.valueOf(vitcdouble ));
+                                    Textpro.setText(String.valueOf(prodouble));
+                                    Textvitb6.setText(String.valueOf(vitb6double));
+                                    Textvite.setText(String.valueOf(vitedouble));
+                                    Textvitb12.setText(String.valueOf(vitb12double));
+                                    Textiron.setText(String.valueOf(irondouble));
+                                    Textcalc.setText(String.valueOf(calcdouble));
+                                    DataProvider dataProvider=new DataProvider(calory,   caloryvalue,id);
                                     listDataAdpter.add(dataProvider);
+                                    autoCom.setText("");
+                                    Toast.makeText(AddRecipe.this, "New  Ingredient  has been added", Toast.LENGTH_SHORT).show();
 
                                 }while (cursor.moveToNext()&&cursor1.moveToNext()&&cursor2.moveToNext());
 
@@ -706,7 +772,7 @@ Float calorysum=sums.get(0);
                             valuevitb6=valuevitb6*28.3495231f*amount;
                             valuevitb12=valuevitb12*28.3495231f*amount;
                             valuevite=valuevite*28.3495231f*amount;
-                            userDbHelper.addinnformation(value,"- "+quintity1+" Ounce of "+food,sqLiteDatabase,valuevitc,valuecalc,valueiron,valuepro,valuevitb6,valuevitb12,valuevite);
+                            userDbHelper.addinnformation(value,"- "+quintity1+" Ounce of "+foodsmall,sqLiteDatabase,valuevitc,valuecalc,valueiron,valuepro,valuevitb6,valuevitb12,valuevite);
 
                             listDataAdpter=new ListDataAdpter(getApplicationContext(), R.layout.row_layout);
                             listView.setAdapter(listDataAdpter);
@@ -735,16 +801,37 @@ Float calorysum=sums.get(0);
                                     Float vitb12sum=sums.get(6);
                                     Float vitesum=sums.get(7);
 
-                                    Text.setText(String.valueOf(calorysum));
-                                    Textvitc.setText(String.valueOf(vitcsum));
-                                    Textpro.setText(String.valueOf(prosum));
-                                    Textvitb6.setText(String.valueOf(vit6sum));
-                                    Textvite.setText(String.valueOf(vitesum));
-                                    Textvitb12.setText(String.valueOf(vitb12sum));
-                                    Textiron.setText(String.valueOf(ironsum));
-                                    Textcalc.setText(String.valueOf(calcsum));
+                                    Double call=Double.valueOf(calorysum);
+                                    double calorydouble = Math.round(call*100.0)/100.0;
+                                    Double vitc=Double.valueOf(vitcsum);
+                                    double vitcdouble = Math.round(vitc*100.0)/100.0;
+                                    Double vitb12=Double.valueOf(vitb12sum);
+
+                                    double vitb12double = Math.round(vitb12*100.0)/100.0;
+                                    Double vite=Double.valueOf(vitesum);
+
+                                    double vitedouble = Math.round(vite*100.0)/100.0;
+                                    Double vitb6=Double.valueOf(vit6sum);
+
+                                    double vitb6double = Math.round(vitb6*100.0)/100.0;
+                                    Double pros=Double.valueOf(prosum);
+                                    double prodouble = Math.round(pros*100.0)/100.0;
+                                    Double iron=Double.valueOf(ironsum);
+                                    double irondouble = Math.round(iron*100.0)/100.0;
+                                    Double calc=Double.valueOf(calcsum);
+                                    double calcdouble = Math.round(calc*100.0)/100.0;
+                                    Text.setText(String.valueOf(calorydouble));
+                                    Textvitc.setText(String.valueOf(vitcdouble ));
+                                    Textpro.setText(String.valueOf(prodouble));
+                                    Textvitb6.setText(String.valueOf(vitb6double));
+                                    Textvite.setText(String.valueOf(vitedouble));
+                                    Textvitb12.setText(String.valueOf(vitb12double));
+                                    Textiron.setText(String.valueOf(irondouble));
+                                    Textcalc.setText(String.valueOf(calcdouble));
                                     DataProvider dataProvider=new DataProvider(calory,   caloryvalue,id);
                                     listDataAdpter.add(dataProvider);
+                                    autoCom.setText("");
+                                    Toast.makeText(AddRecipe.this, "New  Ingredient  has been added", Toast.LENGTH_SHORT).show();
 
                                 }while (cursor.moveToNext()&&cursor1.moveToNext()&&cursor2.moveToNext());
 
@@ -886,8 +973,8 @@ Float calorysum=sums.get(0);
                     // Text.setText( image_str);
                     //  imgVieww.setImageBitmap(BitmapFactory
                     //    .decodeFile(imgPath));
-                    Toast.makeText(this, "worked",
-                            Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, "Photo has been added",
+                            Toast.LENGTH_SHORT).show();
                 }
                 // Get the Image's file name
                 // String fileNameSegments[] = imgPath.split("/");
@@ -896,13 +983,13 @@ Float calorysum=sums.get(0);
                 //   params.put("filename", fileName);
                 else if (resultCode == RESULT_CANCELED)  {
                     Toast.makeText(this, "You haven't picked Image",
-                            Toast.LENGTH_LONG).show();
+                            Toast.LENGTH_SHORT).show();
                 }
 
             }
 
         } catch (Exception e) {
-            Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG)
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT)
                     .show();
         }
 
@@ -1074,13 +1161,17 @@ Float calorysum=sums.get(0);
             protected void onPostExecute(String s) {
                 super.onPostExecute(s);
                 Log.d("add result",s);
-                Toast.makeText(getApplicationContext(),s,Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(),s,Toast.LENGTH_SHORT).show();
                 if(s.equalsIgnoreCase("successfully added")){
                     droptable=new recipeDbHelper(getApplicationContext());
                     sqLiteDatabase=droptable.getWritableDatabase();
                     //sqLiteDatabase.drop( droptable);
                     droptable.drop(sqLiteDatabase);
                     droptable.dropdesc(sqLiteDatabase);
+                    Intent i=new Intent(AddRecipe.this,ShowRecipe.class);
+
+
+                    startActivity(i);
                 }
 
             }
@@ -1284,7 +1375,7 @@ Float calorysum=sums.get(0);
                             break;
                         }
                         else {
-                            Toast.makeText(this, "some thing went wrong while uploading video ", Toast.LENGTH_LONG)
+                            Toast.makeText(this, "some thing went wrong while uploading video ", Toast.LENGTH_SHORT)
                                     .show();
                             break;
                         }
@@ -1300,7 +1391,7 @@ Float calorysum=sums.get(0);
                 }
 
                 catch (Exception e) {
-                    Toast.makeText(this, "fill all the field", Toast.LENGTH_LONG)
+                    Toast.makeText(this, "fill all the field", Toast.LENGTH_SHORT)
                             .show();
                 }}
 
@@ -1308,5 +1399,6 @@ Float calorysum=sums.get(0);
         return super.onOptionsItemSelected(item);
 
     }
+
 }
 

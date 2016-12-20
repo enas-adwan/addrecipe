@@ -86,7 +86,8 @@
                 android:layout_width="60dp"
                 android:entries="@array/amount"
                 android:layout_height="fill_parent"
-                android:id="@+id/spinner2" />
+                android:id="@+id/spinner2"
+                android:layout_weight="815346.25" />
 
             <Spinner
                 android:layout_width="80dp"
@@ -97,14 +98,13 @@
 
             <AutoCompleteTextView
                 android:id="@+id/auto"
-                android:layout_width="wrap_content"
+                android:layout_width="133dp"
                 android:layout_height="53dp"
                 android:layout_alignParentTop="true"
                 android:ems="10"
                 android:completionThreshold="1"
                 android:text=""
                 android:layout_alignParentStart="false"
-                android:layout_weight="400010.69"
                 android:layout_alignParentLeft="false">
 
                 <requestFocus />
@@ -152,24 +152,28 @@
                 android:layout_width="match_parent">
 
                 <TextView
-                    android:id="@+id/TexatView04" android:text="Calory (Kcal)"
+                    android:id="@+id/TexatView04" android:text=" Calory (Kcal) "
                     android:layout_weight="1" android:background="#dcdcdc"
                     android:textColor="#000000"
-                    android:padding="2dip" android:gravity="center"/>
+                    android:padding="2dip" android:gravity="center"
+                    android:layout_marginRight="1dp"
+                    android:textIsSelectable="false" />
 
                 <TextView
-                    android:id="@+id/TextVieddw04" android:text="Protine (g)"
+                    android:id="@+id/TextVieddw04" android:text=" Protine (g) "
                     android:layout_weight="1" android:background="#d3d3d3"
                     android:textColor="#000000"
-                    android:padding="2dip" android:gravity="center"/>
+                    android:padding="2dip" android:gravity="center"
+                    android:layout_marginRight="1dp" />
 
                 <TextView
                     android:id="@+id/TextViaewdd04" android:text="Iron (mg)"
                     android:layout_weight="1" android:background="#cac9c9"
                     android:textColor="#000000"
-                    android:padding="2dip" android:gravity="center"/>
+                    android:padding="2dip" android:gravity="center"
+                    android:layout_marginRight="1dp" />
                 <TextView
-                    android:id="@+id/TextViaew04" android:text="Calicum (mg)"
+                    android:id="@+id/TextViaew04" android:text=" Calicum (mg) "
                     android:layout_weight="1" android:background="#cac9c9"
                     android:textColor="#000000"
                     android:padding="2dip" android:gravity="center"/>
@@ -185,26 +189,33 @@
 
                 <TextView
                     android:id="@+id/text" android:text="0"
-                    android:layout_weight="1" android:background="#dcdcdc"
+                    android:layout_weight="1" android:background="#e0d9d9"
                     android:textColor="#000000"
-                    android:padding="2dip" android:gravity="center"/>
+                    android:padding="2dip" android:gravity="center"
+                    android:layout_marginRight="1dp"
+                    android:layout_marginTop="1dp" />
 
                 <TextView
                     android:id="@+id/text_pro" android:text="0"
-                    android:layout_weight="1" android:background="#d3d3d3"
+                    android:layout_weight="1" android:background="#e0d9d9"
                     android:textColor="#000000"
-                    android:padding="2dip" android:gravity="center"/>
+                    android:padding="2dip" android:gravity="center"
+                    android:layout_marginRight="1dp"
+                    android:layout_marginTop="1dp" />
 
                 <TextView
                     android:id="@+id/text_iron" android:text="0"
-                    android:layout_weight="1" android:background="#cac9c9"
+                    android:layout_weight="1" android:background="#e0d9d9"
                     android:textColor="#000000"
-                    android:padding="2dip" android:gravity="center"/>
+                    android:padding="2dip" android:gravity="center"
+                    android:layout_marginRight="1dp"
+                    android:layout_marginTop="1dp" />
                 <TextView
                     android:id="@+id/text_calc" android:text="0"
-                    android:layout_weight="1" android:background="#cac9c9"
+                    android:layout_weight="1" android:background="#e0d9d9"
                     android:textColor="#000000"
-                    android:padding="2dip" android:gravity="center"/>
+                    android:padding="2dip" android:gravity="center"
+                    android:layout_marginTop="1dp" />
 
 
 
@@ -219,24 +230,28 @@
                     android:id="@+id/TexatVaiew04" android:text="Vit_B12 (µg)"
                     android:layout_weight="1" android:background="#dcdcdc"
                     android:textColor="#000000"
-                    android:padding="2dip" android:gravity="center"/>
+                    android:padding="2dip" android:gravity="center"
+                    android:layout_marginRight="1dp" />
 
                 <TextView
                     android:id="@+id/TextViedw04" android:text="Vit_c (mg)"
                     android:layout_weight="1" android:background="#d3d3d3"
                     android:textColor="#000000"
-                    android:padding="2dip" android:gravity="center"/>
+                    android:padding="2dip" android:gravity="center"
+                    android:layout_marginRight="1dp" />
 
                 <TextView
                     android:id="@+id/TextaaViaewdd04" android:text="Vit_B6 (mg)"
                     android:layout_weight="1" android:background="#cac9c9"
                     android:textColor="#000000"
-                    android:padding="2dip" android:gravity="center"/>
+                    android:padding="2dip" android:gravity="center"
+                    android:layout_marginRight="1dp" />
                 <TextView
                     android:id="@+id/TextViaaaew04" android:text="Vit_E (mg)"
                     android:layout_weight="1" android:background="#cac9c9"
                     android:textColor="#000000"
-                    android:padding="2dip" android:gravity="center"/>
+                    android:padding="2dip" android:gravity="center"
+                    android:layout_marginRight="1dp" />
 
 
 
@@ -248,26 +263,34 @@
 
                 <TextView
                     android:id="@+id/text_b12" android:text="0"
-                    android:layout_weight="1" android:background="#dcdcdc"
+                    android:layout_weight="1" android:background="#e0d9d9"
                     android:textColor="#000000"
-                    android:padding="2dip" android:gravity="center"/>
+                    android:padding="2dip" android:gravity="center"
+                    android:layout_marginRight="1dp"
+                    android:layout_marginTop="1dp" />
 
                 <TextView
                     android:id="@+id/text_c" android:text="0"
-                    android:layout_weight="1" android:background="#d3d3d3"
+                    android:layout_weight="1" android:background="#e0d9d9"
                     android:textColor="#000000"
-                    android:padding="2dip" android:gravity="center"/>
+                    android:padding="2dip" android:gravity="center"
+                    android:layout_marginRight="1dp"
+                    android:layout_marginTop="1dp" />
 
                 <TextView
                     android:id="@+id/text_b6" android:text="0"
-                    android:layout_weight="1" android:background="#cac9c9"
+                    android:layout_weight="1" android:background="#e0d9d9"
                     android:textColor="#000000"
-                    android:padding="2dip" android:gravity="center"/>
+                    android:padding="2dip" android:gravity="center"
+                    android:layout_marginRight="1dp"
+                    android:layout_marginTop="1dp" />
                 <TextView
                     android:id="@+id/text_e" android:text="0"
-                    android:layout_weight="1" android:background="#cac9c9"
+                    android:layout_weight="1" android:background="#e0d9d9"
                     android:textColor="#000000"
-                    android:padding="2dip" android:gravity="center"/>
+                    android:padding="2dip" android:gravity="center"
+                    android:layout_marginRight="1dp"
+                    android:layout_marginTop="1dp" />
 
 
 
@@ -291,52 +314,67 @@
                 android:nestedScrollingEnabled="false" />
         </LinearLayout>
 
+
+         <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="105dp"
+        android:weightSum="1">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:textColor="#ffffff"
+            android:background="@drawable/buttonshape"
+            android:text="Add photo"
+            android:id="@+id/bb"
+            android:layout_marginTop="30dp"
+            style="@android:style/Theme.NoTitleBar.Fullscreen"
+            android:theme="@style/MyButton"
+            android:layout_marginLeft="1dp"
+            android:allowUndo="false" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/img"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="70dp"
+            android:scaleType="centerCrop" />
+
+
+    </LinearLayout>
+
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="110dp"
-            android:weightSum="1">
+            android:layout_height="80dp">
+
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="select photo"
-                android:id="@+id/bb"
-                android:layout_marginTop="30dp"
+                android:theme="@style/MyButton"
+                android:padding="10dp"
+                android:textColor="#ffffff"
+                android:background="@drawable/buttonshape"
+                android:text="Add video"
+                android:id="@+id/videobutton"
                 style="@android:style/Theme.NoTitleBar.Fullscreen"
-                android:background="#baaeae"
-                android:layout_marginLeft="70dp"
-                android:allowUndo="false" />
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/img"
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="70dp"
-                android:scaleType="centerCrop" />
+                android:allowUndo="false"
+                />
 
 
-        </LinearLayout>
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Pick file"
-            android:id="@+id/button"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="Video Selected path:"
-            android:id="@+id/t1" />
 
-    </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Video Selected path:"
+                android:id="@+id/t1" />
+
+               </LinearLayout>
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"

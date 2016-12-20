@@ -11,15 +11,24 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
+import android.view.Menu;
 import android.net.Uri;
+import android.view.MenuInflater;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Base64;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ArrayAdapter;
@@ -28,6 +37,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.MediaController;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
@@ -59,9 +69,13 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
-public class Sec extends BaseActivity implements View.OnClickListener  {
+import static android.content.Context.MODE_PRIVATE;
+import static com.nbsp.materialfilepicker.R.id.container;
+
+public class Sec extends Fragment    {
     String title;
     public TextView titl;
     public TextView calor;
@@ -79,6 +93,7 @@ public class Sec extends BaseActivity implements View.OnClickListener  {
     public String all="";
     public TextView T;
     public Bitmap bmp;
+    public String photo = "";
     public static TextView Textcal;
     public static TextView Textpro;
     public static TextView Textcalc;
@@ -88,9 +103,10 @@ public class Sec extends BaseActivity implements View.OnClickListener  {
     public static TextView Textvitb12;
     public static TextView Textvite;
     public  ImageView imagevieww;
-    private int position = 0;
-    private MediaController mediaController;
-    VideoView vidView;
+    public ImageView imageview;
+
+
+    ScrollView scroll;
     BroadcastReceiver receiver;
     public static final String mBroadcastStringAction = "com.truiton.broadcast.string";
     private final static String TAG = "BroadcastService";
@@ -98,10 +114,9 @@ public class Sec extends BaseActivity implements View.OnClickListener  {
 
     recipeDbHelper userDbHelper2;
     SQLiteDatabase sqLiteDatabase;
-    LinearLayout videoLayout;
+
     Cursor cursor;
-    WebView simpleWebView;
-    Button loadWebPage;
+
     int r=0;
 
    // public MyCount timer;
@@ -109,56 +124,61 @@ public class Sec extends BaseActivity implements View.OnClickListener  {
     public Button s;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
-        getLayoutInflater().inflate(R.layout.activity_sec, frameLayout);
+        setHasOptionsMenu(true);
+        View view = inflater.inflate(R.layout.activity_sec, container, false);
 
         /**
          * Setting title and itemChecked
          */
-        mDrawerList.setItemChecked(position, true);
-        setTitle(listArray[position]);
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+      //  mDrawerList.setItemChecked(position, true);
+        //setTitle("Recipe");
+      //  getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+        scroll=(ScrollView) view.findViewById(R.id.scrollView2);
+        scroll.smoothScrollTo(0,0);
+      //  scroll.fullScroll(ScrollView.FOCUS_UP);
        // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        b = (Button) findViewById(R.id.totalbutton);
-        share = (ImageButton) findViewById(R.id.share);
-     imagevieww = (ImageView) findViewById(R.id.imagev);
-        vidView = (VideoView)findViewById(R.id.myVideo);
-        Textvitc=(TextView) findViewById(R.id.text_c);
-        Textcal=(TextView) findViewById(R.id.textcal);
-        Textpro=(TextView) findViewById(R.id.text_pro);
-        Textiron=(TextView) findViewById(R.id.text_iron);
-        Textcalc=(TextView) findViewById(R.id.text_calc);
-        Textvitb6=(TextView) findViewById(R.id.text_b6);
-        Textvitb12=(TextView) findViewById(R.id.text_b12);
-        Textvite=(TextView) findViewById(R.id.text_e);
-         videoLayout=(LinearLayout)this.findViewById(R.id.videolayout);
-        loadWebPage = (Button) findViewById(R.id.loadWebPage);
-        loadWebPage.setOnClickListener(this);
-        simpleWebView = (WebView) findViewById(R.id.simpleWebView);
-        simpleWebView.getSettings().setSupportZoom(true);
-        simpleWebView.getSettings().setBuiltInZoomControls(true);
-        simpleWebView.getSettings().setDisplayZoomControls(false);
+        b = (Button) view.findViewById(R.id.totalbutton);
+
+     imagevieww = (ImageView) view.findViewById(R.id.imagev);
+
+        imageview = (ImageView)view.findViewById(R.id.imagev);
+        Textvitc=(TextView) view.findViewById(R.id.text_c);
+        Textcal=(TextView) view.findViewById(R.id.textcal);
+        Textpro=(TextView) view.findViewById(R.id.text_pro);
+        Textiron=(TextView) view.findViewById(R.id.text_iron);
+        Textcalc=(TextView) view.findViewById(R.id.text_calc);
+        Textvitb6=(TextView) view.findViewById(R.id.text_b6);
+        Textvitb12=(TextView) view.findViewById(R.id.text_b12);
+        Textvite=(TextView) view.findViewById(R.id.text_e);
+
+
+
         // Go = (Button) findViewById(R.id.go);
-        title=getIntent().getStringExtra("title");
-        titl = (TextView) findViewById(R.id.title1);
-        calor = (TextView) findViewById(R.id.calory1);
-        des = (TextView) findViewById(R.id.desc1);
-        pre = (TextView) findViewById(R.id.prep1);
-        coo = (TextView) findViewById(R.id.cook1);
-        tota = (TextView) findViewById(R.id.total1);
-        Integ = (TextView) findViewById(R.id.integ);
-        Username= (TextView) findViewById(R.id.username);
-        i= new Intent(getApplicationContext(), MyService.class);
-        Toast.makeText(getApplicationContext(), title, Toast.LENGTH_LONG).show();
-        if(getIntent().getStringExtra("type").equalsIgnoreCase("sec")){
-            Toast.makeText(getApplicationContext(), "sec", Toast.LENGTH_LONG).show();
+        title=getActivity().getIntent().getStringExtra("title");
+
+        getActivity().setTitle(title);
+        titl = (TextView) view.findViewById(R.id.title1);
+        calor = (TextView) view.findViewById(R.id.calory1);
+        des = (TextView) view.findViewById(R.id.desc1);
+        pre = (TextView) view.findViewById(R.id.prep1);
+        coo = (TextView) view.findViewById(R.id.cook1);
+        tota = (TextView) view.findViewById(R.id.total1);
+        Integ = (TextView) view.findViewById(R.id.integ);
+        Username= (TextView) view.findViewById(R.id.username);
+        i= new Intent(getActivity(), MyService.class);
+        //Toast.makeText(getActivity(), title, Toast.LENGTH_LONG).show();
+        if(getActivity().getIntent().getStringExtra("type").equalsIgnoreCase("sec")){
+           // Toast.makeText(getActivity(), "sec", Toast.LENGTH_LONG).show();
         jso(title);
 
-        }else if(getIntent().getStringExtra("type").equalsIgnoreCase("fav")){
+        }else if(getActivity().getIntent().getStringExtra("type").equalsIgnoreCase("fav")){
             String alldesc="";
-            Toast.makeText(getApplicationContext(), "fav", Toast.LENGTH_LONG).show();
-            userDbHelper2=new recipeDbHelper(getApplicationContext());
+            //Toast.makeText(getActivity(), "fav", Toast.LENGTH_LONG).show();
+            userDbHelper2=new recipeDbHelper(getActivity());
             sqLiteDatabase=userDbHelper2.getReadableDatabase();
             cursor=userDbHelper2.SelectAllData(title,sqLiteDatabase);
 
@@ -177,7 +197,7 @@ public class Sec extends BaseActivity implements View.OnClickListener  {
 
                     byte[] qrimage = Base64.decode(image.getBytes(), 0);
                     bmp = BitmapFactory.decodeByteArray(qrimage, 0, qrimage.length);
-                    ImageView imageview = (ImageView) findViewById(R.id.imagev);
+                    ImageView imageview = (ImageView) view.findViewById(R.id.imagev);
                     String[] separated = list.split("-");
                     int ji = 1;
                     for (; ji < separated.length-1; ji++) {
@@ -218,7 +238,7 @@ public class Sec extends BaseActivity implements View.OnClickListener  {
                     coo.setText(cook);
                     Integ.setText(all);
 
-                    Toast.makeText(getApplicationContext(),list, Toast.LENGTH_LONG).show();
+                    //Toast.makeText(getActivity(),list, Toast.LENGTH_LONG).show();
 
                 }while (cursor.moveToNext());
      /*   FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -230,12 +250,12 @@ public class Sec extends BaseActivity implements View.OnClickListener  {
             }
         });*/
             }
-        }else if(getIntent().getStringExtra("type").equalsIgnoreCase("offline"))
+        }else if(getActivity().getIntent().getStringExtra("type").equalsIgnoreCase("offline"))
         {
            String alldesc="";
-            Toast.makeText(getApplicationContext(), "offline", Toast.LENGTH_LONG).show();
+            //Toast.makeText(getActivity(), "offline", Toast.LENGTH_LONG).show();
 
-            userDbHelper2=new recipeDbHelper(getApplicationContext());
+            userDbHelper2=new recipeDbHelper(getActivity());
             sqLiteDatabase=userDbHelper2.getReadableDatabase();
             cursor=userDbHelper2.SelectAllDataoffline(title,sqLiteDatabase);
 
@@ -252,7 +272,7 @@ public class Sec extends BaseActivity implements View.OnClickListener  {
                     String image = cursor.getString(8);
                     byte[] qrimage = Base64.decode(image.getBytes(), 0);
                     bmp = BitmapFactory.decodeByteArray(qrimage, 0, qrimage.length);
-                    ImageView imageview = (ImageView) findViewById(R.id.imagev);
+                    ImageView imageview = (ImageView) view.findViewById(R.id.imagev);
                     String[] separated = list.split("-");
                     int ji = 0;
                     for (; ji < separated.length ; ji++) {
@@ -291,7 +311,7 @@ public class Sec extends BaseActivity implements View.OnClickListener  {
                     coo.setText(cook);
                     Integ.setText(all);
 
-                    Toast.makeText(getApplicationContext(), list, Toast.LENGTH_LONG).show();
+                  //  Toast.makeText(getActivity(), list, Toast.LENGTH_LONG).show();
 
                 } while (cursor.moveToNext());
      /*   FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -305,17 +325,17 @@ public class Sec extends BaseActivity implements View.OnClickListener  {
             }
 
         }
-        T = (TextView) findViewById(R.id.t);
+        T = (TextView) view.findViewById(R.id.t);
 
         b.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0)  {
-                String m=  tota.getText().toString();
+                String m=  coo.getText().toString();
 
-                stopService(i.addCategory(MyService.COPA_MESSAGE));
+                getActivity().stopService(i.addCategory(MyService.COPA_MESSAGE));
                 i.putExtra("m", m);
                // i.putExtra("flag", "1");
                 i.putExtra("title",titl.getText().toString());
-                getApplicationContext().startService(i.addCategory(MyService.COPA_MESSAGE));
+                getActivity().startService(i.addCategory(MyService.COPA_MESSAGE));
             }});
 
 
@@ -342,14 +362,14 @@ public class Sec extends BaseActivity implements View.OnClickListener  {
                     // Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
                     // do something here.
                 }  }};
-        s= (Button) findViewById(R.id.stop);
+        s= (Button) view.findViewById(R.id.stop);
 
         s.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
 
-                Toast.makeText(getApplicationContext(), "timer has been stoped", Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), "timer has been stoped", Toast.LENGTH_LONG).show();
                 b.setText("Restart Timer");
-              stopService(i.addCategory(MyService.COPA_MESSAGE));
+                getActivity().stopService(i.addCategory(MyService.COPA_MESSAGE));
 
                 // String m=b.getText().toString();
 // potentially add data to the intent
@@ -576,88 +596,21 @@ public class Sec extends BaseActivity implements View.OnClickListener  {
             Log.i(TAG, "Countdown : " +  millisUntilFinished / 1000);
         }*/
         // Set the media controller buttons
-        if (mediaController == null) {
-            mediaController = new MediaController(Sec.this);
 
-            // Set the videoView that acts as the anchor for the MediaController.
-            mediaController.setAnchorView(vidView);
+        return view;
 
-
-            // Set MediaController for VideoView
-            vidView.setMediaController(mediaController);
-        }
-
-        // When the video file ready for playback.
-        vidView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-
-            public void onPrepared(MediaPlayer mediaPlayer) {
-                vidView.seekTo(position);
-                //    if (position == 0) {
-                //        vidView.start();
-                //   }
-
-                // When video Screen change size.
-                mediaPlayer.setOnVideoSizeChangedListener(new MediaPlayer.OnVideoSizeChangedListener() {
-                    @Override
-                    public void onVideoSizeChanged(MediaPlayer mp, int width, int height) {
-
-                        // Re-Set the videoView that acts as the anchor for the MediaController
-                        mediaController.setAnchorView(vidView);
-
-                    }
-                });
-            }
-        });
-
-    }
-
-
-    @Override
-    public void onClick(View v) {
-        String t=title;
-                simpleWebView.setWebViewClient(new MyWebViewClient());
-                String url = "http://10.0.2.2/index.php?recipe="+t;
-                simpleWebView.getSettings().setJavaScriptEnabled(true);
-                simpleWebView.loadUrl(url); // load a web page in a web view
-    }
-
-    private class MyWebViewClient extends WebViewClient {
-        @Override
-        public boolean shouldOverrideUrlLoading(WebView view, String url) {
-            view.loadUrl(url);
-            return true;
-        }
-    }
-
-
-    // When you change direction of phone, this method will be called.
-    // It store the state of video (Current position)
-    @Override
-    public void onSaveInstanceState(Bundle savedInstanceState) {
-        super.onSaveInstanceState(savedInstanceState);
-
-        // Store current position.
-        savedInstanceState.putInt("CurrentPosition", vidView.getCurrentPosition());
-        vidView.pause();
     }
 
 
     // After rotating the phone. This method is called.
-    @Override
-    public void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
 
-        // Get saved position.
-        position = savedInstanceState.getInt("CurrentPosition");
-        vidView.seekTo(position);
-    }
     @Override
-    protected void onStop() {
+    public void onStop() {
         // TODO Auto-generated method stub
-        LocalBroadcastManager.getInstance(this).unregisterReceiver(receiver);
+        LocalBroadcastManager.getInstance(getActivity()).unregisterReceiver(receiver);
         super.onStop();
     }
-    protected void onStart() {
+    public void onStart() {
         // TODO Auto-generated method stub
 
         //Register BroadcastReceiver
@@ -666,7 +619,7 @@ public class Sec extends BaseActivity implements View.OnClickListener  {
 
 
         super.onStart();
-        LocalBroadcastManager.getInstance(this).registerReceiver((receiver),
+        LocalBroadcastManager.getInstance(getActivity()).registerReceiver((receiver),
                 new IntentFilter(MyService.COPA_RESULT)
         );
     }
@@ -680,7 +633,7 @@ public class Sec extends BaseActivity implements View.OnClickListener  {
             public String calory = "";
             public String prep = "";
             public String cook = "";
-            public String photo = "";
+
             public String desc = "";
             public String total = "";
             public String image = "";
@@ -695,7 +648,7 @@ public class Sec extends BaseActivity implements View.OnClickListener  {
             public String vitb12 = "";
             public String vite = "";
             public Integer id;
-            ImageView imageview;
+             public ImageView imageview;
             public String all="";
             public String alldesc="";
             public String name1 = "";
@@ -726,11 +679,11 @@ public class Sec extends BaseActivity implements View.OnClickListener  {
             public void onPostExecute(String s) {
                 super.onPostExecute(s);
                 //listVieww=(ListView)findViewById(R.id.lv);
-              //  records= new ArrayList<Record>();
-Log.d("result",s);
+                //  records= new ArrayList<Record>();
+                Log.d("result", s);
                 try {
-                    userDbHelper3=new recipeDbHelper(getApplicationContext());
-                    sqLiteDatabase=userDbHelper3.getWritableDatabase();
+                    userDbHelper3 = new recipeDbHelper(getActivity());
+                    sqLiteDatabase = userDbHelper3.getWritableDatabase();
 
                     // Text.setText(s);
                     //  Toast.makeText(getApplicationContext(), "Hello", Toast.LENGTH_SHORT).show();
@@ -738,7 +691,7 @@ Log.d("result",s);
                     String j = jObj.toString();
                     JSONArray itemm = jObj.getJSONArray("result");
                     String item = itemm.toString();
-                  // Text.setText(item);
+                    // Text.setText(item);
                     for (int i = 0; i < itemm.length(); i++) {
                         JSONObject c = itemm.getJSONObject(i);
                         title = c.getString("title");
@@ -748,7 +701,7 @@ Log.d("result",s);
                         total = c.getString("total");
                         cook = c.getString("cook");
                         image = c.getString("image");
-                        video=c.getString("video");
+                        video = c.getString("video");
                         rating = c.getString("rating");
                         photo = c.getString("photo");
                         User = c.getString("username");
@@ -760,40 +713,50 @@ Log.d("result",s);
                         vitb12 = c.getString("vitb12");
                         vite = c.getString("vite");
 
-                      //  JSONArray it = c.getJSONArray("list");
-                    //    list = it.toString();
-                   list = c.getString("list");
-                        userDbHelper3.addsqliterecipeoffline(title,list,desc,calory,prep,cook,total,image,rating,sqLiteDatabase);
+                        //pass video variable to fragment vedio
+                        SharedPreferences pref = getActivity().getSharedPreferences("MyPref", MODE_PRIVATE);
+                        SharedPreferences.Editor editor = pref.edit();
+
+                        editor.putString("myvideo", video);
+                        editor.putString("recipetitle", title);
+
+                        // Save the changes in SharedPreferences
+                        editor.commit();   // commit changes
+
+                        //  JSONArray it = c.getJSONArray("list");
+                        //    list = it.toString();
+                        list = c.getString("list");
+                        userDbHelper3.addsqliterecipeoffline(title, list, desc, calory, prep, cook, total, image, rating, sqLiteDatabase);
                         userDbHelper3.close();
                         byte[] qrimage = Base64.decode(image.getBytes(), i);
                         bmp = BitmapFactory.decodeByteArray(qrimage, 0, qrimage.length);
-                      imageview = (ImageView) findViewById(R.id.imagev);
-                       list.replaceAll("]",".");
+
+                        list.replaceAll("]", ".");
                         String[] separated = list.split("-");
                         int ji = 1;
                         for (; ji < separated.length; ji++) {
-                            int ind=separated[ji ].lastIndexOf(",");
-                            if( ind>=0 )
-                                separated[ji ] = new StringBuilder(separated[ji ]).replace(ind, ind+1,".").toString();
-                            all+=ji+"-"+separated[ji ]+"\n";
+                            int ind = separated[ji].lastIndexOf(",");
+                            if (ind >= 0)
+                                separated[ji] = new StringBuilder(separated[ji]).replace(ind, ind + 1, ".").toString();
+                            all += ji + "-" + separated[ji] + "\n";
 
                         }
-                        desc.replaceAll("]",".");
+                        desc.replaceAll("]", ".");
                         String[] separated1 = desc.split(",");
                         int ji1 = 0;
                         for (; ji1 < separated1.length; ji1++) {
 
 
-                            alldesc+=ji1+1+"-"+separated1[ji1 ]+"\n";
+                            alldesc += ji1 + 1 + "-" + separated1[ji1] + "\n";
 
                         }
 
 
-                       // File f3=new File(Environment.getExternalStorageDirectory()+"/inpaint/"+"seconds"+".png");
-                       // if(!f3.exists()){
-                         //   f3.createNewFile();
+                        // File f3=new File(Environment.getExternalStorageDirectory()+"/inpaint/"+"seconds"+".png");
+                        // if(!f3.exists()){
+                        //   f3.createNewFile();
                         //}
-                      //  OutputStream outStream = null;
+                        //  OutputStream outStream = null;
                        /* File file = new File(Environment.getExternalStorageDirectory() + "/inpaint/"+"seconds"+".png");
                         try {
                             outStream = new FileOutputStream(file);
@@ -806,33 +769,20 @@ Log.d("result",s);
                         } catch (Exception e) {
                             e.printStackTrace();
                         }*/
-                       // Toast.makeText(getApplicationContext(),qrimage.toString(), Toast.LENGTH_SHORT).show();
+                        // Toast.makeText(getApplicationContext(),qrimage.toString(), Toast.LENGTH_SHORT).show();
+                        imageview = (ImageView) getView().findViewById(R.id.imagev);
                         imageview.setImageBitmap(bmp);
                         //  names.add(title);
 
-                       // record = new Record(title, id);
+                        // record = new Record(title, id);
 
 
-                      //  records.add(record);
-
-
-
-
+                        //  records.add(record);
 
 
                     }
 
-                    video=video.replaceAll("\\s","");
-                    if(video.equals("novideo")){
-                        videoLayout.setVisibility(LinearLayout.GONE);
-                    }
-                    else {
-                        String vidAddress = "http://10.0.2.2/upload/" + video;
-                        Uri vidUri = Uri.parse(vidAddress);
-                        vidView.setVideoURI(vidUri);
 
-                        vidView.requestFocus();
-                    }
                     titl.setText(title);
                     des.setText(alldesc);
                     calor.setText(calory);
@@ -850,8 +800,8 @@ Log.d("result",s);
                     Textiron.setText(iron);
                     Textcalc.setText(calc);
                     Textvitc.setText(vitc);
-                    Toast.makeText(getApplicationContext(), cook, Toast.LENGTH_LONG).show();
-                    vivsadapter = new Vivsadapter(Sec.this,records);
+                    //Toast.makeText(getActivity(), cook, Toast.LENGTH_LONG).show();
+                    vivsadapter = new Vivsadapter(getActivity(), records);
 
                      /*   JSONObject list = jObj.getJSONObject("list");
                         String item = list.toString();
@@ -873,7 +823,7 @@ Log.d("result",s);
                           //  }
 
                         }*/
-                   //  Text.setText(j);
+                    //  Text.setText(j);
 
 
                 } catch (Exception e) {
@@ -885,172 +835,11 @@ Log.d("result",s);
                     @Override
                     public void onClick(View v) {
                         GetchifData g = new GetchifData();
-                        g.execute(User,title);
+                        g.execute(User, title);
                     }
                 });
-
-
-                share.setOnClickListener(new View.OnClickListener() {
-                    public void onClick(View arg0)  {
-                        FacebookSdk.sdkInitialize(getApplicationContext());
-
-                        String calo=calor.getText().toString();
-                        CallbackManager callbackManager = CallbackManager.Factory.create();
-                        ShareDialog shareDialog = new ShareDialog(Sec.this);
-                        AlertDialog.Builder shareDialog2 = new AlertDialog.Builder(Sec.this);
-                        ShareDialog shareDialog1 = new ShareDialog(Sec.this);
-                        shareDialog.registerCallback(callbackManager, new FacebookCallback<Sharer.Result>() {
-
-                            @Override
-                            public void onSuccess(Sharer.Result result) {
-                                Log.d("d", "success");
-                            }
-
-                            @Override
-                            public void onError(FacebookException error) {
-                                Log.d("d", "error");
-                            }
-
-                            @Override
-                            public void onCancel() {
-                                Log.d("d", "cancel");
-                            }
-                        });
-             /*   FacebookSdk.sdkInitialize(getApplicationContext());
-
-                callbackManager = CallbackManager.Factory.create();
-
-                List<String> permissionNeeds = Arrays.asList("publish_actions");
-
-                //this loginManager helps you eliminate adding a LoginButton to your UI
-                LoginManager  manager = LoginManager.getInstance();
-
-                //  manager.logInWithPublishPermissions(this, permissionNeeds);
-
-                manager.registerCallback(callbackManager, new FacebookCallback< LoginResult>()
-                {
-                    @Override
-                    public void onSuccess(LoginResult loginResult)
-                    {
-                        Log.d("d", "success");
-                    }
-
-                    @Override
-                    public void onCancel()
-                    {
-                        System.out.println("onCancel");
-                    }
-
-                    @Override
-                    public void onError(FacebookException exception)
-                    {
-                        System.out.println("onError");
-                    }
-                });
-                shareDialog.registerCallback(callbackManager, new FacebookCallback<Sharer.Result>() {
-
-                    @Override
-                    public void onSuccess(Sharer.Result result) {
-                        Log.d("d", "success");
-                    }
-
-                    @Override
-                    public void onError(FacebookException error) {
-                        Log.d("d", "error");
-                    }
-
-                    @Override
-                    public void onCancel() {
-                        Log.d("d", "cancel");
-                    }
-                });*/
-            /*    Uri selectedImage= Uri.parse("/"+Environment.getExternalStorageDirectory()+"/inpaint/"+"seconds"+".png");
-
-                try
-                {
-                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(getApplicationContext().getContentResolver() , Uri.parse("file:///"+Environment.getExternalStorageDirectory()+"/inpaint/"+"seconds"+".png"));
-                    Toast.makeText(getApplicationContext(), bmp.toString(), Toast.LENGTH_LONG).show();
-
-
-                }
-                catch (Exception e)
-                {
-                    //handle exception
-                }
-                SharePhoto photo = new SharePhoto.Builder()
-                        .setBitmap(bmp)
-                        .setUserGenerated(true)
-                        .build();
-                SharePhotoContent content = new SharePhotoContent.Builder()
-                        .addPhoto(photo)
-                        .build();
-                ShareOpenGraphAction action = new ShareOpenGraphAction.Builder()
-                        .setActionType("share")
-                        .putString("title",title)
-                        .putPhoto("image", photo)
-                        .build();*/
-                    try{
-                        /*String file_path = Environment.getExternalStorageDirectory().getAbsolutePath() +
-                                "/MyApp/";
-
-                        File dir = new File(file_path);
-                        dir.mkdirs();
-                        File file = new File(dir, "myPic.png");
-                        FileOutputStream fOut = new FileOutputStream(file);
-
-                        bmp.compress(Bitmap.CompressFormat.PNG, 100, fOut);
-
-                        fOut.flush();
-                        fOut.close();*/
-
-// Share
-                      ShareLinkContent content = new ShareLinkContent.Builder()
-                               .setContentUrl(Uri.parse("http://10.0.2.2/share.php?recipeName="+title)).setContentTitle(title).setContentDescription("calory: "+calo).setImageUrl(Uri.parse("http://10.0.2.2/androidimages/"+photo))//.setImageUrl(Uri.fromFile(file))//.setImageUrl(Uri.parse("http://192.168.1.7/androidimages/IMG_1474711234.jpg"))//.setImageUrl(Uri.fromFile(new File(Environment.getExternalStorageDirectory()+"/inpaint/"+"seconds"+".png")))
-                              .build();
-
-                        shareDialog.show(Sec.this,content);
-                      /*  Intent share = new Intent(android.content.Intent.ACTION_SEND);
-
-                        share.setType("text/plain");
-
-                        share.putExtra(Intent.EXTRA_TEXT,"http://192.168.1.7/share.php?recipeName=hhhh");
-                        share.putExtra(Intent.EXTRA_REFERRER_NAME,"http://192.168.1.7/share.php?recipeName=hhhh");
-
-                        share.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file));
-                       // share.putExtra(Intent.EXTRA_TEXT, "My Image");
-
-                     startActivity(Intent.createChooser(  share, "Share via"));*/
-                    } catch (Exception e) {
-                        e.printStackTrace();
-
-                    }
-                      //  SharePhoto sharePhoto = new SharePhoto.Builder().setBitmap(bmp).build();
-
-                        //SharePhotoContent sharePhotoContent = new SharePhotoContent.Builder().addPhoto(sharePhoto).build();
-
-                        // ShareDialog shareDialog = new ShareDialog(MainActivity.this);
-                        // Toast.makeText(getApplicationContext(), sharePhotoContent.toString(), Toast.LENGTH_LONG).show();
-                       // shareDialog.show(sharePhotoContent);
-                        /*shareDialog2.setTitle("hhh");
-                ShareLinkContent content = new ShareLinkContent.Builder()
-                        .setContentUrl(Uri.parse("http://192.168.1.7/share.php?recipeName="+title)).setContentTitle(title).setContentDescription("calory: "+calo).setImageUrl(Uri.parse("http://www.bigstockphoto.com/image-121417376/stock-photo-healthy-food-choice"))//.setImageUrl(Uri.parse("http://192.168.1.7/androidimages/IMG_1474711234.jpg"))//.setImageUrl(Uri.fromFile(new File(Environment.getExternalStorageDirectory()+"/inpaint/"+"seconds"+".png")))
-                        .build();
-                shareDialog.show(content);*/
-                        // Toast.makeText(getApplicationContext(), Environment.getExternalStorageDirectory()+"/inpaint/"+"seconds"+".png".toString(), Toast.LENGTH_LONG).show();
-           /*    ShareLinkContent content = new ShareLinkContent.Builder()
-                        .setContentUrl(Uri.parse("http://192.168.1.7/share.php?recipeName="+title)).setContentTitle(title).setContentDescription("calory: "+calo).setImageUrl(Uri.parse("http://www.bigstockphoto.com/image-121417376/stock-photo-healthy-food-choice"))//.setImageUrl(Uri.parse("http://192.168.1.7/androidimages/IMG_1474711234.jpg"))//.setImageUrl(Uri.fromFile(new File(Environment.getExternalStorageDirectory()+"/inpaint/"+"seconds"+".png")))
-                        .build();
-
-                shareDialog.show(content);*/
-
-
-
-                    }});
-
-
 
             }
-
             @Override
             public String doInBackground(String... params) {
 
@@ -1171,7 +960,7 @@ Log.d("result",s);
                     String db_type = c.getString("chif_type");
                     String db_appid = c.getString("chif_appid");
                     String db_faceid = c.getString("chif_faceid");
-                    SharedPreferences pref = getSharedPreferences("MyPref", MODE_PRIVATE);
+                    SharedPreferences pref = getActivity().getSharedPreferences("MyPref", MODE_PRIVATE);
                     SharedPreferences.Editor editor = pref.edit();
                     editor.putString("chif_type", db_type);
                     if(db_appid.equals("noid")){
@@ -1185,7 +974,7 @@ Log.d("result",s);
 
                     editor.commit();
                 }
-                startActivity(new Intent(Sec.this, chifProfile.class));
+                startActivity(new Intent(getActivity(), chifProfile.class));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -1196,7 +985,67 @@ Log.d("result",s);
         }
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+        switch (id) {
+            case R.id.share:
+                FacebookSdk.sdkInitialize(getActivity());
 
+                String calo=calor.getText().toString();
+                CallbackManager callbackManager = CallbackManager.Factory.create();
+                ShareDialog shareDialog = new ShareDialog(Sec.this);
+                AlertDialog.Builder shareDialog2 = new AlertDialog.Builder(getActivity());
+                ShareDialog shareDialog1 = new ShareDialog(Sec.this);
+                shareDialog.registerCallback(callbackManager, new FacebookCallback<Sharer.Result>() {
+
+                    @Override
+                    public void onSuccess(Sharer.Result result) {
+                        Log.d("d", "success");
+                    }
+
+                    @Override
+                    public void onError(FacebookException error) {
+                        Log.d("d", "error");
+                    }
+
+                    @Override
+                    public void onCancel() {
+                        Log.d("d", "cancel");
+                    }
+                });
+
+                try{
+
+// Share
+                    ShareLinkContent content = new ShareLinkContent.Builder()
+                            .setContentUrl(Uri.parse("http://10.0.2.2/share.php?recipeName="+title)).setContentTitle(title).setContentDescription("calory: "+calo).setImageUrl(Uri.parse("http://10.0.2.2/androidimages/"+photo))//.setImageUrl(Uri.fromFile(file))//.setImageUrl(Uri.parse("http://192.168.1.7/androidimages/IMG_1474711234.jpg"))//.setImageUrl(Uri.fromFile(new File(Environment.getExternalStorageDirectory()+"/inpaint/"+"seconds"+".png")))
+                            .build();
+
+                    shareDialog.show(Sec.this,content);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+
+                }
+
+                break;
+
+        }
+
+        //noinspection SimplifiableIfStatement
+        return super.onOptionsItemSelected(item);
+
+    }
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        // TODO Add your menu entries here
+        inflater.inflate(R.menu.second, menu);
+      //  super.onCreateOptionsMenu(R.menu.second, inflater);
+    }
 
     public static void jsorating(String title, String rating) {
 
@@ -1267,7 +1116,9 @@ Log.d("result",s);
                         userDbHelper3.addsqliterecipeoffline(title,list,desc,calory,prep,cook,total,image,sqLiteDatabase);
                         userDbHelper3.close();
                         byte[] qrimage = Base64.decode(image.getBytes(), i);
-                        bmp = BitmapFactory.decodeByteArray(qrimage, 0, qrimage.length);
+
+
+                       bmp = BitmapFactory.decodeByteArray(qrimage, 0, qrimage.length);
                         ImageView imageview = (ImageView) findViewById(R.id.imagev);
                         String[] separated = list.split("-");
                         int ji = 1;

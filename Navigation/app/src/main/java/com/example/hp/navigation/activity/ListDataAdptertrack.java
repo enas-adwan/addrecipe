@@ -127,7 +127,7 @@ public class ListDataAdptertrack extends ArrayAdapter {
                 ArrayList<Float> sums=userDbHelper.getTotaltrack(sqLiteDatabase);
                 Float calorysum=sums.get(0);
 
-               trackingdailycalory.textcalory.setText(String.valueOf(calorysum));
+                trackingdailycalory.textcalory.setText(String.valueOf(calorysum));
 
                 String c=trackingdailycalory.textcalory.getText().toString();
                 String ca=trackingdailycalory.Text.getText().toString();
@@ -137,12 +137,12 @@ public class ListDataAdptertrack extends ArrayAdapter {
                 String remain=re.toString();
                 if    (re>0){
 
-                   trackingdailycalory.textR.setTextColor(Color.BLACK);
+                    trackingdailycalory.textR.setTextColor(Color.BLACK);
                 } else{
                     trackingdailycalory.textR.setTextColor(Color.RED);
                 }
                 trackingdailycalory.textR.setText(remain);
-                trackingdailycalory.setListViewHeightBasedOnItems(listView);
+            //    trackingdailycalory.setListViewHeightBasedOnItems(listView);
                 Toast.makeText(getContext(), m+position+i , Toast.LENGTH_LONG).show();
             }
         });

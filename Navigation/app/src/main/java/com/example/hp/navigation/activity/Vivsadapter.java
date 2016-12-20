@@ -105,36 +105,32 @@ public class Vivsadapter extends RecyclerView.Adapter<Vivsadapter.MasonryView>  
             public void onClick(View v) {
                 if(  ShowRecipe.mRecyclerView.getTag()=="sec") {
                     String title1 = gettitle(position);
-                    Toast.makeText(context, title1, Toast.LENGTH_LONG).show();
-                    Intent i = new Intent(context,Sec.class);
+                   // Toast.makeText(context, title1, Toast.LENGTH_LONG).show();
+                    Intent i = new Intent(context,main_activity_fragment.class);
                     i.putExtra("title", title1);
                     i.putExtra("type", "sec");
                     context.startActivity(i);
 
                 }
 
-
                 else if ( searchactivity.mRecyclerView!=null){
-                if(  searchactivity.mRecyclerView.getTag()=="sec") {
-                    String title1 = gettitle(position);
-                    Toast.makeText(context, title1, Toast.LENGTH_LONG).show();
-                    Intent i = new Intent(context,Sec.class);
-                    i.putExtra("title", title1);
-                    i.putExtra("type", "sec");
-                    context.startActivity(i);
-
-                }}
-
-
-
-
-
-
-                else if ( Showfav.mRecyclerView!=null){
-                    if(Showfav.mRecyclerView.getTag()=="fav") {
+                    if(  searchactivity.mRecyclerView.getTag()=="sec") {
                         String title1 = gettitle(position);
-                        Toast.makeText(context, title1 + "  fav", Toast.LENGTH_LONG).show();
-                        Intent i = new Intent(context, Sec.class);
+                       // Toast.makeText(context, title1, Toast.LENGTH_LONG).show();
+                        Intent i = new Intent(context,main_activity_fragment.class);
+                        i.putExtra("title", title1);
+                        i.putExtra("type", "sec");
+                        context.startActivity(i);
+
+                    }}
+
+
+
+                else if (  Showfav.mRecyclerView!=null){
+                    if( Showfav.mRecyclerView.getTag()=="fav"){
+                        String title1 = gettitle(position);
+                       // Toast.makeText(context, title1 + "  fav", Toast.LENGTH_LONG).show();
+                        Intent i = new Intent(context, main_activity_fragment.class);
                         i.putExtra("title", title1);
                         i.putExtra("type", "fav");
                         context.startActivity(i);
@@ -142,8 +138,8 @@ public class Vivsadapter extends RecyclerView.Adapter<Vivsadapter.MasonryView>  
 
                 }else if ( ShowRecipe.mRecyclerView.getTag()=="offline"){
                     String title1 = gettitle(position);
-                    Toast.makeText(context, title1+"  offline", Toast.LENGTH_LONG).show();
-                    Intent i = new Intent(context, Sec.class);
+                  //  Toast.makeText(context, title1+"  offline", Toast.LENGTH_LONG).show();
+                    Intent i = new Intent(context, main_activity_fragment.class);
                     i.putExtra("title", title1);
                     i.putExtra("type", "offline");
                     context.startActivity(i);

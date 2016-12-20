@@ -15,9 +15,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.util.Base64;
 import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -75,7 +77,7 @@ import java.util.regex.Pattern;
 
 public class editAppProfile extends BaseActivity {
     private static int RESULT_LOAD_IMG = 1;
-    private Button loadpic,uploadpic;
+    private ImageButton loadpic,uploadpic;
     ImageView Img;
     public Bitmap bmp;
     String image_str;
@@ -120,7 +122,7 @@ public class editAppProfile extends BaseActivity {
 
             GetAPPDataJSON g = new GetAPPDataJSON();
             g.execute();
-        loadpic = (Button) findViewById(R.id.loadpic);
+        loadpic = (ImageButton) findViewById(R.id.loadpic);
 
         loadpic.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -219,52 +221,37 @@ public class editAppProfile extends BaseActivity {
                                                }
                                            }
         );
-       uploadpic = (Button) findViewById(R.id.uploadpic);
-
-        uploadpic.setOnClickListener(new View.OnClickListener() {
-                                                   @Override
-                                                   public void onClick (View view)
-                                                   {
-
-                                                       class save extends AsyncTask<String, Void, String> {
-                                                           SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
-                                                           String user=pref.getString("user_email","");
-                                                           editProfileHelper ruc = new editProfileHelper();
-                                                           @Override
-                                                           protected void onPreExecute() {
-                                                               super.onPreExecute();
-                                                           }
-                                                           @Override
-                                                           protected void onPostExecute(String s)
-                                                           {
-                                                               super.onPostExecute(s);
-                                                               Toast.makeText(getApplicationContext(),s,Toast.LENGTH_LONG).show();
-                                                           }
-
-                                                           @Override
-                                                           protected String doInBackground(String... params) {
-                                                               Long tsLong = System.currentTimeMillis() / 1000;
-                                                               String timestamp = tsLong.toString();
-                                                               String nameimage ="IMG_"+timestamp;
-                                                               HashMap<String, String> data = new HashMap<String,String>();
-                                                               data.put("user",user);
-                                                               data.put("image",image_str);
-                                                               data.put("nameimage",nameimage);
-                                                               String result = ruc.sendPostRequest(URL,data);
-                                                               return  result;
-                                                           }
-                                                       }
-
-                                                       save ru = new save();
-                                                       ru.execute();
-                                                       GetAPPDataJSON g1 = new GetAPPDataJSON();
-                                                       g1.execute();
 
 
-                                                   }
-                                               }
-        );
+    }
 
+    class save extends AsyncTask<String, Void, String> {
+        SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
+        String user=pref.getString("user_email","");
+        editProfileHelper ruc = new editProfileHelper();
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+        @Override
+        protected void onPostExecute(String s)
+        {
+            super.onPostExecute(s);
+            Toast.makeText(getApplicationContext(),s,Toast.LENGTH_LONG).show();
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            Long tsLong = System.currentTimeMillis() / 1000;
+            String timestamp = tsLong.toString();
+            String nameimage ="IMG_"+timestamp;
+            HashMap<String, String> data = new HashMap<String,String>();
+            data.put("user",user);
+            data.put("image",image_str);
+            data.put("nameimage",nameimage);
+            String result = ruc.sendPostRequest(URL,data);
+            return  result;
+        }
     }
 
 
@@ -584,6 +571,10 @@ public class editAppProfile extends BaseActivity {
                 // Text.setText( image_str);
                 //  imgVieww.setImageBitmap(BitmapFactory
                 //    .decodeFile(imgPath));
+                save ru = new save();
+                ru.execute();
+                GetAPPDataJSON g1 = new GetAPPDataJSON();
+                g1.execute();
                 Toast.makeText(this, "worked",
                         Toast.LENGTH_LONG).show();
                 // Get the Image's file name
@@ -602,4 +593,11 @@ public class editAppProfile extends BaseActivity {
         }
 
     }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.fragment_menu, menu);
+        return true;
+    }
+
 }

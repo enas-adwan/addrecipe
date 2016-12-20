@@ -5,9 +5,9 @@
     <color name="white">#FFFFFF</color>
     <color name="primary">#0D47A1</color>
     <color name="ColorPrimaryDark">#E64A19</color>
-	<color name="colorAccent">#FF4081</color>
-	<color name="transparent">#00000000</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="transparent">#00000000</color>
     <color name="my_spinner_text_color">#000000</color>
-<color name="product_list_item_bg">#ffffff</color>
-<color name="view_divider_color">#BABABA</color>
+    <color name="product_list_item_bg">#ffffff</color>
+    <color name="view_divider_color">#BABABA</color>
 </resources>

@@ -4,21 +4,21 @@
     package="com.navigation.drawer.activity"
     android:versionCode="1"
     android:versionName="1.0">
+
     <uses-sdk
         android:minSdkVersion="11"
         android:targetSdkVersion="14" />
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
-    <android:uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <android:uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <android:uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
-        android:label="@string/app_name"
+        android:label="MyRecipe"
         android:theme="@style/AppTheme">
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
@@ -28,7 +28,8 @@
         	We will launch BaseActivity as launcher.
         	We will check if BaseActivity launch first time and open desired activity and set navigation item selected
         -->
-        <activity android:name="com.example.hp.navigation.activity.MainActivity"
+        <activity
+            android:name="com.example.hp.navigation.activity.MainActivity"
             android:windowSoftInputMode="stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -38,24 +39,24 @@
         </activity>
         <activity
             android:name="com.example.hp.navigation.activity.profile"
-            android:windowSoftInputMode="stateHidden"
             android:parentActivityName="com.example.hp.navigation.activity.MainActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name="com.example.hp.navigation.activity.editAppProfile"
-            android:windowSoftInputMode="stateHidden"
             android:parentActivityName="com.example.hp.navigation.activity.MainActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name="com.example.hp.navigation.activity.editFaceProfile"
-            android:windowSoftInputMode="stateHidden"
             android:parentActivityName="com.example.hp.navigation.activity.MainActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name="com.example.hp.navigation.activity.SignUp"
-            android:windowSoftInputMode="stateHidden"
             android:parentActivityName="com.example.hp.navigation.activity.MainActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
@@ -64,23 +65,20 @@
             tools:replace="android:theme" />
         <activity
             android:name="com.example.hp.navigation.activity.BaseActivity"
-            android:label="@string/app_name"></activity>
+            android:label="@string/app_name" />
         <activity
             android:name="com.example.hp.navigation.activity.ShowRecipe"
-            android:windowSoftInputMode="stateHidden"
             android:label="@string/title_activity_sec"
-
-        />
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name="com.example.hp.navigation.activity.Sec"
-            android:windowSoftInputMode="adjustResize"
             android:label="@string/title_activity_sec"
             android:parentActivityName="com.example.hp.navigation.activity.ShowRecipe" />
         <activity
             android:name="com.example.hp.navigation.activity.searchactivity"
-            android:windowSoftInputMode="stateHidden"
             android:label="search"
-            android:parentActivityName="com.example.hp.navigation.activity.searchfilter" />
+            android:parentActivityName="com.example.hp.navigation.activity.searchfilter"
+            android:windowSoftInputMode="stateHidden" />
 
         <service
             android:name="com.example.hp.navigation.activity.MyService"
@@ -89,38 +87,51 @@
 
         <activity
             android:name="com.example.hp.navigation.activity.Showfav"
-            android:windowSoftInputMode="stateHidden"
-            android:label="@string/title_activity_showfav"></activity>
+            android:label="@string/title_activity_showfav"
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name="com.example.hp.navigation.activity.Showonefav"
-            android:windowSoftInputMode="stateHidden"
-            android:label="@string/title_activity_showonefav" />
+            android:label="@string/title_activity_showonefav"
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name="com.example.hp.navigation.activity.HealthAdvicer"
-            android:windowSoftInputMode="stateHidden"
-            android:label="HealthAdvicer" />
+            android:label="HealthAdvicer"
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name="com.example.hp.navigation.activity.Showonesqliteoffline"
-            android:windowSoftInputMode="stateHidden"
-            android:label="@string/title_activity_showonesqliteoffline" />
-
-        <activity android:name="com.example.hp.navigation.activity.AddRecipe"
-            android:windowSoftInputMode="stateHidden"
-            android:label="Add Recipe"/>
-        <activity android:name="com.example.hp.navigation.activity.chifProfile"
-            />
+            android:label="@string/title_activity_showonesqliteoffline"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name="com.example.hp.navigation.activity.AddRecipe"
+            android:label="Add Recipe"
+            android:windowSoftInputMode="stateHidden" />
+        <activity android:name="com.example.hp.navigation.activity.chifProfile" />
         <activity
             android:name="com.example.hp.navigation.activity.searchfilter"
-            android:windowSoftInputMode="stateHidden"
             android:label="@string/title_activity_searchfilter"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name="com.example.hp.navigation.activity.trackingdailycalory"
-            android:label="@string/title_activity_trackingdailycalory"
-            android:theme="@style/AppTheme"></activity>
+            android:label="Calory Tracking"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name="com.example.hp.navigation.activity.oldTraking"
             android:label="@string/title_activity_trackingdailycalory"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name="com.example.hp.navigation.activity.ShowMyRecipe"
+            android:label="Show recipe"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name="com.example.hp.navigation.activity.ShowChifRecipe"
+            android:label="Show recipe"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name="com.example.hp.navigation.activity.main_activity_fragment"
+            android:label="Show recipe"
+            android:theme="@style/AppTheme" />
     </application>
+
 </manifest>

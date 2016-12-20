@@ -36,7 +36,6 @@ public class HealthAdvicer extends BaseActivity {
 		 * Setting title and itemChecked
 		 */
 		mDrawerList.setItemChecked(position, true);
-		setTitle("Calorie Management");
 //		setTitle(listArray[position]);
 		View calculateButton = findViewById(R.id.button1);
 

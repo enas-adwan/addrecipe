@@ -8,6 +8,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -124,13 +125,13 @@ public class BaseActivity extends ActionBarActivity {
 		//mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
 
 		_items = new ArrayList<Items>();
-		_items.add(new Items("Show Recipe", "", R.drawable.recipe));
-		_items.add(new Items("Add recipe", "", R.drawable.add_recipe));
-		_items.add(new Items("show favourite", "", R.drawable.favourit));
-		_items.add(new Items("profile ", "", R.drawable.profile));
-		_items.add(new Items("calory tracking", "", R.drawable.calory));
-		_items.add(new Items("edit profile", "", R.drawable.edit_profile));
-		_items.add(new Items("Logout", "", R.drawable.logout));
+		_items.add(new Items("Show Recipe", "", R.drawable.show1));
+		_items.add(new Items("Add Recipe", "", R.drawable.add1));
+		_items.add(new Items("Show Favourite", "", R.drawable.fav));
+		_items.add(new Items("Profile ", "", R.drawable.profile));
+		_items.add(new Items("Calory Tracking", "", R.drawable.cal));
+		_items.add(new Items("Edit Profile", "", R.drawable.edit_profile));
+		_items.add(new Items("Logout", "", R.drawable.logout1));
 
 
 		//Adding header on list view
@@ -293,15 +294,26 @@ public class BaseActivity extends ActionBarActivity {
 			searchView.setOnSuggestionListener(new SearchView.OnSuggestionListener() {
 				@Override
 				public boolean onSuggestionClick(int position) {
-//here go to recipe
+                      //here go to recipe
 					// Add clicked text to search box
+
 					CursorAdapter ca = searchView.getSuggestionsAdapter();
 					Cursor cursor = ca.getCursor();
 					cursor.moveToPosition(position);
 					searchView.setQuery(cursor.getString(cursor.getColumnIndex("title")),false);
+					String title=cursor.getString(cursor.getColumnIndex("title"));
+					Intent i=new Intent(BaseActivity.this,searchactivity.class);
+					i.putExtra("title", title);
+					i.putExtra("calory", "");
+
+					i.putExtra("list", "");
+					i.putExtra("total", "");
+					i.putExtra("qan", "");
+					i.putExtra("ch", "");
+					i.putExtra("type", "search");
+					startActivity(i);
 					return true;
 				}
-
 				@Override
 				public boolean onSuggestionSelect(int position) {
 					return true;
@@ -312,7 +324,6 @@ public class BaseActivity extends ActionBarActivity {
 				public boolean onQueryTextSubmit(String s) {
 					return false;
 				}
-
 				@Override
 				public boolean onQueryTextChange(String s) {
 

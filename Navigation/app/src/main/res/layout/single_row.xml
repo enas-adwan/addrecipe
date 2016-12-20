@@ -16,10 +16,10 @@
 android:translationZ="10dp"
         android:layout_height="wrap_content"
         card_view:cardCornerRadius="4dp"
-        android:layout_marginLeft="10dp"
+        android:layout_marginLeft="25dp"
         android:layout_marginBottom="10dp"
         android:layout_marginTop="5dp"
-        android:layout_marginRight="10dp">
+        android:layout_marginRight="15dp">
 
 
 
@@ -52,13 +52,13 @@ android:translationZ="10dp"
 
         <TextView
                     android:layout_width="113dp"
-                    android:layout_height="37dp"
+                    android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:text="Medium Text"
                     android:id="@+id/nam"
                     android:layout_marginTop="20dp"
                     android:textStyle="bold|italic"
-                    android:textSize="20dp"
+                    android:textSize="18dp"
                     android:layout_marginLeft="5dp" />
 
         <ImageButton

@@ -1,162 +1,191 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="fill_parent"
-
-
-    >
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-
-    android:layout_width="match_parent"
-    android:layout_height="fill_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.hp.navigation.activity.trackingdailycalory"
-    android:orientation="vertical"
-    android:background="#e2d6d6">
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:weightSum="1"
-        android:layout_marginTop="10dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-
-            android:text="Daily Calorie Needed : "
-            android:id="@+id/textView14"
-            android:textColor="#3a3838"
-            android:textStyle="bold|italic" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-
-            android:text="Small Text"
-            android:id="@+id/text"
-            android:textColor="#3a3838"
-            android:textStyle="bold" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-
-            android:text=" Kcal "
-            android:id="@+id/textView23"
-            android:textColor="#3a3838"
-            android:textStyle="bold|italic" />
-
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:orientation="horizontal"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:id="@+id/container1"
+        android:background="#ffffff">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#dac8c8"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:translationZ="10dp"
+            android:visibility="visible">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="1"
+                android:layout_marginTop="10dp">
+
+                <com.example.hp.navigation.activity.NativelyCustomTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+
+                    android:text="Daily Calorie Needed : "
+                    android:id="@+id/textView14"
+                    android:textColor="#360b0b"
+                    android:textStyle="bold|italic"
+                    android:layout_marginLeft="8dp" />
+
+                <com.example.hp.navigation.activity.NativelyCustomTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+
+                    android:text="Small Text"
+                    android:id="@+id/text"
+                    android:textColor="#360b0b"
+                    android:textStyle="bold" />
+                <com.example.hp.navigation.activity.NativelyCustomTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+
+                    android:text=" Kcal "
+                    android:id="@+id/textView23"
+                    android:textColor="#360b0b"
+                    android:textStyle="bold|italic" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp">
+
+                    <com.example.hp.navigation.activity.NativelyCustomTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="Consuming Calories : "
+                        android:id="@+id/textView15"
+                        android:textColor="#360b0b"
+                        android:textStyle="bold|italic"
+                        android:layout_marginLeft="8dp" />
+
+                    <com.example.hp.navigation.activity.NativelyCustomTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:id="@+id/textc"
+                        android:textColor="#360b0b"
+                        android:text="0"
+                        android:textStyle="bold" />
+                    <com.example.hp.navigation.activity.NativelyCustomTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+
+                        android:text=" Kcal "
+                        android:id="@+id/textView26"
+                        android:textColor="#360b0b"
+                        android:textStyle="bold|italic" />
+
+                </LinearLayout>
+
+            <com.example.hp.navigation.activity.NativelyCustomTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="----------------"
+                android:id="@+id/textView17"
+                android:layout_marginLeft="140dp"
+                android:textColor="#360b0b" />
+
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp">
+
+                    <com.example.hp.navigation.activity.NativelyCustomTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="Remaning Calories : "
+                        android:id="@+id/textView16"
+                        android:textColor="#360b0b"
+                        android:textStyle="bold|italic"
+                        android:layout_marginLeft="8dp" />
+
+                    <com.example.hp.navigation.activity.NativelyCustomTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:id="@+id/textr"
+                        android:textColor="#360b0b"
+                        android:text="0"
+                        android:textStyle="bold" />
+                    <com.example.hp.navigation.activity.NativelyCustomTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+
+                        android:text=" Kcal "
+                        android:id="@+id/textView25"
+                        android:textColor="#360b0b"
+                        android:textStyle="bold|italic" />
+
+                </LinearLayout>
+        </LinearLayout>
+
+
+    <Button
+        android:layout_width="238dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Consuming Calories : "
-            android:id="@+id/textView15"
-            android:textColor="#3a3838"
-            android:textStyle="bold|italic" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:id="@+id/textc"
-            android:textColor="#3a3838"
-            android:text="0"
-            android:textStyle="bold" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-
-            android:text=" Kcal "
-            android:id="@+id/textView26"
-            android:textColor="#3a3838"
-            android:textStyle="bold|italic" />
-
-    </LinearLayout>
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Remaning Calories : "
-            android:id="@+id/textView16"
-            android:textColor="#3a3838"
-            android:textStyle="bold|italic" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:id="@+id/textr"
-            android:textColor="#3a3838"
-            android:text="0"
-            android:textStyle="bold" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-
-            android:text=" Kcal "
-            android:id="@+id/textView25"
-            android:textColor="#3a3838"
-            android:textStyle="bold|italic" />
-
-    </LinearLayout>
+        android:text="Suggest a meal with the rmmaining calory"
+        android:id="@+id/suggest"
+        android:background="@drawable/buttonshape"
+        android:layout_alignTop="@+id/totalbutton"
+        android:layout_alignStart="@+id/t"
+        android:layout_alignLeft="@+id/t"
+        android:paddingLeft="6dp"
+        android:paddingRight="2dp"
+        android:layout_marginLeft="60dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="10dp" />
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Add Ingredient :"
-        android:id="@+id/textView2"
-        android:layout_marginTop="10dp"
-        android:fontFamily="@string/abc_font_family_button_material"
-        android:textStyle="normal|italic"
-        android:textColor="#3a3838" />
-
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Ingredient :"
+            android:id="@+id/textView2"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@string/abc_font_family_button_material"
+            android:textStyle="normal|italic"
+            android:textColor="#360b0b"
+            android:layout_marginLeft="8dp" />
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:showDividers="end">
+        android:layout_height="54dp"
+        android:showDividers="end"
+        android:weightSum="1">
 
         <Spinner
-            android:layout_width="67dp"
+            android:layout_width="87dp"
             android:layout_height="80dp"
             android:id="@+id/spinner1"
             style="@style/mySpinnerItemStyle"
-            android:entries="@array/country_arrays" />
+            android:entries="@array/country_arrays"
+            android:layout_weight="0.02"
+            android:layout_marginLeft="8dp" />
 
         <Spinner
-            android:layout_width="60dp"
+            android:layout_width="71dp"
             android:entries="@array/amount"
             android:layout_height="50dp"
 
@@ -164,23 +193,23 @@
 
         <AutoCompleteTextView
             android:id="@+id/auto"
-            android:layout_width="wrap_content"
+            android:layout_width="116dp"
             android:layout_height="53dp"
             android:layout_alignParentTop="true"
             android:ems="10"
             android:completionThreshold="1"
             android:text=""
             android:layout_alignParentStart="false"
-            android:layout_weight="488010.69"
             android:layout_alignParentLeft="false"
-            android:textColor="#3a3838">
+            android:textColor="#3a3838"
+            android:layout_weight="0.19">
 
             <requestFocus />
         </AutoCompleteTextView>
 
         <ImageButton
-            android:layout_width="79dp"
-            android:layout_height="50dp"
+            android:layout_width="45dp"
+            android:layout_height="43dp"
             android:id="@+id/getall"
             android:background="@null"
             android:src="@android:drawable/ic_menu_add"
@@ -189,63 +218,69 @@
             android:scaleType="fitCenter" />
 
     </LinearLayout>
+
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Add Recipe :"
-        android:id="@+id/textView22"
-        android:layout_marginTop="10dp"
-        android:fontFamily="@string/abc_font_family_button_material"
-        android:textStyle="normal|italic"
-        android:textColor="#3a3838" />
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:showDividers="end">
-
-        <Spinner
-            android:layout_width="67dp"
-            android:layout_height="51dp"
-            android:id="@+id/spinner3"
-           style="@style/mySpinnerItemStyle"
-            android:entries="@array/amount"/>
-
-        <AutoCompleteTextView
-            android:id="@+id/auto1"
             android:layout_width="wrap_content"
-            android:layout_height="53dp"
-            android:layout_alignParentTop="true"
-            android:ems="10"
-            android:completionThreshold="1"
-            android:text=""
-            android:layout_alignParentStart="false"
-            android:layout_weight="488010.69"
-            android:layout_alignParentLeft="false">
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Recipe :"
+            android:id="@+id/textView22"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@string/abc_font_family_button_material"
+            android:textStyle="normal|italic"
+            android:textColor="#360b0b"
+        android:layout_marginLeft="8dp" />
 
-            <requestFocus />
-        </AutoCompleteTextView>
-        <ImageButton
-            android:layout_width="79dp"
-            android:layout_height="50dp"
-            android:id="@+id/getall2"
-            android:background="@null"
-            android:src="@android:drawable/ic_menu_add"
-            android:layout_marginRight="10dp"
-            android:layout_marginLeft="5dp"
-            android:scaleType="fitCenter" />
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:showDividers="end"
+            android:weightSum="1">
+
+            <Spinner
+                android:layout_width="157dp"
+                android:layout_height="match_parent"
+                android:id="@+id/spinner3"
+                style="@style/mySpinnerItemStyle"
+                android:entries="@array/amount"
+                android:layout_marginLeft="8dp" />
+
+            <AutoCompleteTextView
+                android:id="@+id/auto1"
+                android:layout_width="115dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:ems="10"
+                android:completionThreshold="1"
+                android:text=""
+                android:layout_alignParentStart="false"
+                android:layout_alignParentLeft="false">
+
+                <requestFocus />
+            </AutoCompleteTextView>
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="48dp"
+                android:id="@+id/getall2"
+                android:background="@null"
+                android:src="@android:drawable/ic_menu_add"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                android:scaleType="fitCenter" />
+        </LinearLayout>
+        <ListView
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:minHeight="@dimen/abc_button_padding_horizontal_material"
+            android:id="@+id/list_view"
+            android:fastScrollEnabled="false"
+            android:fastScrollAlwaysVisible="false"
+            android:smoothScrollbar="false"
+            android:stackFromBottom="false"
+            android:nestedScrollingEnabled="false"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="5dp" />
+
     </LinearLayout>
-    <ListView
-        android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
-        android:minHeight="@dimen/abc_button_padding_horizontal_material"
-        android:id="@+id/list_view"
-        android:fastScrollEnabled="false"
-        android:fastScrollAlwaysVisible="false"
-        android:smoothScrollbar="false"
-        android:stackFromBottom="false"
-        android:nestedScrollingEnabled="false" />
-
-</LinearLayout>
-</ScrollView>

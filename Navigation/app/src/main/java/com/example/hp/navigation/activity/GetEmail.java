@@ -1,5 +1,6 @@
 package com.example.hp.navigation.activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -35,8 +36,9 @@ public class GetEmail extends AsyncTask<String,Void,String> {
     String myJSON;
     private static final String TAG_RESULTS="result";
     JSONArray peoples = null;
-    GetEmail () {
-
+    AlertDialog alertDialog;
+    GetEmail (Context ctx) {
+        context = ctx;
     }
     @Override
     protected String doInBackground(String... params) {
@@ -79,6 +81,8 @@ public class GetEmail extends AsyncTask<String,Void,String> {
     protected void onPreExecute() {
         String s="start";
         Log.d("get email",s );
+        alertDialog = new AlertDialog.Builder(context).create();
+        alertDialog.setTitle("Loading");
     }
     @Override
     protected void onPostExecute(String result) {

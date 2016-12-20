@@ -72,6 +72,8 @@ public class chifProfile extends BaseActivity {
     String myJSON;
     ImageView Img;
     public Bitmap bmp;
+    public Button showrecipeapp;
+    public Button showrecipeface;
     private static final String TAG_RESULTS="result";
     private static final String TAG_name = "name";
     private static final String TAG_picture="picture";
@@ -89,10 +91,30 @@ public class chifProfile extends BaseActivity {
         //  setContentView(R.layout.face_profile);
         if(chif_type.equals("app")) {
             getLayoutInflater().inflate(R.layout.app_profile, frameLayout);
+            showrecipeapp = (Button) findViewById(R.id.showrecipeapp);
+            showrecipeapp.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    startActivity(new Intent(chifProfile.this, ShowChifRecipe.class));
+
+
+                }
+            });
+
+
         }
         else
         {
             getLayoutInflater().inflate(R.layout.face_profile, frameLayout);
+            showrecipeface=(Button) findViewById(R.id.showrecipeface);
+            showrecipeface.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    startActivity(new Intent(chifProfile.this, ShowChifRecipe.class));
+                }
+            });
         }
 
         /**

@@ -32,7 +32,7 @@ public class Showfav extends BaseActivity {
          * Setting title and itemChecked
          */
         mDrawerList.setItemChecked(position, true);
-        setTitle(listArray[position]);
+        setTitle("Favourite");
        // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
        // listView=(ListView)findViewById(R.id.lv);
         records= new ArrayList<Record>();

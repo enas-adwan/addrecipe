@@ -363,9 +363,20 @@ public class recipeDbHelper extends SQLiteOpenHelper {
     }
     public ArrayList<Float> getTotaltrack(SQLiteDatabase db) {
         ArrayList<Float> array = new ArrayList<Float>();
+        db.execSQL(CREATE_QUERY_tracking_project);
+        SimpleDateFormat sdf = new SimpleDateFormat(
+                "yyyy-MM-dd", Locale.ENGLISH);
+        String currentDateandTime = sdf.format(new Date());
 
-        Cursor cursor = db.rawQuery(
-                "SELECT SUM(calory) FROM projecttrack", null);
+
+        String selectQuery = "SELECT SUM(calory) FROM " + "projecttrack";
+        selectQuery += " WHERE "+"currdate"+" LIKE '"+currentDateandTime+"%'";
+
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        //Cursor cursor = db.rawQuery(
+            //    "SELECT SUM(calory) FROM projecttrack where", null);
+
         if(cursor.moveToFirst()) {
             array.add(cursor.getFloat(0));
 

@@ -13,7 +13,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="#f1eeee">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -239,8 +240,24 @@
 
         </RelativeLayout>
 
-
         <include layout="@layout/item_divider" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:padding="@dimen/activity_horizontal_margin">
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Show recipe"
+                android:id="@+id/showrecipeapp"
+                android:layout_marginTop="30dp"
+                style="@android:style/Theme.NoTitleBar.Fullscreen"
+                android:background="#baaeae"
+                android:layout_marginLeft="70dp"
+                android:allowUndo="false" />
+        </RelativeLayout>
 
     </LinearLayout>
 

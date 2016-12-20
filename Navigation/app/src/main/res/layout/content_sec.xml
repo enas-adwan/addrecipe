@@ -30,13 +30,15 @@
             android:layout_marginBottom="10dp">
 
             <ImageView
-                android:layout_width="150dp"
-                android:layout_height="150dp"
+                android:layout_width="170dp"
+                android:layout_height="170dp"
                 android:id="@+id/imagev"
                 android:layout_centerVertical="true"
                 android:layout_alignEnd="@+id/t"
                 android:scaleType="centerCrop"
                 android:layout_alignRight="@+id/t" />
+
+
 
             <LinearLayout
                 android:orientation="vertical"
@@ -45,53 +47,50 @@
                 android:weightSum="1"
                 android:layout_marginLeft="10dp">
 
-                <TextView
-                    android:layout_width="65dp"
+                <com.example.hp.navigation.activity.NativelyCustomTextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="Name:"
                     android:id="@+id/textView"
-                    android:textColor="#141313" />
+                    android:textColor="#160b0b"
 
-                <TextView
+                    style="@style/Animation.Design.BottomSheetDialog"
+                    android:layout_marginTop="10dp"
+                    android:textSize="22dp" />
+
+
+                <com.example.hp.navigation.activity.NativelyCustomTextView
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:id="@+id/title1"
                     android:layout_below="@+id/textt"
                     android:layout_weight="0.14"
-                    android:textColor="#141313"
+                    android:textColor="#4a3434"
                     android:textSize="20dp" />
 
-                <TextView
+                <com.example.hp.navigation.activity.NativelyCustomTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="Total Calories:"
                     android:id="@+id/textView2"
-                    android:textColor="#141313" />
+                    android:textColor="#160b0b"
+                    android:textSize="22dp" />
 
-                <TextView
+                <com.example.hp.navigation.activity.NativelyCustomTextView
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:id="@+id/calory1"
                     android:layout_below="@+id/desc1"
                     android:layout_alignBottom="@+id/desc1"
-                    android:textColor="#bf801919" />
+                    android:textColor="#4a3434"
+                    android:textSize="20dp" />
             </LinearLayout>
 
-            <GridLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
 
-                <ImageButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/share"
-                    android:src="@android:drawable/ic_menu_share"
-                    android:background="@null" />
-            </GridLayout>
 
         </LinearLayout>
 
@@ -99,7 +98,7 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp">
+            android:layout_marginBottom="0dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -107,11 +106,11 @@
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="Added By :"
                 android:id="@+id/textView13"
-                android:textSize="18dp"
+                android:textSize="15dp"
                 android:textStyle="bold"
-                android:textColor="#141313" />
+                android:textColor="#160b0b" />
 
-            <TextView
+            <com.example.hp.navigation.activity.NativelyCustomTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
@@ -121,39 +120,52 @@
                 android:textIsSelectable="false"
                 android:textSize="18dp"
                 android:textStyle="bold"
-                android:textColor="#141313" />
+                android:textColor="#160b0b" />
 
         </LinearLayout>
-
+        <TextView
+            android:layout_width="253dp"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Vitamins and minerals:"
+            android:id="@+id/textViewasaa"
+            android:textColor="#222121"
+            android:layout_marginTop="20dp"
+            android:textSize="23dp"
+            android:textStyle="normal|bold|italic" />
         <TableLayout
             android:layout_width="wrap_content"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp">
 
             <TableRow
                 android:id="@+id/tableRow1"
                 android:layout_height="wrap_content"
-                android:layout_width="match_parent"
-                android:layout_marginTop="10dp">
+                android:layout_width="match_parent">
 
                 <TextView
-                    android:id="@+id/TexatView04" android:text="Calory (Kcal)"
+                    android:id="@+id/TexatView04" android:text=" Calory        (Kcal) "
                     android:layout_weight="1" android:background="#dcdcdc"
                     android:textColor="#000000"
-                    android:padding="2dip" android:gravity="center"/>
+                    android:padding="2dip" android:gravity="center"
+                    android:layout_marginRight="1dp"
+                    android:textIsSelectable="false" />
 
                 <TextView
-                    android:id="@+id/TextVieddw04" android:text="Protine (g)"
+                    android:id="@+id/TextVieddw04" android:text=" Protine           (g) "
                     android:layout_weight="1" android:background="#d3d3d3"
                     android:textColor="#000000"
-                    android:padding="2dip" android:gravity="center"/>
+                    android:padding="2dip" android:gravity="center"
+                    android:layout_marginRight="1dp" />
 
                 <TextView
-                    android:id="@+id/TextViaewdd04" android:text="Iron (mg)"
+                    android:id="@+id/TextViaewdd04" android:text="Iron           (mg)"
                     android:layout_weight="1" android:background="#cac9c9"
                     android:textColor="#000000"
-                    android:padding="2dip" android:gravity="center"/>
+                    android:padding="2dip" android:gravity="center"
+                    android:layout_marginRight="1dp" />
                 <TextView
-                    android:id="@+id/TextViaew04" android:text="Calicum (mg)"
+                    android:id="@+id/TextViaew04" android:text=" Calicum (mg) "
                     android:layout_weight="1" android:background="#cac9c9"
                     android:textColor="#000000"
                     android:padding="2dip" android:gravity="center"/>
@@ -164,30 +176,38 @@
             <TableRow
                 android:id="@+id/tableRow2"
                 android:layout_height="wrap_content"
-                android:layout_width="match_parent">
+                android:layout_width="match_parent"
+                android:layout_marginBottom="20dp">
 
                 <TextView
                     android:id="@+id/textcal" android:text="0"
-                    android:layout_weight="1" android:background="#dcdcdc"
+                    android:layout_weight="1" android:background="#e4b9b9"
                     android:textColor="#000000"
-                    android:padding="2dip" android:gravity="center"/>
+                    android:padding="2dip" android:gravity="center"
+                    android:layout_marginRight="1dp"
+                    android:layout_marginTop="1dp" />
 
                 <TextView
                     android:id="@+id/text_pro" android:text="0"
-                    android:layout_weight="1" android:background="#d3d3d3"
+                    android:layout_weight="1" android:background="#e4b9b9"
                     android:textColor="#000000"
-                    android:padding="2dip" android:gravity="center"/>
+                    android:padding="2dip" android:gravity="center"
+                    android:layout_marginRight="1dp"
+                    android:layout_marginTop="1dp" />
 
                 <TextView
                     android:id="@+id/text_iron" android:text="0"
-                    android:layout_weight="1" android:background="#cac9c9"
+                    android:layout_weight="1" android:background="#e4b9b9"
                     android:textColor="#000000"
-                    android:padding="2dip" android:gravity="center"/>
+                    android:padding="2dip" android:gravity="center"
+                    android:layout_marginRight="1dp"
+                    android:layout_marginTop="1dp" />
                 <TextView
                     android:id="@+id/text_calc" android:text="0"
-                    android:layout_weight="1" android:background="#cac9c9"
+                    android:layout_weight="1" android:background="#e4b9b9"
                     android:textColor="#000000"
-                    android:padding="2dip" android:gravity="center"/>
+                    android:padding="2dip" android:gravity="center"
+                    android:layout_marginTop="1dp" />
 
 
 
@@ -195,32 +215,35 @@
 
             <TableRow
                 android:id="@+id/tableRow3"
-                android:layout_height="match_parent"
-                android:layout_width="match_parent"
-                android:layout_marginTop="10dp">
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent">
 
                 <TextView
-                    android:id="@+id/TexatVaiew04" android:text="Vit_B12 (µg)"
+                    android:id="@+id/TexatVaiew04" android:text="Vit_B12         (µg)"
                     android:layout_weight="1" android:background="#dcdcdc"
                     android:textColor="#000000"
-                    android:padding="2dip" android:gravity="center"/>
+                    android:padding="2dip" android:gravity="center"
+                    android:layout_marginRight="1dp" />
 
                 <TextView
-                    android:id="@+id/TextViedw04" android:text="Vit_c (mg)"
+                    android:id="@+id/TextViedw04" android:text="Vit_c         (mg)"
                     android:layout_weight="1" android:background="#d3d3d3"
                     android:textColor="#000000"
-                    android:padding="2dip" android:gravity="center"/>
+                    android:padding="2dip" android:gravity="center"
+                    android:layout_marginRight="1dp" />
 
                 <TextView
                     android:id="@+id/TextaaViaewdd04" android:text="Vit_B6 (mg)"
                     android:layout_weight="1" android:background="#cac9c9"
                     android:textColor="#000000"
-                    android:padding="2dip" android:gravity="center"/>
+                    android:padding="2dip" android:gravity="center"
+                    android:layout_marginRight="1dp" />
                 <TextView
-                    android:id="@+id/TextViaaaew04" android:text="Vit_E (mg)"
+                    android:id="@+id/TextViaaaew04" android:text="Vit_E           (mg)"
                     android:layout_weight="1" android:background="#cac9c9"
                     android:textColor="#000000"
-                    android:padding="2dip" android:gravity="center"/>
+                    android:padding="2dip" android:gravity="center"
+                    android:layout_marginRight="1dp" />
 
 
 
@@ -232,31 +255,40 @@
 
                 <TextView
                     android:id="@+id/text_b12" android:text="0"
-                    android:layout_weight="1" android:background="#dcdcdc"
+                    android:layout_weight="1" android:background="#e4b9b9"
                     android:textColor="#000000"
-                    android:padding="2dip" android:gravity="center"/>
+                    android:padding="2dip" android:gravity="center"
+                    android:layout_marginRight="1dp"
+                    android:layout_marginTop="1dp" />
 
                 <TextView
                     android:id="@+id/text_c" android:text="0"
-                    android:layout_weight="1" android:background="#d3d3d3"
+                    android:layout_weight="1" android:background="#e4b9b9"
                     android:textColor="#000000"
-                    android:padding="2dip" android:gravity="center"/>
+                    android:padding="2dip" android:gravity="center"
+                    android:layout_marginRight="1dp"
+                    android:layout_marginTop="1dp" />
 
                 <TextView
                     android:id="@+id/text_b6" android:text="0"
-                    android:layout_weight="1" android:background="#cac9c9"
+                    android:layout_weight="1" android:background="#e4b9b9"
                     android:textColor="#000000"
-                    android:padding="2dip" android:gravity="center"/>
+                    android:padding="2dip" android:gravity="center"
+                    android:layout_marginRight="1dp"
+                    android:layout_marginTop="1dp" />
                 <TextView
                     android:id="@+id/text_e" android:text="0"
-                    android:layout_weight="1" android:background="#cac9c9"
+                    android:layout_weight="1" android:background="#e4b9b9"
                     android:textColor="#000000"
-                    android:padding="2dip" android:gravity="center"/>
+                    android:padding="2dip" android:gravity="center"
+                    android:layout_marginRight="1dp"
+                    android:layout_marginTop="1dp" />
 
 
 
             </TableRow>
         </TableLayout>
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -273,43 +305,47 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Ingredients:"
                 android:id="@+id/textViewaa"
-                android:textColor="#333131"
+                android:textColor="#160b0b"
                 android:layout_marginTop="20dp"
-                android:textSize="25dp"
+                android:textSize="23dp"
                 android:textStyle="normal|bold|italic" />
 
-            <TextView
+            <com.example.hp.navigation.activity.NativelyCustomTextViewfont
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:id="@+id/integ"
-                android:layout_weight="0.13" />
+                android:layout_weight="0.13"
+                android:layout_marginTop="5dp"
+                android:textColor="#360b0b"
+                android:textSize="18dp" />
             <TextView
                 android:layout_width="253dp"
                 android:layout_height="40dp"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Directions:"
                 android:id="@+id/textViewaahg"
-                android:textColor="#333131"
-                android:layout_marginTop="20dp"
-                android:textSize="25dp"
+                android:textColor="#160b0b"
+                android:layout_marginTop="10dp"
+                android:textSize="23dp"
                 android:textStyle="normal|bold|italic" />
 
-            <TextView
-                android:layout_width="wrap_content"
+            <com.example.hp.navigation.activity.NativelyCustomTextViewfont
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:id="@+id/desc1"
-                />
+                android:textColor="#360b0b"
+                android:textSize="18dp" />
             <TextView
                 android:layout_width="253dp"
                 android:layout_height="40dp"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Time:"
                 android:id="@+id/textVihjhewaahg"
-                android:textColor="#333131"
-                android:layout_marginTop="20dp"
-                android:textSize="25dp"
+                android:textColor="#160b0b"
+                android:layout_marginTop="10dp"
+                android:textSize="23dp"
                 android:textStyle="normal|bold|italic" />
 
             <LinearLayout
@@ -323,7 +359,8 @@
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textStyle="bold|italic"
                     android:text="Prepration Time : "
-                    android:id="@+id/textView9" />
+                    android:id="@+id/textView9"
+                    android:textColor="#360b0b" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -333,22 +370,24 @@
                     android:id="@+id/prep1"
                     android:layout_below="@+id/desc1"
                     android:layout_alignEnd="@+id/calory1"
-                    android:layout_alignRight="@+id/calory1" />
+                    android:layout_alignRight="@+id/calory1"
+                    android:textColor="#360b0b" />
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textStyle="bold|italic"
                     android:text=" Min."
-                    android:id="@+id/textView10" />
+                    android:id="@+id/textView10"
+                    android:textColor="#360b0b" />
             </LinearLayout>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="---------------------------------------------------------------------"
+                android:text="---------------------------------------------------------------"
                 android:id="@+id/textView1a27" />
 
             <LinearLayout
@@ -364,7 +403,7 @@
                     android:id="@+id/textt"
                     android:layout_alignParentTop="true"
                     android:text="Cooking Time : "
-                   />
+                    android:textColor="#360b0b" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -374,7 +413,8 @@
                     android:id="@+id/cook1"
                     android:layout_below="@+id/prep1"
                     android:layout_alignEnd="@+id/prep1"
-                    android:layout_alignRight="@+id/prep1" />
+                    android:layout_alignRight="@+id/prep1"
+                    android:textColor="#360b0b" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -382,7 +422,8 @@
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textStyle="bold|italic"
                     android:text=" Min."
-                    android:id="@+id/textView8" />
+                    android:id="@+id/textView8"
+                    android:textColor="#360b0b" />
 
 
 
@@ -393,45 +434,47 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp">
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Start cooking timer"
-                android:id="@+id/totalbutton"
-                android:layout_below="@+id/cook1"
-                android:layout_toEndOf="@+id/cook1"
-                android:layout_toRightOf="@+id/cook1"
-                android:background="#d3cece"
-                android:layout_marginRight="10dp"
-                android:paddingRight="10dp"
-                android:paddingLeft="10dp" />
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Start cooking timer"
+                    android:id="@+id/totalbutton"
+                    android:background="@drawable/buttonshape"
+                    android:layout_below="@+id/cook1"
+                    android:layout_toEndOf="@+id/cook1"
+                    android:layout_toRightOf="@+id/cook1"
+                    android:layout_marginRight="10dp"
+                    android:paddingRight="1dp"
+                    android:paddingLeft="1dp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:id="@+id/t"
-                android:layout_below="@+id/total1"
-                android:layout_toEndOf="@+id/totalbutton"
-                android:layout_toRightOf="@+id/totalbutton" />
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Stop Cooking Timer "
-                android:id="@+id/stop"
-                android:layout_alignTop="@+id/totalbutton"
-                android:layout_alignStart="@+id/t"
-                android:layout_alignLeft="@+id/t"
-                android:background="#d3cece"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:id="@+id/t"
+                    android:layout_below="@+id/total1"
+                    android:layout_toEndOf="@+id/totalbutton"
+                    android:layout_toRightOf="@+id/totalbutton"
+                    android:textColor="#360b0b" />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Stop Cooking Timer "
+                    android:id="@+id/stop"
+                    android:background="@drawable/buttonshape"
+                    android:layout_alignTop="@+id/totalbutton"
+                    android:layout_alignStart="@+id/t"
+                    android:layout_alignLeft="@+id/t"
+                    android:paddingLeft="1dp"
+                    android:paddingRight="1dp" />
             </LinearLayout>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="---------------------------------------------------------------------"
+                android:text="-------------------------------------------------------------"
                 android:id="@+id/textView1aF27" />
             <LinearLayout
                 android:orientation="horizontal"
@@ -445,7 +488,8 @@
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textStyle="bold|italic"
                     android:text="Total Time : "
-                    android:id="@+id/textView11" />
+                    android:id="@+id/textView11"
+                    android:textColor="#360b0b" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -455,7 +499,8 @@
                     android:id="@+id/total1"
                     android:layout_below="@+id/cook1"
                     android:layout_alignEnd="@+id/cook1"
-                    android:layout_alignRight="@+id/cook1" />
+                    android:layout_alignRight="@+id/cook1"
+                    android:textColor="#360b0b" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -463,70 +508,12 @@
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textStyle="bold|italic"
                     android:text=" Min."
-                    android:id="@+id/textView12" />
+                    android:id="@+id/textView12"
+                    android:textColor="#360b0b" />
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/videolayout"
-                android:orientation="vertical"
-                android:layout_width="152dp"
-                android:layout_height="200dp"
-                android:weightSum="1"
-                android:layout_marginLeft="10dp">
-                <TextView
-                    android:layout_width="253dp"
-                    android:layout_height="40dp"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Recipe video :"
-                    android:id="@+id/tekxtVihjhewaahg"
-                    android:textColor="#333131"
-                    android:layout_marginTop="20dp"
-                    android:textSize="25dp"
-                    android:textStyle="normal|bold|italic" />
-
-                <FrameLayout
-                    android:id="@+id/videoViewWrapper"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true" >
-                    <VideoView
-                        android:id="@+id/myVideo"
-                        android:layout_width="265dp"
-                        android:layout_height="146dp"
-                        android:layout_centerInParent="true" />
-                </FrameLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="2">
-
-                <Button
-                    android:id="@+id/loadWebPage"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"
-                    android:layout_weight="1"
-                    android:background="#444"
-                    android:text="Load Web Page"
-                    android:textColor="#fff"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
-
-            </LinearLayout>
-            <WebView
-                android:id="@+id/simpleWebView"
-                android:layout_width="match_parent"
-                android:layout_height="0dip"
-                android:layout_weight="1"
-                android:scrollbars="none" />
 
         </LinearLayout>
-
-
     </LinearLayout>
 
 </ScrollView>

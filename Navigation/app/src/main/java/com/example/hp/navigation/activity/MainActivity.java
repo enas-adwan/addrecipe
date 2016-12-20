@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
                 UsernameEt.setError(null);
                 valid_flag=null;
                 if (!isValidname(name)) {
-                    PasswordEt.setError("Wrong name");
+                  UsernameEt.setError("Wrong name");
                     valid_flag="err";
                 }
                 else{
@@ -85,10 +85,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFocusChange(View arg0, boolean arg1) {
                 String password = PasswordEt.getText().toString().trim();
-                PasswordEt.setError(null);
+               PasswordEt.setError(null);
                 valid_flag1=null;
                 if (!isValidPassword(password)) {
-                    PasswordEt.setError("Wrong password");
+                   PasswordEt.setError("Wrong password");
                     valid_flag1="err";
                 }
                 else{
@@ -198,7 +198,7 @@ public class MainActivity extends AppCompatActivity {
         String name =UsernameEt.getText().toString().trim();
         String password = PasswordEt.getText().toString().trim();
         if (!isValidname(name)) {
-            UsernameEt.setError("Wrong Name");
+           UsernameEt.setError("Wrong Name");
             valid_flag="err";
         }
         else {
@@ -219,7 +219,7 @@ public class MainActivity extends AppCompatActivity {
             SharedPreferences.Editor editor = pref.edit();
             editor.clear();
             editor.putString("user_type", "app");
-         GetEmail e=new GetEmail();
+            GetEmail e=new GetEmail(this);
             e.execute(name);
             editor.putString("valid_user", "logged");
             editor.commit();

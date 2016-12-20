@@ -52,10 +52,9 @@ public class SignUp extends AppCompatActivity {
             @Override
             public void onFocusChange(View arg0, boolean arg1) {
                 String Em = email.getText().toString().trim();
-                email.setError(null);
+               email.setError(null);
                 valid_flag4=null;
-                if (!isValidname(Em)) {
-
+                if (!isValidemail(Em)) {
                     email.setError("Wrong email");
                     valid_flag4="err";
                 }
@@ -69,7 +68,7 @@ public class SignUp extends AppCompatActivity {
             @Override
             public void onFocusChange(View arg0, boolean arg1) {
                 String name = username.getText().toString().trim();
-                username.setError(null);
+              //  username.setError(null);
                 valid_flag1=null;
                 if (!isValidname(name)) {
 
@@ -86,12 +85,15 @@ public class SignUp extends AppCompatActivity {
         Password.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View arg0, boolean arg1) {
-                String password = Password.getText().toString().trim();
+                String passw = Password.getText().toString().trim();
+            //    Password.setError(null);
                 valid_flag2=null;
-                if (!isValidPassword(password)) {
-                    Password.setError("Invalid password");
+                if (!isValidPassword(passw)) {
+
+                    Password.setError("Wrong password");
                     valid_flag2="err";
-                }else{
+                }
+                else{
                     valid_flag2=null;
                 }
             }
@@ -168,6 +170,7 @@ public class SignUp extends AppCompatActivity {
             ConfirmPassword.setError("Invalid password");
             valid_flag3="err";
         }else{
+            ConfirmPassword.setError(null);
             valid_flag3=null;
         }
 
@@ -201,12 +204,12 @@ public class SignUp extends AppCompatActivity {
         return matcher.matches();
     }
     private boolean isValidemail(String Em) {
-        String email_PATTERN = "[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}" +
-                "\\@" +
-                "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}" +
+        String email_PATTERN = "[a-zA-Z0-9+._%-+]{1,256}" +
+                "@" +
+                "[a-zA-Z0-9][a-zA-Z0-9-]{0,64}" +
                 "(" +
-                "\\." +
-                "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25}" +
+                "." +
+                "[a-zA-Z0-9][a-zA-Z0-9-]{0,25}" +
                 ")+";
 
         Pattern pattern = Pattern.compile(email_PATTERN);

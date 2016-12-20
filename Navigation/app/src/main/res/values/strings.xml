@@ -14,6 +14,7 @@
         <item>1/8</item>
 
     </string-array>
+
     <string-array name="country_arrays">
         <item>Cup</item>
         <item>Spoon</item>
@@ -39,7 +40,7 @@
         <item>Very Active</item>
 
     </string-array>
-    <string name="app_name">NavigationDrawer</string>
+    <string name="app_name">Registration</string>
     <string name="hello_world">Hello world!</string>
     <string name="dummy_string">Dummy String</string>
 
@@ -59,5 +60,6 @@
     <string name="title_activity_showonesqliteoffline">Showonesqliteoffline</string>
     <string name="title_activity_searchfilter">searchfilter</string>
     <string name="title_activity_trackingdailycalory">trackingdailycalory</string>
+    <string name="title_activity_searchtoolbar">searchtoolbar</string>
 
 </resources>

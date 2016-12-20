@@ -228,7 +228,7 @@ public class MyService extends Service {
                 // if(mp!=null)
                 //   mp.stop();
 
-                 mp.start();
+
                 Intent intent = new Intent(MyService.this, NotificationReceiverActivity.class);
                 PendingIntent pIntent = PendingIntent.getActivity(MyService.this, (int) System.currentTimeMillis(), intent, 0);
 
@@ -244,6 +244,7 @@ public class MyService extends Service {
                 noti.flags |= Notification.FLAG_AUTO_CANCEL;
 
                 notificationManager.notify(0, noti);
+                mp.start();
                 //   b.setText("done!");}
             }
 

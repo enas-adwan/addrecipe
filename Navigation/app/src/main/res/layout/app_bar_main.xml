@@ -22,8 +22,9 @@
             android:fitsSystemWindows="true"
             android:minHeight="?attr/actionBarSize"
             app:contentScrim="?attr/colorPrimary"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:statusBarScrim="?attr/colorPrimaryDark">
+            app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed"
+
+        app:statusBarScrim="?attr/colorPrimaryDark">
 
             <LinearLayout
                 android:id="@+id/compactcalendar_view_container"
@@ -46,13 +47,7 @@
                     app:compactCalendarTextSize="12sp" />
             </LinearLayout>
 
-         <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
 
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                app:layout_collapseMode="pin"
-                app:popupTheme="@style/AppTheme.PopupOverlay">
 
                 <RelativeLayout
                     android:id="@+id/date_picker_button"
@@ -96,14 +91,12 @@
                         android:layout_toRightOf="@id/date_picker_text_view"
                         app:srcCompat="@drawable/ic_arrow_drop_down"
                         tools:ignore="ContentDescription,RtlHardcoded" />
-
                 </RelativeLayout>
-            </android.support.v7.widget.Toolbar>
 
         </android.support.design.widget.CollapsingToolbarLayout>
-
-        <include layout="@layout/content_trackingdailycalory" />
+        <include layout="@layout/content_fragment" />
     </android.support.design.widget.AppBarLayout>
+
 
 
 </android.support.design.widget.CoordinatorLayout>

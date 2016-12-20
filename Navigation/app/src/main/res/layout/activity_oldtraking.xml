@@ -5,6 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/container2"
+    android:background="#e2d6d6"
     tools:context="com.example.hp.navigation.activity.oldTraking">
 
     <android.support.design.widget.AppBarLayout

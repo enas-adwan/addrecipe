@@ -40,12 +40,13 @@ public class oldTraking extends BaseActivity  {
         super.onCreate(savedInstanceState);
         getLayoutInflater().inflate(R.layout.activity_oldtraking, frameLayout);
         mDrawerList.setItemChecked(position, true);
+        /////
         LISTVIEW = (ListView) findViewById(R.id.listView1);
         calory_sum = (TextView) findViewById(R.id.calorySum);
            //take date selected by user
             SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
             String date2=pref.getString("old_date","defult");
-           recipeDbHelper db = new recipeDbHelper(this);
+           oldTrakingDB db = new oldTrakingDB(this);
 
          Log.d("Insert: ", "Inserting ..");
        //    db.addContact(new Contact("pasta",4.0f,"2016-10-14"));

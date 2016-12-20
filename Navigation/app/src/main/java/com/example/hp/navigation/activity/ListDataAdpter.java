@@ -1,5 +1,6 @@
 package com.example.hp.navigation.activity;
 
+import android.annotation.TargetApi;
 import android.widget.BaseAdapter;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -17,7 +18,7 @@ import com.navigation.drawer.activity.R;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import android.icu.text.DecimalFormat;
 public class ListDataAdpter extends ArrayAdapter  {
     List list= new ArrayList();
     TextView Text;
@@ -98,6 +99,7 @@ public class ListDataAdpter extends ArrayAdapter  {
         }
 
         layoutHandler.deleteBtn.setOnClickListener(new View.OnClickListener(){
+            @TargetApi(24)
             @Override
             public void onClick(View v) {
                 // Integer pos = (Integer)v.getTag();
@@ -131,16 +133,41 @@ public class ListDataAdpter extends ArrayAdapter  {
                 Float vit6sum=sums.get(5);
                 Float vitb12sum=sums.get(6);
                 Float vitesum=sums.get(7);
-                AddRecipe.Text.setText(String.valueOf(calorysum)+"Kcal");
-                AddRecipe.Textvitc.setText(String.valueOf(vitcsum));
-                AddRecipe.Textpro.setText(String.valueOf(prosum));
-                AddRecipe.Textvitb6.setText(String.valueOf(vit6sum));
-                AddRecipe.Textvite.setText(String.valueOf(vitesum));
-                AddRecipe.Textvitb12.setText(String.valueOf(vitb12sum));
-                AddRecipe.Textiron.setText(String.valueOf(ironsum));
-                AddRecipe.Textcalc.setText(String.valueOf(calcsum));
+
+
+                Double call=Double.valueOf(calorysum);
+                double calorydouble = Math.round(call*100.0)/100.0;
+                Double vitc=Double.valueOf(vitcsum);
+                double vitcdouble = Math.round(vitc*100.0)/100.0;
+                Double vitb12=Double.valueOf(vitb12sum);
+
+                double vitb12double = Math.round(vitb12*100.0)/100.0;
+                Double vite=Double.valueOf(vitesum);
+
+                double vitedouble = Math.round(vite*100.0)/100.0;
+                Double vitb6=Double.valueOf(vit6sum);
+
+                double vitb6double = Math.round(vitb6*100.0)/100.0;
+                Double pros=Double.valueOf(prosum);
+                double prodouble = Math.round(pros*100.0)/100.0;
+                Double iron=Double.valueOf(ironsum);
+                double irondouble = Math.round(iron*100.0)/100.0;
+                Double calc=Double.valueOf(calcsum);
+                double calcdouble = Math.round(calc*100.0)/100.0;
+                AddRecipe.Text.setText(String.valueOf(calorydouble));
+               AddRecipe.Textvitc.setText(String.valueOf(vitcdouble ));
+               AddRecipe.Textpro.setText(String.valueOf(prodouble));
+                AddRecipe.Textvitb6.setText(String.valueOf(vitb6double));
+                AddRecipe.Textvite.setText(String.valueOf(vitedouble));
+                AddRecipe.Textvitb12.setText(String.valueOf(vitb12double));
+                AddRecipe.Textiron.setText(String.valueOf(irondouble));
+                AddRecipe.Textcalc.setText(String.valueOf(calcdouble));
+
+
+                AddRecipe.Text.setText(String.valueOf(calorydouble));
+
                 AddRecipe.setListViewHeightBasedOnItems(listView);
-                Toast.makeText(getContext(), m+position+i , Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), m+"has been removed", Toast.LENGTH_LONG).show();
             }
         });
 
